@@ -9,7 +9,7 @@
 @if($builder->visible($item))
     @if(empty($item['children']))
         <li class="nav-item">
-            <a data-id="{{ $item['id'] ?? '' }}" @if(mb_strpos($item['uri'], '://') !== false || $item['is_target_blank'] == 1) target="_blank" @endif
+            <a data-id="{{ $item['id'] ?? '' }}" @if(mb_strpos($item['uri'], '://') !== false || ( isset($item['is_target_blank']) && $item['is_target_blank'] == 1)) target="_blank" @endif
                href="{{ $builder->getUrl($item['uri']) }}"
                class="nav-link {!! $builder->isActive($item) ? 'active' : '' !!}">
                 {!! str_repeat('&nbsp;', $depth) !!}<i class="fa fa-fw {{ $item['icon'] ?: $defaultIcon }}"></i>
