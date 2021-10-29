@@ -13,6 +13,7 @@ use Dcat\Admin\Form\Field;
 use Dcat\Admin\Form\NestedForm;
 use Dcat\Admin\Form\ResolveField;
 use Dcat\Admin\Http\JsonResponse;
+use Dcat\Admin\Repositories\EloquentRepository;
 use Dcat\Admin\Support\Helper;
 use Dcat\Admin\Traits\HasBuilderEvents;
 use Dcat\Admin\Traits\HasFormResponse;
@@ -189,7 +190,7 @@ class Form implements Renderable
     public static $fieldAlias = [];
 
     /**
-     * @var Repository
+     * @var EloquentRepository
      */
     protected $repository;
 
@@ -494,7 +495,7 @@ class Form implements Renderable
     }
 
     /**
-     * @return Repository
+     * @return EloquentRepository
      */
     public function repository()
     {
