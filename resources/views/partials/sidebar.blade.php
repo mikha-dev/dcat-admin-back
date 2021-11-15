@@ -7,9 +7,9 @@
                 <ul class="nav navbar-nav flex-row">
                     <li class="nav-item mr-auto">
                         <a href="{{ admin_url('/') }}" class="navbar-brand waves-effect waves-light">
-                            <span class="logo-mini"><img src="/{!! config('admin.logo-mini') !!}"></span>
+                            <span class="logo-mini"><img src="/storage/{!! config('admin.logo-mini') !!}"></span>
                             <span class="logo-lg">
-                                <img src="/{!! config('admin.logo') !!}">
+                                <img src="/storage/{!! config('admin.logo') !!}">
                             </span>
                         </a>
                     </li>
