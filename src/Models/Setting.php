@@ -8,7 +8,7 @@ class Setting extends Model
 {
     protected $primaryKey = 'slug';
     public $incrementing = false;
-    protected $fillable = ['slug', 'value'];
+    protected $fillable = ['host','slug', 'value'];
 
     /**
      * {@inheritDoc}
@@ -26,6 +26,10 @@ class Setting extends Model
 
         $this->setConnection($connection);
 
-        $this->setTable(config('admin.database.settings_table') ?: 'admin_settings');
+        $this->setTable(self::getTableName());
+    }
+
+    public static function getTableName() {
+        return config('admin.database.settings_table') ?: 'admin_settings';
     }
 }
