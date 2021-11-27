@@ -59,6 +59,19 @@ class Translator
     }
 
     /**
+     * 翻译字段名称.
+     *
+     * @param  string  $field
+     * @param  null  $locale
+     * @return false|mixed|string|string[]
+     */
+    public function transOption($optionValue, $field, $locale = null)
+    {
+        return $this->trans("{$this->getPath()}.options.{$field}.{$optionValue}", [], $locale);
+    }
+
+
+    /**
      * 翻译Label.
      *
      * @param  null|string  $label
@@ -71,6 +84,19 @@ class Translator
         $label = $label ?: admin_controller_name();
 
         return $this->trans("{$this->getPath()}.labels.{$label}", $replace, $locale);
+    }
+
+    /**
+     * 翻译Label.
+     *
+     * @param  null|string  $label
+     * @param  array  $replace
+     * @param  string  $locale
+     * @return array|\Illuminate\Contracts\Translation\Translator|string|null
+     */
+    public function transAny(?string $key = null, $replace = [], $locale = null)
+    {
+        return $this->trans("{$this->getPath()}.{$key}", $replace, $locale);
     }
 
     /**

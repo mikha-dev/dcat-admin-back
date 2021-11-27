@@ -191,9 +191,22 @@ if (! function_exists('admin_trans_option')) {
      */
     function admin_trans_option($optionValue, $field, $replace = [], $locale = null)
     {
-        $slug = admin_controller_slug();
+        return app('admin.translator')->transOption($optionValue, $field, $replace, $locale);
+    }
+}
 
-        return admin_trans("{$slug}.options.{$field}.{$optionValue}", $replace, $locale);
+if (! function_exists('___')) {
+    /**
+     * Translate the given message.
+     *
+     * @param  string  $key
+     * @param  array  $replace
+     * @param  string  $locale
+     * @return \Illuminate\Contracts\Translation\Translator|string|array|null
+     */
+    function ___($key, $replace = [], $locale = null)
+    {
+        return app('admin.translator')->transAny($key, $replace, $locale);
     }
 }
 
