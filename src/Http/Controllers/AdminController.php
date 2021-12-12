@@ -15,18 +15,6 @@ class AdminController extends Controller
     protected $title;
 
     /**
-     * Set description for following 4 action pages.
-     *
-     * @var array
-     */
-    protected $description = [
-        //        'index'  => 'Index',
-        //        'show'   => 'Show',
-        //        'edit'   => 'Edit',
-        //        'create' => 'Create',
-    ];
-
-    /**
      * Set translation path.
      *
      * @var string
@@ -41,16 +29,6 @@ class AdminController extends Controller
     protected function title()
     {
         return $this->title ?: admin_trans_label();
-    }
-
-    /**
-     * Get description for following 4 action pages.
-     *
-     * @return array
-     */
-    protected function description()
-    {
-        return $this->description;
     }
 
     /**
@@ -74,7 +52,6 @@ class AdminController extends Controller
         return $content
             ->translation($this->translation())
             ->title($this->title())
-            ->description($this->description()['index'] ?? trans('admin.list'))
             ->body($this->grid());
     }
 
@@ -90,7 +67,6 @@ class AdminController extends Controller
         return $content
             ->translation($this->translation())
             ->title($this->title())
-            ->description($this->description()['show'] ?? trans('admin.show'))
             ->body($this->detail($id));
     }
 
@@ -106,7 +82,6 @@ class AdminController extends Controller
         return $content
             ->translation($this->translation())
             ->title($this->title())
-            ->description($this->description()['edit'] ?? trans('admin.edit'))
             ->body($this->form()->edit($id));
     }
 
@@ -121,7 +96,6 @@ class AdminController extends Controller
         return $content
             ->translation($this->translation())
             ->title($this->title())
-            ->description($this->description()['create'] ?? trans('admin.create'))
             ->body($this->form());
     }
 
