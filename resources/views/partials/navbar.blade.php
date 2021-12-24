@@ -8,7 +8,7 @@
 
     <div class="navbar-wrapper">
         <div class="navbar-container content">
-            @if(! $configData['horizontal_menu'])
+            @if(! $configData['horizontal-menu'])
             <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
                 <ul class="nav navbar-nav">
                     <li class="nav-item mr-auto">
@@ -21,19 +21,26 @@
             @endif
 
             <div class="navbar-collapse d-flex justify-content-between">
+
+                @if(!$configData['horizontal-menu'])
                 <div class="navbar-left d-flex align-items-center">
                     {!! Dcat\Admin\Admin::navbar()->render('left') !!}
                 </div>
-
-                @if($configData['horizontal_menu'])
+                @else
                 <div class="d-md-block horizontal-navbar-brand justify-content-center text-center">
                     <ul class="nav navbar-nav flex-row">
                         <li class="nav-item mr-auto">
                             <a href="{{ admin_url('/') }}" class="waves-effect waves-light">
-                                <span class="logo-lg"><img src="/storage/{!! config('admin.logo') !!}"></span>
+                                <span class="logo-lg">
+                                    <img style="max-width: 45px; max-height: 40px; margin-top: -1px;" src="/storage/{!! config('admin.logo-image') !!}">
+                                    <span>{!! config('admin.name') !!}</span>
+                                </span>
                             </a>
                         </li>
                     </ul>
+                </div>
+                <div class="navbar-left d-flex align-items-center">
+                    {!! Dcat\Admin\Admin::navbar()->render('left') !!}
                 </div>
                 @endif
 

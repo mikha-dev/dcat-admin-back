@@ -433,7 +433,7 @@ class Content implements Renderable
             'navbar_class'      => 'sticky',
             'footer_type'       => '',
             'body_class'        => [],
-            'horizontal_menu'   => false,
+            'horizontal-menu'   => false,
         ];
 
         $data = array_merge(
@@ -449,7 +449,7 @@ class Content implements Renderable
             'sidebar_collapsed' => [],
             'navbar_color'      => [],
             'navbar_class'      => ['floating' => 'floating-nav', 'sticky' => 'fixed-top', 'hidden' => 'd-none'],
-            'horizontal_menu'   => [],
+            'horizontal-menu'   => [],
         ];
 
         $maps = [
@@ -487,7 +487,7 @@ class Content implements Renderable
             $data['sidebar_style'] = 'sidebar-dark-white';
         }
 
-        if ($data['horizontal_menu']) {
+        if ($data['horizontal-menu']) {
             $data['body_class'][] = 'horizontal-menu';
         }
 
@@ -499,7 +499,7 @@ class Content implements Renderable
             'sidebar_class'     => $data['sidebar_collapsed'] ? 'sidebar-collapse' : '',
             'body_class'        => implode(' ', $data['body_class']),
             'sidebar_style'     => $data['sidebar_style'],
-            'horizontal_menu'   => $data['horizontal_menu'],
+            'horizontal-menu'   => $data['horizontal-menu'],
         ];
     }
 
