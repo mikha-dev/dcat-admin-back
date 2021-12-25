@@ -428,8 +428,8 @@ class Content implements Renderable
         $defaultData = [
             'theme'             => '',
             'sidebar_collapsed' => false,
-            'sidebar_style'     => 'sidebar-light-primary',
-            'navbar_color'      => '',
+            'sidebar-style'     => 'sidebar-light-primary',
+            'navbar-color'      => '',
             'navbar_class'      => 'sticky',
             'footer_type'       => '',
             'body_class'        => [],
@@ -445,9 +445,9 @@ class Content implements Renderable
             'theme'             => '',
             'footer_type'       => '',
             'body_class'        => [],
-            'sidebar_style'     => ['light' => 'sidebar-light-primary', 'primary' => 'sidebar-primary', 'dark' => 'sidebar-dark-white'],
+            'sidebar-style'     => ['light' => 'sidebar-light-primary', 'primary' => 'sidebar-primary', 'dark' => 'sidebar-dark-white'],
             'sidebar_collapsed' => [],
-            'navbar_color'      => [],
+            'navbar-color'      => [],
             'navbar_class'      => ['floating' => 'floating-nav', 'sticky' => 'fixed-top', 'hidden' => 'd-none'],
             'horizontal-menu'   => [],
         ];
@@ -484,7 +484,7 @@ class Content implements Renderable
         }
 
         if ($data['body_class'] && in_array('dark-mode', $data['body_class'], true)) {
-            $data['sidebar_style'] = 'sidebar-dark-white';
+            $data['sidebar-style'] = 'sidebar-dark-white';
         }
 
         if ($data['horizontal-menu']) {
@@ -494,11 +494,11 @@ class Content implements Renderable
         return [
             'theme'             => $data['theme'],
             'sidebar_collapsed' => $data['sidebar_collapsed'],
-            'navbar_color'      => $data['navbar_color'],
+            'navbar-color'      => $data['navbar-color'],
             'navbar_class'      => $allOptions['navbar_class'][$data['navbar_class']],
             'sidebar_class'     => $data['sidebar_collapsed'] ? 'sidebar-collapse' : '',
             'body_class'        => implode(' ', $data['body_class']),
-            'sidebar_style'     => $data['sidebar_style'],
+            'sidebar-style'     => $data['sidebar-style'],
             'horizontal-menu'   => $data['horizontal-menu'],
         ];
     }

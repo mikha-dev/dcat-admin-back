@@ -536,7 +536,7 @@ class Admin
             return;
         }
 
-        $sidebarStyle = config('admin.layout.sidebar_style') ?: 'light';
+        $sidebarStyle = config('admin.layout.sidebar-style') ?: 'light';
 
         $pjaxId = static::getPjaxContainerId();
 
