@@ -207,7 +207,7 @@ class Grid
         $this->request = $request ?: request();
         $this->resourcePath = url($this->request->getPathInfo());
 
-        if ($repository == $this->model->repository()) {
+        if ($repository = $this->model->repository()) {
             $this->setKeyName($repository->getKeyName());
         }
 
