@@ -128,11 +128,11 @@ $('{$this->selector}').on('mouseover', function () {
       time: 0,
       maxWidth: {$this->maxWidth},
     });
-    
+
     $(this).attr('layer-idx', idx);
 }).on('mouseleave', function () {
     layer.close($(this).attr('layer-idx'));
-    
+
     $(this).attr('layer-idx', '');
 });
 JS

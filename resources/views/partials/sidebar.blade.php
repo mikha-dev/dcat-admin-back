@@ -1,6 +1,6 @@
 <div class="{{ $configData['horizontal-menu'] ? 'header-navbar navbar-expand-sm navbar navbar-horizontal' : 'main-menu' }}">
     <div class="main-menu-content">
-        <aside class="{{ $configData['horizontal-menu'] ? 'main-horizontal-sidebar' : 'main-sidebar shadow' }} {{ $configData['sidebar_style'] }}">
+        <aside class="{{ $configData['horizontal-menu'] ? 'main-horizontal-sidebar' : 'main-sidebar shadow' }} {{ $configData['sidebar-style'] }}">
 
             @if(! $configData['horizontal-menu'])
             <div class="navbar-header">

@@ -19,6 +19,8 @@ use Illuminate\Support\Traits\Macroable;
  * @method $this input(bool|array $options = [])
  * @method $this textarea(bool|array $options = [])
  * @method $this editable(bool|array $options = [])
+ * @method $this status(string $titleOn = 'On', string $titleOff = 'Off')
+ * @method $this icon(string $icon = '', string $title = '', string $color='primary')
  * @method $this switch(string $color = '', $refresh = false)
  * @method $this switchGroup($columns = [], string $color = '', $refresh = false)
  * @method $this image($server = '', int $width = 200, int $height = 200)
@@ -72,6 +74,8 @@ class Column
      * @var array
      */
     protected static $displayers = [
+        'icon'             => Displayers\IconDisplay::class,
+        'status'           => Displayers\StatusDisplay::class,
         'switch'           => Displayers\SwitchDisplay::class,
         'switchGroup'      => Displayers\SwitchGroup::class,
         'select'           => Displayers\Select::class,
