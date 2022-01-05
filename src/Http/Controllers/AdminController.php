@@ -28,7 +28,23 @@ class AdminController extends Controller
      */
     protected function title()
     {
-        return $this->title ?: admin_trans_label();
+        return $this->title ?: admin_trans_label('title');
+    }
+
+    /**
+     * Get content description.
+     *
+     * @return string
+     */
+    protected function description()
+    {
+        $description = admin_trans_label('description');
+
+        if( $description === 'description' ) {
+            return '';
+        }
+
+        return $description;
     }
 
     /**
@@ -52,6 +68,7 @@ class AdminController extends Controller
         return $content
             ->translation($this->translation())
             ->title($this->title())
+            ->description($this->description())
             ->body($this->grid());
     }
 
