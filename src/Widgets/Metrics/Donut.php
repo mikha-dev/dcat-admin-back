@@ -47,7 +47,7 @@ class Donut extends Card
             ],
             'colors' => $colors,
             'legend' => [
-                'show' => false,
+                'show' => true,
             ],
             'dataLabels' => [
                 'enabled' => false,
@@ -76,7 +76,7 @@ class Donut extends Card
         $this->useChart();
 
         // 默认样式
-        $this->chart->style('margin: 10px 5px 0 0;width: 150px;float:right;');
+        $this->chart->style('margin: 10px 5px 0 0;float:right;');
     }
 
     /**
