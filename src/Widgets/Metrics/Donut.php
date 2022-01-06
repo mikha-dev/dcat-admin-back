@@ -34,9 +34,9 @@ class Donut extends Card
      */
     protected function defaultChartOptions()
     {
-        $color = Admin::color();
+        //$color = Admin::color();
 
-        $colors = [$color->primary(), $color->alpha('blue2', 0.5), $color->orange2()];
+        //$colors = [$color->primary(), $color->alpha('blue2', 0.5), $color->orange2()];
 
         return [
             'chart' => [
@@ -45,12 +45,12 @@ class Donut extends Card
                     'show' => false,
                 ],
             ],
-            'colors' => $colors,
+          //  'colors' => $colors,
             'legend' => [
                 'show' => true,
             ],
             'dataLabels' => [
-                'enabled' => false,
+                'enabled' => true,
             ],
             'stroke' => [
                 'width' => 0,
@@ -58,7 +58,7 @@ class Donut extends Card
             'plotOptions' => [
                 'pie' => [
                     'donut' => [
-                        'size' => '75%',
+                        'size' => '60%',
                     ],
                 ],
             ],
