@@ -4,6 +4,11 @@
 <script require="@select2?lang={{ config('app.locale') === 'en' ? '' : str_replace('_', '-', config('app.locale')) }}" init="{!! $selector !!}">
     var configs = {!! admin_javascript_json($configs) !!};
 
+    @if(isset($coloredItemsScript))
+        configs.templateSelection = {!! $coloredItemsScript !!}
+        configs.templateResult = {!! $coloredItemsScript !!}
+    @endif
+
     @yield('admin.select-ajax')
 
     @if(isset($remoteOptions))
