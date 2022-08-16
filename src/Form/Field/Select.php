@@ -26,6 +26,8 @@ class Select extends Field
      */
     protected $config = [];
 
+    private $itemColors = [];
+
     /**
      * Set options.
      *
@@ -228,6 +230,7 @@ class Select extends Field
             'groups'        => $this->groups,
             'configs'       => $this->config,
             'cascadeScript' => $this->getCascadeScript(),
+            'coloredItemsScript' => $this->getColoredItemsScript(),
         ]);
 
         $this->initSize();
@@ -258,6 +261,37 @@ class Select extends Field
         }
 
         $this->placeholder = $placeholder;
+
+        return $this;
+    }
+
+    private function getColorsMap() {
+        return json_encode($this->itemColors);
+    }
+
+    private function getColoredItemsScript() {
+
+        if (empty($this->itemColors)) {
+            return;
+        }
+
+        return <<<JS
+            function coloredItems (data, container) {
+            var colors = {$this->getColorsMap()};
+            if (!data.id) {
+                return data.text;
+            }
+
+            $(container).attr("style", "background-color: " + colors[data.element.value] + " !important");
+
+            return data.text;
+            }
+        JS;
+    }
+
+    public function customItemColors($itemColors=[]) {
+
+        $this->itemColors = $itemColors;
 
         return $this;
     }

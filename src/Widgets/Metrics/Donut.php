@@ -34,9 +34,9 @@ class Donut extends Card
      */
     protected function defaultChartOptions()
     {
-        //$color = Admin::color();
+        $color = Admin::color();
 
-        //$colors = [$color->primary(), $color->alpha('blue2', 0.5), $color->orange2()];
+        $colors = [$color->primary(), $color->alpha('blue2', 0.5), $color->orange2()];
 
         return [
             'chart' => [
@@ -45,9 +45,9 @@ class Donut extends Card
                     'show' => false,
                 ],
             ],
-          //  'colors' => $colors,
+            'colors' => $colors,
             'legend' => [
-                'show' => true,
+                'show' => false,
             ],
             'dataLabels' => [
                 'enabled' => false,
@@ -58,7 +58,7 @@ class Donut extends Card
             'plotOptions' => [
                 'pie' => [
                     'donut' => [
-                        'size' => '40%',
+                        'size' => '75%',
                     ],
                 ],
             ],
@@ -76,7 +76,7 @@ class Donut extends Card
         $this->useChart();
 
         // 默认样式
-        $this->chart->style('margin: 10px 5px 0 0;float:right;');
+        $this->chart->style('margin: 10px 5px 0 0;width: 150px;float:right;');
     }
 
     /**
@@ -107,7 +107,7 @@ class Donut extends Card
     <div class="col-sm-{$this->contentWidth[0]} justify-content-center">
         {$content}
     </div>
-    <div class="col-sm-{$this->contentWidth[1]}" style="margin-right: 15px;">
+    <div class="col-sm-{$this->contentWidth[1]}" style="margin-right: -15px;">
         {$this->renderChart()}
     </div>
 </div>
