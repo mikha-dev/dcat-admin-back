@@ -264,6 +264,11 @@ class Admin
         return app('admin.app');
     }
 
+    public static function domain()
+    {
+        return app('admin.domain');
+    }
+
     /**
      * 处理异常.
      *
@@ -584,6 +589,7 @@ class Admin
                     /* @var \Illuminate\Routing\Router $router */
                     $router->resource('auth/users', 'UserController');
                     $router->resource('auth/menu', 'MenuController', ['except' => ['create', 'show']]);
+                    $router->resource('auth/domains', 'DomainController');
 
                     if (config('admin.permission.enable')) {
                         $router->resource('auth/roles', 'RoleController');

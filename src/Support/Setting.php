@@ -8,17 +8,9 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Fluent;
-use Illuminate\Support\Str;
 
 class Setting extends Fluent
 {
-
-    private static function getHost() {
-        if(request())
-            return request()->getHost();
-
-        return Str::of(config('app.url'))->remove('http://')->remove('https://');
-    }
 
     /**
      * 获取配置，并转化为数组.
@@ -110,11 +102,6 @@ class Setting extends Fluent
      */
     public function save(array $data = [])
     {
-        // if ($data) {
-        //     $this->set($data);
-        // }
-
-        //dd($this->attributes);
 
         foreach ($data as $key => $value) {
             if (is_array($value)) {
@@ -123,7 +110,7 @@ class Setting extends Fluent
 
             DB::table(Model::getTableName())->updateOrInsert(
                 [
-                    'host' => self::getHost(),
+                    'manager_id' => Admin::domain()->manager_id,
                     'slug'  => $key
                 ],
                 [
@@ -145,7 +132,7 @@ class Setting extends Fluent
         $values = [];
 
         try {
-            $values = Model::where('host', self::getHost())->pluck('value', 'slug')->toArray();
+            $values = Model::where('manager_id', Admin::domain()->manager_id)->pluck('value', 'slug')->toArray();
         } catch (QueryException $e) {
             Admin::reportException($e);
         }

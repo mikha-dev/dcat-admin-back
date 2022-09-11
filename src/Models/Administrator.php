@@ -2,6 +2,7 @@
 
 namespace Dcat\Admin\Models;
 
+use Dcat\Admin\Models\Domain;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Dcat\Admin\Traits\HasPermissions;
 use Illuminate\Auth\Authenticatable;
@@ -79,6 +80,10 @@ class Administrator extends Model implements AuthenticatableContract
         $relatedModel = config('admin.database.roles_model');
 
         return $this->belongsToMany($relatedModel, $pivotTable, 'user_id', 'role_id')->withTimestamps();
+    }
+
+    public function domains() {
+        return $this->belongsToMany(Domain::class);
     }
 
     /**

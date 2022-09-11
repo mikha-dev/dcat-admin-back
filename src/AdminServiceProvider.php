@@ -12,6 +12,7 @@ use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Layout\Menu;
 use Dcat\Admin\Layout\Navbar;
 use Dcat\Admin\Layout\SectionManager;
+use Dcat\Admin\Models\Domain;
 use Dcat\Admin\Support\Context;
 use Dcat\Admin\Support\Helper;
 use Dcat\Admin\Support\Setting;
@@ -230,6 +231,10 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->singleton('admin.navbar', Navbar::class);
         $this->app->singleton('admin.menu', Menu::class);
         $this->app->singleton('admin.context', Context::class);
+        $this->app->singleton('admin.domain', function() {
+            return Domain::fromRequest();
+        });
+
         $this->app->singleton('admin.setting', function () {
             return Setting::fromDatabase();
         });
