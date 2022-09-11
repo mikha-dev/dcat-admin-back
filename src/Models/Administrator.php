@@ -2,7 +2,6 @@
 
 namespace Dcat\Admin\Models;
 
-use Dcat\Admin\Models\Domain;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Dcat\Admin\Traits\HasPermissions;
 use Illuminate\Auth\Authenticatable;
@@ -83,7 +82,8 @@ class Administrator extends Model implements AuthenticatableContract
     }
 
     public function domains() {
-        return $this->belongsToMany(Domain::class);
+        $relatedModel = config('admin.database.domains_model');
+        return $this->hasMany($relatedModel, 'manager_id');
     }
 
     /**

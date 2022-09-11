@@ -48,4 +48,10 @@ class Domain extends Model
 
         return $domain;
     }
+
+    public function getFullUrlAttribute()
+    {
+        return $this->schema.'://'.$this->host;
+    }
+
 }

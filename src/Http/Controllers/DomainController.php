@@ -16,6 +16,7 @@ class DomainController extends AdminController
 
         return new Grid( $model::with('manager'), function (Grid $grid) {
 
+            $grid->column('schema')->select(['http'=>'http', 'https'=>'https']);
             $grid->column('host')->editable();
             $grid->column('manager.username', trans('admin.manager'));
 
@@ -31,6 +32,7 @@ class DomainController extends AdminController
         return new Form( $model::with('manager'), function (Form $form) {
 
             $form->text('host')->required();
+            $form->select('schema')->options(['http' => 'http', 'https'=>'https'])->default('https')->required();
 
             $users = Administrator::whereManagerId(Admin::user()->id)->pluck('username', 'id');
             $form->select('manager_id', trans('admin.manager'))->options($users)->required();
