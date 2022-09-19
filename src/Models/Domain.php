@@ -44,7 +44,7 @@ class Domain extends Model
         $domain = self::whereHost($host)->first();
 
         if(!$domain)
-            throw new \Exception('Domain not setup');
+            throw new \Exception('Domain not setup. Requiested host: '.$host );
 
         return $domain;
     }
