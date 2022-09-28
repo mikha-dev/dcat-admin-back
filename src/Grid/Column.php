@@ -21,7 +21,8 @@ use Illuminate\Support\Traits\Macroable;
  * @method $this editable(bool|array $options = [])
  * @method $this status(string $titleOn = 'On', string $titleOff = 'Off')
  * @method $this icon(string $icon = '', string $title = '', string $color='primary')
- * @method $this price(string $currency)
+ * @method $this price(string $currency = '$')
+ * @method $this enum()
  * @method $this percent()
  * @method $this switch(string $color = '', $refresh = false)
  * @method $this switchGroup($columns = [], string $color = '', $refresh = false)
@@ -76,6 +77,7 @@ class Column
      * @var array
      */
     protected static $displayers = [
+        'enum'             => Displayers\EnumDisplay::class,
         'price'            => Displayers\PriceDisplay::class,
         'percent'          => Displayers\PercentDisplay::class,
         'icon'             => Displayers\IconDisplay::class,
