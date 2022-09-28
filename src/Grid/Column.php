@@ -21,6 +21,7 @@ use Illuminate\Support\Traits\Macroable;
  * @method $this editable(bool|array $options = [])
  * @method $this status(string $titleOn = 'On', string $titleOff = 'Off')
  * @method $this icon(string $icon = '', string $title = '', string $color='primary')
+ * @method $this dateHuman()
  * @method $this price(string $currency = '$')
  * @method $this enum()
  * @method $this percent()
@@ -77,6 +78,7 @@ class Column
      * @var array
      */
     protected static $displayers = [
+        'dateHuman'        => Displayers\DateHumanDisplay::class,
         'enum'             => Displayers\EnumDisplay::class,
         'price'            => Displayers\PriceDisplay::class,
         'percent'          => Displayers\PercentDisplay::class,
