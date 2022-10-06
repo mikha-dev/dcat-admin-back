@@ -3,6 +3,7 @@
 namespace Dcat\Admin\Show;
 
 use Dcat\Admin\Admin;
+use Dcat\Admin\DcatEnum;
 use Dcat\Admin\Show;
 use Dcat\Admin\Support\Helper;
 use Dcat\Admin\Traits\HasBuilderEvents;
@@ -318,6 +319,16 @@ HTML;
 
             return "<a href='$href' target='{$target}'>{$link}</a>";
         });
+    }
+
+    /**
+     * Show field as a enum label.
+     *
+     * @return Field
+     */
+    public function enum()
+    {
+        return $this->unescape()->as(fn ($enum) => $enum['label']);
     }
 
     /**

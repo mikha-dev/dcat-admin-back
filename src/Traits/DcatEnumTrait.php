@@ -3,6 +3,7 @@
 namespace Dcat\Admin\Traits;
 
 use Dcat\Admin\DcatEnum;
+use ReflectionEnum;
 
 /**
  * @implements \Dcat\Admin\DcatEnum;
@@ -66,6 +67,11 @@ trait DcatEnumTrait
     public function label(): string
     {
         return static::labelFor($this);
+    }
+
+    public static function fromCase(string $case)
+    {
+        return (new ReflectionEnum(self::class))->getCase($case)->getValue()->value;
     }
 
     public function toArray(): array
