@@ -146,6 +146,16 @@ class Admin
     }
 
     /**
+     * Get the ID for the currently authenticated user.
+     *
+     * @return int|string|null
+     */
+    public static function id()
+    {
+        return static::guard()->id();
+    }
+
+    /**
      * @return \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard|GuardHelpers
      */
     public static function guard()
