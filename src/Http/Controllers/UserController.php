@@ -24,6 +24,7 @@ class UserController extends AdminController
             $grid->column('id', 'ID')->sortable();
             $grid->column('username');
             $grid->column('name');
+            $grid->column('email');
 
             if (config('admin.permission.enable')) {
                 $grid->column('roles')->pluck('name')->label('primary', 3);
@@ -72,6 +73,7 @@ class UserController extends AdminController
             $show->field('id');
             $show->field('username');
             $show->field('name');
+            $show->field('email');
 
             $show->field('avatar', __('admin.avatar'))->image();
 
@@ -133,6 +135,10 @@ class UserController extends AdminController
                 ->required()
                 ->creationRules(['required', "unique:{$connection}.{$userTable}"])
                 ->updateRules(['required', "unique:{$connection}.{$userTable},username,$id"]);
+            $form->text('email', trans('admin.email'))
+                ->required()
+                ->creationRules(['required', "unique:{$connection}.{$userTable}"])
+                ->updateRules(['required', "unique:{$connection}.{$userTable},email,$id"]);
             $form->text('name', trans('admin.name'))->required();
             $form->image('avatar', trans('admin.avatar'))->autoUpload();
 
@@ -157,6 +163,7 @@ class UserController extends AdminController
             if (config('admin.permission.enable')) {
                 $form->multipleSelect('roles', trans('admin.roles'))
                     ->options(function () {
+                        /** @var Model $roleModel */
                         $roleModel = config('admin.database.roles_model');
 
                         return $roleModel::all()->pluck('name', 'id');
