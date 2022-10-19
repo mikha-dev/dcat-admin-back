@@ -13,7 +13,7 @@ trait HasPermissions
     /**
      * Get all permissions of user.
      *
-     * @return mixed
+     * @return Collection
      */
     public function allPermissions(): Collection
     {
@@ -66,7 +66,7 @@ trait HasPermissions
     /**
      * Check if user is administrator.
      *
-     * @return mixed
+     * @return bool
      */
     public function isAdministrator(): bool
     {
@@ -79,7 +79,7 @@ trait HasPermissions
      * Check if user is $role.
      *
      * @param  string  $role
-     * @return mixed
+     * @return bool
      */
     public function isRole(string $role): bool
     {
@@ -94,7 +94,7 @@ trait HasPermissions
      * Check if user in $roles.
      *
      * @param  string|array|Arrayable  $roles
-     * @return mixed
+     * @return bool
      */
     public function inRoles($roles = []): bool
     {

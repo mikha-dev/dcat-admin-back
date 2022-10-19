@@ -15,11 +15,11 @@ trait DcatEnumTrait
         throw_unless(class_implements(static::class, DcatEnum::class), new \Exception(sprintf('Enum %s must implement BackedEnum', static::class)));
     }
 
-    public static function options(): array
-    {
-        static::ensureImplementsInterface();
-        return array_map(fn($enum) => $enum->toArray(), self::cases());
-    }
+    // public static function options(): array
+    // {
+    //     static::ensureImplementsInterface();
+    //     return array_map(fn($enum) => $enum->toArray(), self::cases());
+    // }
 
     public static function names(): array
     {
@@ -74,21 +74,21 @@ trait DcatEnumTrait
         return (new ReflectionEnum(self::class))->getCase($case)->getValue()->value;
     }
 
-    public function toArray(): array
-    {
-        static::ensureImplementsInterface();
-        return [
-            'name'  => $this->name,
-            'value' => $this->value,
-            'label' => $this->label()
-        ];
-    }
+    // public function toArray(): array
+    // {
+    //     static::ensureImplementsInterface();
+    //     return [
+    //         'name'  => $this->name,
+    //         'value' => $this->value,
+    //         'label' => $this->label()
+    //     ];
+    // }
 
-    public function toJson($options = 0): array
-    {
-        static::ensureImplementsInterface();
-        return $this->toArray();
-    }
+    // public function toJson($options = 0): array
+    // {
+    //     static::ensureImplementsInterface();
+    //     return $this->toArray();
+    // }
 
     public function isA($value): bool
     {

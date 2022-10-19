@@ -2,7 +2,7 @@
 
 namespace Dcat\Admin;
 
-interface DcatEnum extends \Illuminate\Contracts\Support\Arrayable, \Illuminate\Contracts\Support\Jsonable
+interface DcatEnum
 {
     public function label(): string;
 }
