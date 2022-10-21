@@ -326,9 +326,9 @@ HTML;
      *
      * @return Field
      */
-    public function enum()
+    public function enum(string $enumClass)
     {
-        return $this->unescape()->as(fn ($enum) => $enum['label']);
+        return $this->unescape()->as(fn ($enum) => $enumClass::from($enum)->label());
     }
 
     /**
