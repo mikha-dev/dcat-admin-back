@@ -2,6 +2,7 @@
 
 namespace Dcat\Admin\Models;
 
+use Dcat\Admin\Enums\HttpSchemaType;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -9,6 +10,10 @@ use Illuminate\Support\Str;
 class Domain extends Model
 {
     use HasDateTimeFormatter;
+
+    protected $casts = [
+        'schema' => HttpSchemaType::class
+    ];
 
     protected $fillable = ['host','manager_id'];
 
