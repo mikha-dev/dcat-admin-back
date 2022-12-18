@@ -33,6 +33,18 @@ trait DcatEnumTrait
         return array_map(fn($enum) => $enum->value, self::cases());
     }
 
+    public static function mapCases(): array
+    {
+        static::ensureImplementsInterface();
+        $array = [];
+
+        foreach (self::cases() as $enum) {
+            $array[$enum->name] = $enum->label();
+        }
+
+        return $array;
+    }
+
     public static function map(): array
     {
         static::ensureImplementsInterface();
@@ -40,6 +52,18 @@ trait DcatEnumTrait
 
         foreach (self::cases() as $enum) {
             $array[$enum->value] = $enum->label();
+        }
+
+        return $array;
+    }
+
+    public static function options(): array
+    {
+        static::ensureImplementsInterface();
+        $array = [];
+
+        foreach (self::cases() as $enum) {
+            $array[$enum->name] = $enum->value;
         }
 
         return $array;
