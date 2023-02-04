@@ -1,7 +1,7 @@
 @php
     $depth = $item['depth'] ?? 0;
 
-    $horizontal = config('admin.layout.horizontal_menu');
+    $horizontal = config('admin.layout.horizontal-menu');
 
     $defaultIcon = config('admin.menu.default_icon', 'feather icon-circle');
 @endphp
