@@ -47,10 +47,10 @@ class Donut extends Card
             ],
             'colors' => $colors,
             'legend' => [
-                'show' => false,
+                'show' => true,
             ],
             'dataLabels' => [
-                'enabled' => false,
+                'enabled' => true,
             ],
             'stroke' => [
                 'width' => 0,
@@ -58,7 +58,7 @@ class Donut extends Card
             'plotOptions' => [
                 'pie' => [
                     'donut' => [
-                        'size' => '75%',
+                        'size' => '15%',
                     ],
                 ],
             ],
@@ -76,7 +76,7 @@ class Donut extends Card
         $this->useChart();
 
         // 默认样式
-        $this->chart->style('margin: 10px 5px 0 0;width: 150px;float:right;');
+        //$this->chart->style('margin: 10px 5px 0 0;width: 150px;float:right;');
     }
 
     /**
