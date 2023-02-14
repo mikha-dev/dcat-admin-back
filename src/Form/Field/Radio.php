@@ -2,6 +2,7 @@
 
 namespace Dcat\Admin\Form\Field;
 
+use Dcat\Admin\Enums\RadioLayoutType;
 use Dcat\Admin\Form\Field;
 use Dcat\Admin\Support\Helper;
 use Dcat\Admin\Widgets\Radio as WidgetRadio;
@@ -17,7 +18,10 @@ class Radio extends Field
     protected $cascadeEvent = 'change';
 
     protected $inline = true;
-    protected $boxed = false;
+
+    protected RadioLayoutType $layout = RadioLayoutType::COMMON;
+    protected string $boxed_width = "150px";
+    protected string $boxed_height = "100px";
 
     /**
      * @param  array|\Closure|string  $options
@@ -43,9 +47,11 @@ class Radio extends Field
         return $this;
     }
 
-    public function boxed(bool $boxed=true)
+    public function layout(RadioLayoutType $layout, string $width = "150px", string $height = "100px")
     {
-        $this->boxed = $boxed;
+        $this->layout = $layout;
+        $this->boxed_width = $width;
+        $this->boxed_height = $height;
 
         return $this;
     }
@@ -87,7 +93,7 @@ class Radio extends Field
             ->check($this->value())
             ->class($this->getElementClassString())
             ->size($this->size)
-            ->boxed($this->boxed);
+            ->layout($this->layout, $this->boxed_width, $this->boxed_height);
 
         $this->addVariables([
             'radio' => $radio,

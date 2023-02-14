@@ -2,19 +2,24 @@
 
 namespace Dcat\Admin\Widgets;
 
+use Dcat\Admin\Enums\RadioLayoutType;
 use Illuminate\Contracts\Support\Arrayable;
 
 class Radio extends Widget
 {
+
     protected $view = 'admin::widgets.radio';
     protected $type = 'radio';
+    protected $layout = RadioLayoutType::COMMON;
     protected $style = 'primary';
     protected $right = '16px';
     protected $checked;
     protected $disabledValues = [];
     protected $size;
     protected $inline = false;
-    protected $boxed = false;
+
+    protected string $boxed_width = "150px";
+    protected string $boxed_height = "100px";
 
     public function __construct(
         ?string $name = null,
@@ -65,12 +70,14 @@ class Radio extends Widget
         return $this;
     }
 
-    public function boxed(bool $boxed = true)
+    public function layout(RadioLayoutType $layout, string $width = "150px", string $height = "100px")
     {
-        $this->boxed = $boxed;
+        $this->layout = $layout;
+        $this->boxed_width = $width;
+        $this->boxed_height = $height;
 
         return $this;
-    }    
+    }
 
     /**
      * 设置禁选的选项.
@@ -166,7 +173,9 @@ class Radio extends Widget
             'right'      => $this->right,
             'size'       => $this->size,
             'inline'     => $this->inline,
-            'boxed'      => $this->boxed,
+            'layout'      => $this->layout,
+            'boxed_width'      => $this->boxed_width,
+            'boxed_height'      => $this->boxed_height,
         ];
     }
 
