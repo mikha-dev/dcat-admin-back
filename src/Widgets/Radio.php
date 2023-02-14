@@ -14,6 +14,7 @@ class Radio extends Widget
     protected $disabledValues = [];
     protected $size;
     protected $inline = false;
+    protected $boxed = false;
 
     public function __construct(
         ?string $name = null,
@@ -63,6 +64,13 @@ class Radio extends Widget
 
         return $this;
     }
+
+    public function boxed(bool $boxed = true)
+    {
+        $this->boxed = $boxed;
+
+        return $this;
+    }    
 
     /**
      * 设置禁选的选项.
@@ -158,6 +166,7 @@ class Radio extends Widget
             'right'      => $this->right,
             'size'       => $this->size,
             'inline'     => $this->inline,
+            'boxed'      => $this->boxed,
         ];
     }
 

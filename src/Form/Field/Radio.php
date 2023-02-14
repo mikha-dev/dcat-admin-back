@@ -17,6 +17,7 @@ class Radio extends Field
     protected $cascadeEvent = 'change';
 
     protected $inline = true;
+    protected $boxed = false;
 
     /**
      * @param  array|\Closure|string  $options
@@ -38,6 +39,13 @@ class Radio extends Field
     public function inline(bool $inline)
     {
         $this->inline = $inline;
+
+        return $this;
+    }
+
+    public function boxed(bool $boxed=true)
+    {
+        $this->boxed = $boxed;
 
         return $this;
     }
@@ -78,7 +86,8 @@ class Radio extends Field
             ->inline($this->inline)
             ->check($this->value())
             ->class($this->getElementClassString())
-            ->size($this->size);
+            ->size($this->size)
+            ->boxed($this->boxed);
 
         $this->addVariables([
             'radio' => $radio,
