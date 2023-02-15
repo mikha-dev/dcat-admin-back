@@ -1,4 +1,7 @@
 @section('content-header')
+@if($header || $description)
+<div class="content-header">
+
     <section class="content-header breadcrumbs-top">
         @if($header || $description)
             <h1 class=" float-left">
@@ -12,6 +15,8 @@
         @include('admin::partials.breadcrumb')
 
     </section>
+</div>
+@endif
 @endsection
 
 @section('content')
@@ -26,9 +31,7 @@
 @section('app')
     {!! Dcat\Admin\Admin::asset()->styleToHtml() !!}
 
-    <div class="content-header">
         @yield('content-header')
-    </div>
 
     <div class="content-body" id="app">
         {{-- 页面埋点--}}

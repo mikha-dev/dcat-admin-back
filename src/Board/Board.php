@@ -1,24 +1,16 @@
 <?php
 
-namespace Dcat\Admin;
+namespace Dcat\Admin\Board;
 
 use Closure;
-use Dcat\Admin\Contracts\Callable;
+use Dcat\Admin\Admin;
+use Dcat\Admin\Board\Field;
+use Dcat\Admin\Board\Row;
 use Dcat\Admin\Contracts\ModelHolder;
 use Dcat\Admin\Contracts\Repository;
 use Dcat\Admin\Contracts\ShowField;
-use Dcat\Admin\Show\AbstractTool;
-use Dcat\Admin\Show\Divider;
-use Dcat\Admin\Show\Field;
-use Dcat\Admin\Show\Html;
-use Dcat\Admin\Show\Newline;
-use Dcat\Admin\Show\Panel;
-use Dcat\Admin\Show\Relation;
-use Dcat\Admin\Show\Row;
-use Dcat\Admin\Show\Tools;
 use Dcat\Admin\Traits\HasBuilderEvents;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -27,7 +19,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Fluent;
 use Illuminate\Support\Traits\Macroable;
 
-class Show implements Renderable, ModelHolder, ShowField
+class Board implements Renderable, ModelHolder, ShowField
 {
     use HasBuilderEvents;
     use Macroable {
@@ -37,7 +29,7 @@ class Show implements Renderable, ModelHolder, ShowField
     /**
      * @var string
      */
-    protected $view = 'admin::show.container';
+    protected $view = 'admin::board.panel';
 
     /**
      * @var Repository
@@ -81,17 +73,6 @@ class Show implements Renderable, ModelHolder, ShowField
     protected $fields;
 
     /**
-     * Relations to be show.
-     *
-     * @var Collection
-     */
-    protected $relations;
-
-    /**
-     * @var Panel
-     */
-    protected $panel;
-    /**
      * @var \Illuminate\Support\Collection
      */
     protected $rows;
@@ -123,8 +104,6 @@ class Show implements Renderable, ModelHolder, ShowField
 
         $this->initModel($model);
 
-        $this->initPanel();
-
         $this->initContents();
 
         $this->callResolving();
@@ -152,7 +131,8 @@ class Show implements Renderable, ModelHolder, ShowField
         }
 
         if (! $this->model && $this->repository) {
-            $this->model($this->repository->detail($this));
+            //$this->model($this->repository->detail($this));
+            //todo::fix
         }
     }
 
@@ -231,93 +211,11 @@ class Show implements Renderable, ModelHolder, ShowField
     }
 
     /**
-     * Set a view to render.
-     *
-     * @param  string  $view
-     * @return $this
-     */
-    public function view($view)
-    {
-        $this->panel->view($view);
-
-        return $this;
-    }
-
-    /**
-     * Add variables to show view.
-     *
-     * @param  array  $variables
-     * @return $this
-     */
-    public function with($variables = [])
-    {
-        $this->panel->with($variables);
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function wrap(\Closure $wrapper)
-    {
-        $this->panel->wrap($wrapper);
-
-        return $this;
-    }
-
-    /**
      * Initialize the contents to show.
      */
     protected function initContents()
     {
         $this->fields = new Collection();
-        $this->relations = new Collection();
-    }
-
-    /**
-     * Initialize panel.
-     */
-    protected function initPanel()
-    {
-        $this->panel = new Panel($this);
-    }
-
-    /**
-     * Get panel instance.
-     *
-     * @return Panel
-     */
-    public function panel()
-    {
-        return $this->panel;
-    }
-
-    /**
-     * @param  \Closure|array|AbstractTool|Renderable|Htmlable|string  $callback
-     * @return $this|Tools
-     */
-    public function tools($callback = null)
-    {
-        if ($callback === null) {
-            return $this->panel->tools();
-        }
-
-        if ($callback instanceof \Closure) {
-            $callback->call($this->model, $this->panel->tools());
-
-            return $this;
-        }
-
-        if (! is_array($callback)) {
-            $callback = [$callback];
-        }
-
-        foreach ($callback as $tool) {
-            $this->panel->tools()->append($tool);
-        }
-
-        return $this;
     }
 
     /**
@@ -356,14 +254,6 @@ class Show implements Renderable, ModelHolder, ShowField
     }
 
     /**
-     * @return Collection
-     */
-    public function relations()
-    {
-        return $this->relations;
-    }
-
-    /**
      * Show all fields.
      *
      * @return Show
@@ -373,24 +263,6 @@ class Show implements Renderable, ModelHolder, ShowField
         $fields = array_keys($this->model()->toArray());
 
         return $this->fields($fields);
-    }
-
-    /**
-     * Add a relation to show.
-     *
-     * @param  string  $name
-     * @param  string|\Closure  $label
-     * @param  null|\Closure  $builder
-     * @return Relation
-     */
-    public function relation($name, $label, $builder = null)
-    {
-        if (is_null($builder)) {
-            $builder = $label;
-            $label = '';
-        }
-
-        return $this->addRelation($name, $builder, $label);
     }
 
     /**
@@ -414,27 +286,6 @@ class Show implements Renderable, ModelHolder, ShowField
     }
 
     /**
-     * Add a relation panel to show.
-     *
-     * @param  string  $name
-     * @param  \Closure  $builder
-     * @param  string  $label
-     * @return Relation
-     */
-    protected function addRelation($name, $builder, $label = '')
-    {
-        $relation = new Relation($name, $builder, $label);
-
-        $relation->setParent($this);
-
-        $this->overwriteExistingRelation($name);
-
-        $this->relations->push($relation);
-
-        return $relation;
-    }
-
-    /**
      * Overwrite existing field.
      *
      * @param  string  $name
@@ -453,117 +304,11 @@ class Show implements Renderable, ModelHolder, ShowField
     }
 
     /**
-     * Overwrite existing relation.
-     *
-     * @param  string  $name
-     */
-    protected function overwriteExistingRelation($name)
-    {
-        if ($this->relations->isEmpty()) {
-            return;
-        }
-
-        $this->relations = $this->relations->filter(
-            function (Relation $relation) use ($name) {
-                return $relation->getName() != $name;
-            }
-        );
-    }
-
-    /**
      * @return Repository
      */
     public function repository()
     {
         return $this->repository;
-    }
-
-    /**
-     * Show a divider.
-     */
-    public function divider()
-    {
-        $this->fields->push(new Divider());
-    }
-
-    /**
-     * Show a divider.
-     */
-    public function newline()
-    {
-        $this->fields->push(new Newline());
-    }
-
-    /**
-     * Show the content of html.
-     *
-     * @param  string  $html
-     */
-    public function html($html = '')
-    {
-        $this->fields->push((new Html($html))->setParent($this));
-    }
-
-    /**
-     * Disable `list` tool.
-     *
-     * @return $this
-     */
-    public function disableListButton(bool $disable = true)
-    {
-        $this->panel->tools()->disableList($disable);
-
-        return $this;
-    }
-
-    /**
-     * Disable `delete` tool.
-     *
-     * @return $this
-     */
-    public function disableDeleteButton(bool $disable = true)
-    {
-        $this->panel->tools()->disableDelete($disable);
-
-        return $this;
-    }
-
-    /**
-     * Disable `edit` tool.
-     *
-     * @return $this
-     */
-    public function disableEditButton(bool $disable = true)
-    {
-        $this->panel->tools()->disableEdit($disable);
-
-        return $this;
-    }
-
-    /**
-     * Show quick edit tool.
-     *
-     * @param  null|string  $width
-     * @param  null|string  $height
-     * @return $this
-     */
-    public function showQuickEdit(?string $width = null, ?string $height = null)
-    {
-        $this->panel->tools()->showQuickEdit($width, $height);
-
-        return $this;
-    }
-
-    /**
-     * Disable quick edit tool.
-     *
-     * @return $this
-     */
-    public function disableQuickEdit()
-    {
-        $this->panel->tools()->disableQuickEdit();
-
-        return $this;
     }
 
     /**
@@ -615,40 +360,6 @@ class Show implements Renderable, ModelHolder, ShowField
     }
 
     /**
-     * @param $method
-     * @param  array  $arguments
-     * @return bool|Show|Field|Relation
-     */
-    protected function call($method, $arguments = [])
-    {
-        $label = isset($arguments[0]) ? $arguments[0] : '';
-
-        if ($field = $this->handleRelationField($method, $arguments)) {
-            return $field;
-        }
-
-        return $this->addField($method, $label);
-    }
-
-    /**
-     * Handle relation field.
-     *
-     * @param  string  $method
-     * @param  array  $arguments
-     * @return $this|bool|Relation|Field
-     */
-    protected function handleRelationField($method, $arguments)
-    {
-        if (count($arguments) == 1 && $arguments[0] instanceof \Closure) {
-            return $this->addRelation($method, $arguments[0]);
-        } elseif (count($arguments) == 2 && $arguments[1] instanceof \Closure) {
-            return $this->addRelation($method, $arguments[1], $arguments[0]);
-        }
-
-        return false;
-    }
-
-    /**
      * Render the show panels.
      *
      * @return string
@@ -670,13 +381,12 @@ class Show implements Renderable, ModelHolder, ShowField
         }
 
         $this->fields->each->fill($model);
-        $this->relations->each->model($model);
 
         $this->callComposing();
 
         $data = [
-            'panel'     => $this->panel->fill($this->fields),
-            'relations' => $this->relations,
+            'fields'     => $this->fields,
+            'rows'     => $this->rows,
         ];
 
         return view($this->view, $data)->render();

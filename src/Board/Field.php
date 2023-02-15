@@ -1,6 +1,6 @@
 <?php
 
-namespace Dcat\Admin\Show;
+namespace Dcat\Admin\Board;
 
 use Dcat\Admin\Admin;
 use Dcat\Admin\Contracts\ModelHolder;
@@ -36,7 +36,7 @@ class Field implements Renderable
     /**
      * @var string
      */
-    protected $view = 'admin::show.field';
+    protected $view = 'admin::board.field';
 
     /**
      * Name of column.
@@ -337,8 +337,8 @@ HTML;
                 $label = $enum->label();
 
                 /** @var DcatEnum $this->value */
-                if(class_implements($enumClass, DcatEnumColored::class) ) {
-                    return '<span class="label" style="background:'.$enum->color().'">'.$label.'</span>';
+                if(method_exists($enumClass, 'color') ) {
+                    return '<span class="badge" style="background:'.$enum->color().'">'.$label.'</span>';
                 }
 
                 return $label;

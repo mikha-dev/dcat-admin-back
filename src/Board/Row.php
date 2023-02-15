@@ -1,9 +1,8 @@
 <?php
 
-namespace Dcat\Admin\Show;
+namespace Dcat\Admin\Board;
 
 use Dcat\Admin\Contracts\ShowField;
-use Dcat\Admin\Show;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Collection;
 
@@ -59,7 +58,7 @@ class Row implements Renderable
      */
     public function render()
     {
-        return view('admin::show.row', ['fields' => $this->fields]);
+        return view('admin::board.row', ['fields' => $this->fields]);
     }
 
     /**
