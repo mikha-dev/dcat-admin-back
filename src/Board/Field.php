@@ -5,8 +5,8 @@ namespace Dcat\Admin\Board;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Contracts\ModelHolder;
 use Dcat\Admin\DcatEnum;
-use Dcat\Admin\DcatEnumColored;
 use Dcat\Admin\Show;
+use Dcat\Admin\Board\AbstractField;
 use Dcat\Admin\Support\Helper;
 use Dcat\Admin\Traits\HasBuilderEvents;
 use Dcat\Admin\Traits\HasVariables;
@@ -85,17 +85,12 @@ class Field implements Renderable
      */
     protected $relation;
 
-    /**
-     * If show contents in box.
-     *
-     * @var bool
-     */
-    protected $border = true;
+    protected $inline = false;
 
     /**
      * @var int
      */
-    protected $width = ['field' => 8, 'label' => 2];
+    protected $width = ['field' => 6, 'label' => 4];
 
     /**
      * Field constructor.
@@ -323,6 +318,23 @@ HTML;
         });
     }
 
+    public function price(string $currency = '$') {
+        return $this->unescape()->as( function ($val) use($currency) {
+
+            if(is_null($val))
+                return '';
+
+            if(is_string($val)) {
+                $val = (float)$this->value;
+            }
+
+            if($val < 0) {
+                return '-'.$currency.abs($val);
+            }
+
+            return $currency.$val;
+        });
+    }
     /**
      * Show field as a enum label.
      *
@@ -578,9 +590,9 @@ HTML;
     /**
      * @return $this
      */
-    public function wrap(bool $wrap = true)
+    public function inline(bool $inline = true)
     {
-        $this->border = $wrap;
+        $this->inline = $inline;
 
         return $this;
     }
@@ -665,7 +677,7 @@ HTML;
 
         if (is_string($abstract) && class_exists($abstract)) {
             /** @var AbstractField $extend */
-            $extend = new $abstract();
+            $extend = new $abstract(...$arguments);
         }
 
         if ($abstract instanceof AbstractField) {
@@ -674,7 +686,7 @@ HTML;
         }
 
         if (! isset($extend)) {
-            admin_warning("[$abstract] is not a valid Show field.");
+            admin_warning("[$abstract] is not a valid Board field.");
 
             return $this;
         }
@@ -686,9 +698,9 @@ HTML;
         $field = $this;
 
         return $this->as(function ($value) use ($extend, $field, $arguments) {
-            if (! $extend->border) {
-                $field->wrap(false);
-            }
+            // if (! $extend->inline) {
+            //     $field->inline(false);
+            // }
 
             $extend->setValue($value)->setModel($this);
 
@@ -729,7 +741,7 @@ HTML;
             'content' => $this->value,
             'escape'  => $this->escape,
             'label'   => $this->getLabel(),
-            'wrapped' => $this->border,
+            'inline' => $this->inline,
             'width'   => $this->width,
         ];
     }

@@ -45,7 +45,7 @@ class Row implements Renderable
     /**
      * @param  Column  $column
      */
-    protected function addColumn(Column $column)
+    public function addColumn(Column $column)
     {
         $this->columns[] = $column;
     }

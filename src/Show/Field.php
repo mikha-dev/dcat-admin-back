@@ -337,7 +337,7 @@ HTML;
                 $label = $enum->label();
 
                 /** @var DcatEnum $this->value */
-                if(class_implements($enumClass, DcatEnumColored::class) ) {
+                if(method_exists($enumClass, 'color') ) {
                     return '<span class="label" style="background:'.$enum->color().'">'.$label.'</span>';
                 }
 
