@@ -22,6 +22,10 @@
 
 <footer class="main-footer pt-1">
     <p class="clearfix blue-grey lighten-2 mb-0 text-center">
+            <span class="text-left d-block d-md-inline-block mt-25 pull-left">
+                <a style="font-size: xx-small" href="https://dev4traders.com">{!! config('admin.version') !!}</a>
+            </span>
+
             <span class="text-center d-block d-md-inline-block mt-25">
                 {!! config('admin.powered') !!}
             </span>
