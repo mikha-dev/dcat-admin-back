@@ -178,7 +178,7 @@ class AuthController extends Controller
 
             $form->password('password', trans('admin.password'))
                 ->minLength(5)
-                ->maxLength(20)
+                ->maxLength(25)
                 ->customFormat(function ($v) {
                     if ($v == $this->password) {
                         return;

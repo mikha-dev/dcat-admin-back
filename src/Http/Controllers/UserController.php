@@ -151,7 +151,7 @@ class UserController extends AdminController
             if ($id) {
                 $form->password('password', trans('admin.password'))
                     ->minLength(5)
-                    ->maxLength(20)
+                    ->maxLength(25)
                     ->customFormat(function () {
                         return '';
                     });
@@ -159,7 +159,7 @@ class UserController extends AdminController
                 $form->password('password', trans('admin.password'))
                     ->required()
                     ->minLength(5)
-                    ->maxLength(20);
+                    ->maxLength(25);
             }
 
             $form->password('password_confirmation', trans('admin.password_confirmation'))->same('password');
