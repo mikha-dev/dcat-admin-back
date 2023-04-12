@@ -7,6 +7,7 @@ use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Auth\Permission;
 use Dcat\Admin\Http\Repositories\Administrator;
 use Dcat\Admin\Models\Administrator as AdministratorModel;
+use Dcat\Admin\Models\Domain;
 use Dcat\Admin\Show;
 use Dcat\Admin\Support\Helper;
 use Dcat\Admin\Widgets\Tree;
@@ -20,11 +21,12 @@ class UserController extends AdminController
 
     protected function grid()
     {
-        return Grid::make(Administrator::with(['roles']), function (Grid $grid) {
+        return Grid::make(Administrator::with(['roles', 'domain']), function (Grid $grid) {
             $grid->column('id', 'ID')->sortable();
             $grid->column('username');
             $grid->column('name');
             $grid->column('email');
+            $grid->column('domain.host');
 
             if (config('admin.permission.enable')) {
                 $grid->column('roles')->pluck('name')->label('primary', 3);
@@ -131,10 +133,14 @@ class UserController extends AdminController
 
             $form->display('id', 'ID');
 
+            $domains = Domain::pluck('host', 'id');
+            $form->select('domain_id', trans('admin.domain'))->options($domains)->required();
+
             $form->text('username', trans('admin.username'))
                 ->required()
                 ->creationRules(['required', "unique:{$connection}.{$userTable}"])
                 ->updateRules(['required', "unique:{$connection}.{$userTable},username,$id"]);
+
             $form->text('email', trans('admin.email'))
                 ->required()
                 ->creationRules(['required', "unique:{$connection}.{$userTable}"])

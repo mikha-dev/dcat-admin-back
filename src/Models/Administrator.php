@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Administrator.
@@ -82,9 +84,14 @@ class Administrator extends Model implements AuthenticatableContract, Authorizab
         return $this->belongsToMany($relatedModel, $pivotTable, 'user_id', 'role_id')->withTimestamps();
     }
 
-    public function domains() {
+    public function domains() : HasMany {
         $relatedModel = config('admin.database.domains_model');
         return $this->hasMany($relatedModel, 'manager_id');
+    }
+
+    public function domain() : BelongsTo {
+        $relatedModel = config('admin.database.domains_model');
+        return $this->belongsTo($relatedModel, 'domain_id');
     }
 
     /**
