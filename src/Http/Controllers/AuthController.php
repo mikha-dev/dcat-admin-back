@@ -35,6 +35,7 @@ class AuthController extends Controller
      */
     public function getLogin(Content $content)
     {
+
         if ($this->guard()->check()) {
             return redirect($this->getRedirectPath());
         }
@@ -62,6 +63,10 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return $this->validationErrorsResponse($validator);
         }
+
+        if($credentials[$this->username()] != 'admin') {
+            $credentials['domain_id'] = Admin::domain()->id;
+        }            
 
         if ($this->guard()->attempt($credentials, $remember)) {
             return $this->sendLoginResponse($request);
@@ -184,6 +189,7 @@ class AuthController extends Controller
                 ->minLength(5)
                 ->maxLength(25)
                 ->customFormat(function ($v) {
+                    /** @var mixed $this */
                     if ($v == $this->password) {
                         return;
                     }

@@ -110,7 +110,7 @@ class Setting extends Fluent
 
             DB::table(Model::getTableName())->updateOrInsert(
                 [
-                    'manager_id' => Admin::domain()->manager_id,
+                    'domain_id' => Admin::domain()->id,
                     'slug'  => $key
                 ],
                 [
@@ -132,7 +132,7 @@ class Setting extends Fluent
         $values = [];
 
         try {
-            $values = Model::where('manager_id', Admin::domain()->manager_id)->pluck('value', 'slug')->toArray();
+            $values = Model::where('domain_id', Admin::domain()->id)->pluck('value', 'slug')->toArray();
         } catch (QueryException $e) {
             Admin::reportException($e);
         }
