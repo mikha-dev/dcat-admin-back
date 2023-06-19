@@ -309,6 +309,7 @@ return [
         'settings_table'         => 'admin_settings',
         'extensions_table'       => 'admin_extensions',
         'extension_histories_table' => 'admin_extension_histories',
+        'domain_role_defaults_table' => 'admin_domain_role_defaults'
     ],
 
     /*

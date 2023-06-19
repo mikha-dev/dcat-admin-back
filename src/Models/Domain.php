@@ -6,6 +6,8 @@ use Dcat\Admin\Enums\HttpSchemaType;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Domain extends Model
 {
@@ -33,8 +35,16 @@ class Domain extends Model
         $this->setTable(config('admin.database.domains_table'));
     }
 
+    public function default_roles(): BelongsToMany
+    {
+        $pivotTable = config('admin.database.domain_role_defaults_table');
 
-    public function manager()
+        $relatedModel = config('admin.database.roles_model');
+
+        return $this->belongsToMany($relatedModel, $pivotTable, 'domain_id', 'role_id')->withTimestamps();
+    }
+
+    public function manager() : BelongsTo
     {
         $managerModel = config('admin.database.users_model');
         return $this->belongsTo($managerModel, 'manager_id');

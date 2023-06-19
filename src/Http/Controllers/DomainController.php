@@ -24,6 +24,10 @@ class DomainController extends AdminController
             $grid->column('host')->editable();
             $grid->column('manager.username', trans('admin.manager'));
 
+            if (config('admin.permission.enable')) {
+                $grid->column('default_roles')->pluck('name')->label('primary', 3);
+            }
+
             $grid->disableFilterButton();
             $grid->disableRefreshButton();
             $grid->disableViewButton();
@@ -33,13 +37,26 @@ class DomainController extends AdminController
     protected function form()
     {
         $model = config('admin.database.domains_model');
-        return new Form( $model::with('manager'), function (Form $form) {
+        return new Form( $model::with(['manager','default_roles']), function (Form $form) {
 
             $form->text('host')->required();
             $form->select('schema')->options(HttpSchemaType::map())->default(HttpSchemaType::HTTPS)->required();
 
             $users = Administrator::whereManagerId(Admin::user()->id)->pluck('username', 'id');
             $form->select('manager_id', trans('admin.manager'))->options($users)->required();
+
+            if (config('admin.permission.enable')) {
+                $form->multipleSelect('default_roles', trans('admin.roles'))
+                    ->options(function () {
+                        /** @var Model $roleModel */
+                        $roleModel = config('admin.database.roles_model');
+
+                        return $roleModel::all()->pluck('name', 'id');
+                    })
+                    ->customFormat(function ($v) {
+                        return array_column($v, 'id');
+                    });
+            }
 
             $form->disableViewButton();
         });
