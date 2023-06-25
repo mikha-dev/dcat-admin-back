@@ -25,6 +25,7 @@ use Illuminate\Support\Traits\Macroable;
  * @method $this price(string $currency = '$')
  * @method $this enum()
  * @method $this enumColored()
+ * @method $this tagsColored()
  * @method $this percent()
  * @method $this switch(string $color = '', $refresh = false)
  * @method $this switchGroup($columns = [], string $color = '', $refresh = false)
@@ -82,6 +83,7 @@ class Column
         'dateHuman'        => Displayers\DateHumanDisplay::class,
         'enum'             => Displayers\EnumDisplay::class,
         'enumColored'      => Displayers\EnumColoredDisplay::class,
+        'tagsColored'      => Displayers\TagsColoredDisplay::class,
         'price'            => Displayers\PriceDisplay::class,
         'percent'          => Displayers\PercentDisplay::class,
         'icon'             => Displayers\IconDisplay::class,
