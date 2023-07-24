@@ -37,6 +37,7 @@ trait HasPermissions
      */
     public function can($ability, $paramters = []): bool
     {
+
         if (! $ability) {
             return false;
         }

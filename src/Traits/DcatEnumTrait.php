@@ -2,8 +2,10 @@
 
 namespace Dcat\Admin\Traits;
 
-use Dcat\Admin\DcatEnum;
 use ReflectionEnum;
+use Dcat\Admin\DcatEnum;
+use Exception;
+use Exceptions\UndefinedCaseError;
 
 /**
  * @implements \Dcat\Admin\DcatEnum;
@@ -143,4 +145,24 @@ trait DcatEnumTrait
         static::ensureImplementsInterface();
         return !$this->isAny($values);
     }
+
+    public function __invoke()
+    {
+        return $this instanceof DcatEnum ? $this->value : $this->name;
+    }
+
+    /** Return the enum's value or name when it's called ::STATICALLY(). */
+    public static function __callStatic($name, $args)
+    {
+        $cases = static::cases();
+
+        foreach ($cases as $case) {
+            if ($case->name === $name) {
+                return $case instanceof DcatEnum ? $case->value : $case->name;
+            }
+        }
+
+        $enum = static::class;
+        throw new Exception("Undefined constant $enum::$name");
+    }    
 }
