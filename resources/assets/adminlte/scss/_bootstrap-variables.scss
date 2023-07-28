@@ -44,6 +44,7 @@ $yellow:  #ffc107 !default;
 $green:   #28a745 !default;
 $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
+$green2:  #00c7b4 !default;
 
 $colors: () !default;
 $colors: map-merge((
@@ -55,6 +56,7 @@ $colors: map-merge((
         "orange":     $orange,
         "yellow":     $yellow,
         "green":      $green,
+        "green2":     $green2,
         "teal":       $teal,
         "cyan":       $cyan,
         "white":      $white,
@@ -80,7 +82,8 @@ $theme-colors: map-merge((
         "warning":    $warning,
         "danger":     $danger,
         "light":      $light,
-        "dark":       $dark
+        "dark":       $dark,
+        "green2":     $green2
 ), $theme-colors);
 // stylelint-enable
 
