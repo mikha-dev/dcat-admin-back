@@ -2,6 +2,8 @@
         class="dcat-admin-body sidebar-mini layout-fixed {{ $configData['body_class']}} {{ $configData['sidebar_class'] }}
         {{ $configData['navbar_class'] === 'fixed-top' ? 'navbar-fixed-top' : '' }} " >
 
+<script src="/vendor/dcat-admin-extensions/mikha-dev/dcat-statistics/js/statistics.js"></script>
+        
 <script>
     var Dcat = CreateDcat({!! Dcat\Admin\Admin::jsVariables() !!});
 </script>
