@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge">
-    {{-- 默认使用谷歌浏览器内核--}}
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
@@ -15,7 +14,7 @@
     @endif
 
     @if(! empty($favicon = Dcat\Admin\Admin::favicon()))
-        <link rel="shortcut icon" href="{{$favicon}}">
+        {!! $favicon !!}
     @endif
 
     {!! admin_section(Dcat\Admin\Admin::SECTION['HEAD']) !!}
@@ -31,7 +30,6 @@
     var Dcat = CreateDcat({!! Dcat\Admin\Admin::jsVariables() !!});
 </script>
 
-{{-- 页面埋点 --}}
 {!! admin_section(Dcat\Admin\Admin::SECTION['BODY_INNER_BEFORE']) !!}
 
 <div class="app-content content">

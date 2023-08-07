@@ -116,13 +116,35 @@ class Admin
      * @param  null|string  $favicon
      * @return string|void
      */
-    public static function favicon($favicon = null)
+    public static function favicon()
     {
-        if ($favicon === null) {
-            return static::context()->favicon ?: config('admin.favicon');
+
+        // <link rel="icon" type="image/png" sizes="32x32" href="/storage/img/icon-32.png">
+        // <link rel="icon" href="/storage/img/icon-192.png" sizes="192x192" />
+        // <link rel="apple-touch-icon" href="/storage/img/icon-192.png" />
+        // <meta name="msapplication-TileImage" content="/storage/img/icon-192.png" />
+        // <meta name="msapplication-TileColor" content="#ff0000">
+        // <link rel="manifest" href="/manifest.json">        
+
+        // if ($favicon === null) {
+        //     return static::context()->favicon ?: config('admin.favicon');
+        // }
+
+        // static::context()->favicon = $favicon;
+
+        $link = '';
+        if(!empty($icon32 = config('admin.icons.icon-32'))) {
+            $link .= "<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/storage/{$icon32}\">";
         }
 
-        static::context()->favicon = $favicon;
+        if(!empty($icon192 = config('admin.icons.icon-192'))) {
+            $link .= "<link rel=\"icon\" type=\"image/png\" sizes=\"192x192\" href=\"/storage/{$icon192}\">";
+            $link .= "<link rel=\"apple-touch-icon\" href=\"/storage/{$icon192}\" />";
+            $link .= "<meta name=\"msapplication-TileImage\" content=\"/storage/{$icon192}\" />";
+            $link .= "<meta name=\"msapplication-TileColor\" content=\"#ff0000\">";
+        }
+
+        return $link;
     }
 
     /**
