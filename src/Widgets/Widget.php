@@ -256,6 +256,7 @@ abstract class Widget implements Renderable
     public function view($view)
     {
         $this->view = $view;
+        return $this;
     }
 
     /**

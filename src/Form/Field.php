@@ -155,6 +155,8 @@ class Field implements Renderable
      */
     protected $view = '';
 
+    protected $innerView = '';
+
     /**
      * Help block.
      *
@@ -1187,7 +1189,7 @@ class Field implements Renderable
     /**
      * Set view of current field.
      *
-     * @return string
+     * @return self
      */
     public function setView($view)
     {
@@ -1195,6 +1197,13 @@ class Field implements Renderable
 
         return $this;
     }
+
+    public function setInnerView($view)
+    {
+        $this->innerView = $view;
+
+        return $this;
+    }    
 
     /**
      * Get script of current field.

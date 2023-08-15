@@ -2,9 +2,10 @@
 
 namespace Dcat\Admin\Form\Field;
 
-use Dcat\Admin\Enums\RadioLayoutType;
 use Dcat\Admin\Form\Field;
 use Dcat\Admin\Support\Helper;
+use Dcat\Admin\Enums\RadioLayoutType;
+use Illuminate\Contracts\Support\Arrayable;
 use Dcat\Admin\Widgets\Radio as WidgetRadio;
 
 class Radio extends Field
@@ -24,13 +25,19 @@ class Radio extends Field
     protected string $boxed_height = "100px";
 
     /**
-     * @param  array|\Closure|string  $options
+     * @param  array|\Closure|string|Arrayable  $options
      * @return $this
      */
     public function options($options = [])
     {
         if ($options instanceof \Closure) {
             $this->options = $options;
+
+            return $this;
+        }
+
+        if ($options instanceof Arrayable) {
+            $this->options = $options->toArray();
 
             return $this;
         }
@@ -94,6 +101,9 @@ class Radio extends Field
             ->class($this->getElementClassString())
             ->size($this->size)
             ->layout($this->layout, $this->boxed_width, $this->boxed_height);
+            
+        if(!empty($this->innerView))
+            $radio->view($this->innerView);
 
         $this->addVariables([
             'radio' => $radio,
