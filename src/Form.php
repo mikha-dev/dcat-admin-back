@@ -3,32 +3,33 @@
 namespace Dcat\Admin;
 
 use Closure;
-use Dcat\Admin\Actions\Action;
-use Dcat\Admin\Contracts\Repository;
-use Dcat\Admin\Form\AbstractTool;
-use Dcat\Admin\Form\Builder;
-use Dcat\Admin\Form\Concerns;
-use Dcat\Admin\Form\Condition;
+use Field\SelectCreate;
 use Dcat\Admin\Form\Field;
+use Illuminate\Support\Arr;
+use Dcat\Admin\Form\Builder;
+use Illuminate\Http\Request;
+use Dcat\Admin\Form\Concerns;
+use Dcat\Admin\Actions\Action;
+use Dcat\Admin\Form\Condition;
+use Dcat\Admin\Support\Helper;
+use Illuminate\Support\Fluent;
 use Dcat\Admin\Form\NestedForm;
+use Dcat\Admin\Form\AbstractTool;
 use Dcat\Admin\Form\ResolveField;
 use Dcat\Admin\Http\JsonResponse;
-use Dcat\Admin\Repositories\EloquentRepository;
-use Dcat\Admin\Support\Helper;
-use Dcat\Admin\Traits\HasBuilderEvents;
-use Dcat\Admin\Traits\HasFormResponse;
 use Dcat\Admin\Widgets\DialogForm;
-use Illuminate\Contracts\Support\MessageProvider;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Fluent;
 use Illuminate\Support\MessageBag;
-use Illuminate\Support\Traits\Macroable;
+use Dcat\Admin\Contracts\Repository;
 use Illuminate\Validation\Validator;
+use Dcat\Admin\Traits\HasFormResponse;
+use Dcat\Admin\Traits\HasBuilderEvents;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Traits\Macroable;
+use Illuminate\Contracts\Support\Renderable;
 use Symfony\Component\HttpFoundation\Response;
+use Dcat\Admin\Repositories\EloquentRepository;
+use Illuminate\Contracts\Support\MessageProvider;
 
 /**
  * Class Form.
@@ -37,6 +38,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @method Field\Checkbox checkbox($column, $label = '')
  * @method Field\Radio radio($column, $label = '')
  * @method Field\Select select($column, $label = '')
+ * @method Field\SelectCreate selectCreate($column, $label = '')
  * @method Field\MultipleSelect multipleSelect($column, $label = '')
  * @method Field\Textarea textarea($column, $label = '')
  * @method Field\Hidden hidden($column, $label = '')
@@ -142,6 +144,7 @@ class Form implements Renderable
         'radio'               => Field\Radio::class,
         'rate'                => Field\Rate::class,
         'select'              => Field\Select::class,
+        'selectCreate'        => Field\SelectCreate::class,
         'slider'              => Field\Slider::class,
         'switch'              => Field\SwitchField::class,
         'text'                => Field\Text::class,
