@@ -5,6 +5,7 @@ namespace Dcat\Admin\Layout;
 use Closure;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Exception\RuntimeException;
+use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Traits\HasBuilderEvents;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Traits\Macroable;
@@ -37,6 +38,13 @@ class Content implements Renderable
      * @var string
      */
     protected $description = '';
+
+    /**
+     * Help Topic.
+     *
+     * @var string
+     */
+    protected string $helpTopic = '';    
 
     /**
      * Page breadcrumb.
@@ -114,6 +122,19 @@ class Content implements Renderable
 
         return $this;
     }
+
+    /**
+     * Set help topic of content.
+     *
+     * @param  string  $description
+     * @return $this
+     */
+    public function helpTopic(string $helpTopic = '') : Content
+    {
+        $this->helpTopic = $helpTopic;
+
+        return $this;
+    }    
 
     /**
      * 设置翻译文件路径.
@@ -413,6 +434,7 @@ class Content implements Renderable
         return array_merge([
             'header'          => $this->title,
             'description'     => $this->description,
+            'helpTopic'       => $this->helpTopic,
             'breadcrumb'      => $this->breadcrumb,
             'configData'      => $this->applyClasses(),
             'pjaxContainerId' => Admin::getPjaxContainerId(),

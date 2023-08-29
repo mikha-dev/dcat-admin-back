@@ -3,7 +3,9 @@
 namespace Dcat\Admin\Http\Controllers;
 
 use Dcat\Admin\Layout\Content;
+use Dcat\Admin\Support\Helper;
 use Illuminate\Routing\Controller;
+use Dcat\Admin\Models\ControllerHelpTopic;
 
 class AdminController extends Controller
 {
@@ -47,6 +49,31 @@ class AdminController extends Controller
         return $description;
     }
 
+    protected function helpTopic() : string
+    {        
+        if(!ControllerHelpTopic::docsEnabled()) 
+            return '';
+
+        $name = Helper::getControllerName();
+        $item = ControllerHelpTopic::where('controller_name', $name)->first();
+
+        $str = '';
+        if(!is_null($item)) {
+            $str = '<a style="font-size:small" href="'.$item->url.'">'.__('admin.need_help').'<i class="fa feather icon-help-circle"></i></a>';
+        }        
+
+        // if(Admin::user()->isAdministrator()) {
+        //     $modal = new Modal();
+        //     $modal->title(__('admin.set_help_topic'));
+        //     $modal->lg()->button('<button class="btn btn-white"><i class="feather icon-help"></i>'.__('admin.set_help_topic').'</button>');
+        //     $modal->body(new DialogTable(new ControllerHelpTopicForm()));
+
+        //     $str .= $modal;
+        // }
+
+        return $str;
+    }    
+
     /**
      * Get translation path.
      *
@@ -69,6 +96,7 @@ class AdminController extends Controller
             ->translation($this->translation())
             ->title($this->title())
             ->description($this->description())
+            ->helpTopic($this->helpTopic())
             ->body($this->grid());
     }
 
@@ -84,6 +112,7 @@ class AdminController extends Controller
         return $content
             ->translation($this->translation())
             ->title($this->title())
+            ->helpTopic($this->helpTopic())
             ->body($this->detail($id));
     }
 
@@ -99,6 +128,7 @@ class AdminController extends Controller
         return $content
             ->translation($this->translation())
             ->title($this->title())
+            ->helpTopic($this->helpTopic())
             ->body($this->form()->edit($id));
     }
 
@@ -113,6 +143,7 @@ class AdminController extends Controller
         return $content
             ->translation($this->translation())
             ->title($this->title())
+            ->helpTopic($this->helpTopic())
             ->body($this->form());
     }
 
