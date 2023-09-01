@@ -14,22 +14,22 @@
 
 .bg-gray {
   background-color: $gray-500;
-  color: color-yiq($gray-500);
+  color: color-contrast($gray-500);
 }
 
 .bg-gray-light {
   background-color: lighten($gray-200, 3%);
-  color: color-yiq(lighten($gray-200, 3%)) !important;
+  color: color-contrast(lighten($gray-200, 3%)) !important;
 }
 
 .bg-black {
   background-color: $black;
-  color: color-yiq($black) !important;
+  color: color-contrast($black) !important;
 }
 
 .bg-white {
   background-color: $white;
-  color: color-yiq($white) !important;
+  color: color-contrast($white) !important;
 }
 
 // Gradient Background colors (theme colors)
@@ -49,7 +49,7 @@
 
 // Text muted hover
 a.text-muted:hover {
-  color: theme-color(primary) !important;
+  color: map-get($theme-colors, primary) !important;
 }
 
 // Link Styles
@@ -85,7 +85,7 @@ a.text-muted:hover {
 [class*="accent-"] {
   @each $name, $color in $theme-colors {
     a.btn-#{$name} {
-      color: color-yiq($color);
+      color: color-contrast($color);
     }
   }
 }

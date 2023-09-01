@@ -129,9 +129,9 @@ textarea.form-control{
 
 // Custom-File-Input
 .custom-file-label{
-  padding: 0.4rem $custom-file-padding-x;
+  padding: 0.4rem $input-padding-x;
   &::after{
-    padding: 0.4rem $custom-file-padding-x;
+    padding: 0.4rem $input-padding-x;
     height: auto;
   }
 }

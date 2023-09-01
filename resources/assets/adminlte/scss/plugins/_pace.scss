@@ -26,14 +26,14 @@
 
   .pace-barber-shop-#{$name} {
     .pace {
-      background: color-yiq($color);
+      background: color-contrast($color);
 
       .pace-progress {
         background: $color;
       }
 
       .pace-activity {
-        background-image: linear-gradient(45deg, rgba(color-yiq($color), 0.2) 25%, transparent 25%, transparent 50%, rgba(color-yiq($color), 0.2) 50%, rgba(color-yiq($color), 0.2) 75%, transparent 75%, transparent);
+        background-image: linear-gradient(45deg, rgba(color-contrast($color), 0.2) 25%, transparent 25%, transparent 50%, rgba(color-contrast($color), 0.2) 50%, rgba(color-contrast($color), 0.2) 75%, transparent 75%, transparent);
       }
     }
   }
@@ -61,7 +61,7 @@
 
       &::before {
         background: $color;
-        color: color-yiq($color);
+        color: color-contrast($color);
         font-size: .8rem;
         line-height: .7rem;
         padding-top: 17%;
@@ -82,7 +82,7 @@
     .pace {
       .pace-progress {
         background: rgba($color, .8);
-        color: color-yiq($color);
+        color: color-contrast($color);
       }
     }
   }
@@ -101,7 +101,7 @@
 
   .pace-center-simple-#{$name} {
     .pace {
-      background: color-yiq($color);
+      background: color-contrast($color);
       border-color: $color;
 
       .pace-progress {
@@ -124,7 +124,7 @@
 
       .pace-activity::after,
       .pace-activity::before {
-        border: 5px solid color-yiq($color);
+        border: 5px solid color-contrast($color);
       }
 
 
@@ -170,11 +170,11 @@
       .pace-progress {
         background: $color;
         color: $color;
-        box-shadow: 120px 0 color-yiq($color), 240px 0 color-yiq($color);
+        box-shadow: 120px 0 color-contrast($color), 240px 0 color-contrast($color);
       }
 
       .pace-activity {
-        box-shadow: inset 0 0 0 2px $color, inset 0 0 0 7px color-yiq($color);
+        box-shadow: inset 0 0 0 2px $color, inset 0 0 0 7px color-contrast($color);
       }
     }
   }
@@ -183,11 +183,11 @@
     .pace {
       .pace-progress {
         background-color: $color;
-        box-shadow: inset -1px 0 $color, inset 0 -1px $color, inset 0 2px rgba(color-yiq($color), 0.5), inset 0 6px rgba(color-yiq($color), .3);
+        box-shadow: inset -1px 0 $color, inset 0 -1px $color, inset 0 2px rgba(color-contrast($color), 0.5), inset 0 6px rgba(color-contrast($color), .3);
       }
 
       .pace-activity {
-        background-image: radial-gradient(rgba(color-yiq($color), .65) 0%, rgba(color-yiq($color), .15) 100%);
+        background-image: radial-gradient(rgba(color-contrast($color), .65) 0%, rgba(color-contrast($color), .15) 100%);
         height: 12px;
       }
     }

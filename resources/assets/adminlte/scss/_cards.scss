@@ -403,7 +403,7 @@ html.maximized-card {
 
     // Tools and options box
     .tools {
-      color: theme-color('danger');
+      color: map-get($theme-colors, 'danger');
       display: none;
       float: right;
 

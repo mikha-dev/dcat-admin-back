@@ -57,20 +57,20 @@ $bootstrap-switch-handle-border-radius: .1rem;
 
     &.bootstrap-switch-default {
       background: $gray-200;
-      color: color-yiq($gray-200);
+      color: color-contrast($gray-200);
     }
 
     @each $name, $color in $theme-colors {
       &.bootstrap-switch-#{$name} {
         background: $color;
-        color: color-yiq($color);
+        color: color-contrast($color);
       }
     }
 
     @each $name, $color in $colors {
       &.bootstrap-switch-#{$name} {
         background: $color;
-        color: color-yiq($color);
+        color: color-contrast($color);
       }
     }
   }

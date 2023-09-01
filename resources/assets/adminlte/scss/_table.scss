@@ -22,9 +22,9 @@
     &.table-dark {
       thead tr {
         &:nth-child(1) th {
-          background-color: $table-dark-bg;
-          box-shadow: inset 0 1px 0 $table-dark-border-color,
-                      inset 0 -1px 0 $table-dark-border-color;
+          background-color: $dark;
+          box-shadow: inset 0 1px 0 mix(color-contrast(opaque($body-bg, $dark)), $dark, percentage($table-border-factor)),
+                      inset 0 -1px 0 mix(color-contrast(opaque($body-bg, $dark)), $dark, percentage($table-border-factor));
         }
       }
     }

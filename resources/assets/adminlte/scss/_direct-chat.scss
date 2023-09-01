@@ -18,13 +18,13 @@
 
   &.timestamp-light {
     .direct-chat-timestamp {
-      color: lighten(color-yiq($yiq-text-light), 10%);
+      color: lighten(color-contrast($color-contrast-light), 10%);
     }
   }
 
   &.timestamp-dark {
     .direct-chat-timestamp {
-      color: darken(color-yiq($yiq-text-dark), 20%);
+      color: darken(color-contrast($color-contrast-dark), 20%);
     }
   }
 }

@@ -92,7 +92,7 @@
 
       &,
       &:hover {
-        color: color-yiq($color);
+        color: color-contrast($color);
       }
     }
   }
@@ -100,7 +100,7 @@
   .select2-results__option--highlighted {
     $color: $primary;
     background-color: $color;
-    color: color-yiq($color);
+    color: color-contrast($color);
 
     &[aria-selected] {
       $color: darken($color, 3%);
@@ -108,7 +108,7 @@
       &,
       &:hover {
         background-color: $color;
-        color: color-yiq($color);
+        color: color-contrast($color);
       }
     }
   }
@@ -148,7 +148,7 @@
       .select2-selection__choice {
         background-color: $primary;
         border-color: darken($primary, 5%);
-        color: color-yiq($primary);
+        color: color-contrast($primary);
         padding: 0 10px;
         margin-top: .31rem;
       }

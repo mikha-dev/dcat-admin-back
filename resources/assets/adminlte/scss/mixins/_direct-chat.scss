@@ -7,7 +7,7 @@
   .right > .direct-chat-text {
     background: $bg-color;
     border-color: $bg-color;
-    color: color-yiq($bg-color);
+    color: color-contrast($bg-color);
 
     &::after,
     &::before {
