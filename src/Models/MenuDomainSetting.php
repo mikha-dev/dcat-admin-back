@@ -14,6 +14,7 @@ class MenuDomainSetting extends Model
     protected $casts = ['icon_type' => IconType::class];
 
     protected $appends = [ 'icon' ];
+    protected $fillable = [ 'visible' ];
 
     protected function menu() : BelongsTo {
         return $this->belongsTo(Menu::class);
@@ -26,7 +27,7 @@ class MenuDomainSetting extends Model
     public function getIconAttribute() {
         if(is_null($this->icon_type))
             return null;
-            
+
         return $this->icon_type == IconType::SVG ? 'icon-svg '.$this->icon_svg : $this->icon_font;
     }
 }

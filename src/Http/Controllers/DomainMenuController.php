@@ -11,6 +11,8 @@ use Dcat\Admin\Widgets\Tab;
 use Dcat\Admin\Enums\IconType;
 use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Models\Permission;
+use Dcat\Admin\Http\Actions\Menu\Show;
+use Dcat\Admin\Http\Actions\Menu\DomainMenuToogleVisibilityRowAction;
 
 class DomainMenuController extends AdminController
 {
@@ -83,6 +85,10 @@ class DomainMenuController extends AdminController
             $tree->disableDeleteButton();
             $tree->disableSaveButton();
             $tree->maxDepth(3);            
+
+            $tree->actions(function (Tree\Actions $actions) {
+                $actions->prepend(new DomainMenuToogleVisibilityRowAction());
+            });            
 
             $tree->branch(function ($branch) {
 
