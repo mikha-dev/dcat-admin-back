@@ -622,6 +622,7 @@ class Admin
                     $router->resource('auth/users', 'UserController');
                     $router->resource('auth/menu', 'MenuController', ['except' => ['create', 'show']]);
                     $router->resource('auth/domains', 'DomainController');
+                    $router->resource('auth/domain-menu', 'DomainMenuController');
 
                     if (config('admin.permission.enable')) {
                         $router->resource('auth/roles', 'RoleController');

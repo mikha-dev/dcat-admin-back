@@ -3,7 +3,12 @@
 
     $horizontal = config('admin.layout.horizontal-menu');
 
-    $defaultIcon = config('admin.menu.default_icon', 'feather icon-circle');
+    //dd($item);
+
+    $icon = $item['icon']; 
+    if(!is_null($item['domain_setting']) && !is_null($item['domain_setting']['icon'])) {
+        $icon = $item['domain_setting']['icon'];
+    }
 @endphp
 
 @if($builder->visible($item))
@@ -12,7 +17,7 @@
             <a data-id="{{ $item['id'] ?? '' }}" @if(mb_strpos($item['uri'], '://') !== false || ( isset($item['is_target_blank']) && $item['is_target_blank'] == 1)) target="_blank" @endif
                href="{{ $builder->getUrl($item['uri']) }}"
                class="nav-link {!! $builder->isActive($item) ? 'active' : '' !!}">
-                {!! str_repeat('&nbsp;', $depth) !!}<i class="fa fa-fw {{ $item['icon'] ?: $defaultIcon }}"></i>
+                {!! str_repeat('&nbsp;', $depth) !!}<i class="fa fa-fw {{ $icon }}"></i>
                 <p>
                     {!! $builder->translate($item['title']) !!}
                 </p>
@@ -24,7 +29,7 @@
             <a href="#"  data-id="{{ $item['id'] ?? '' }}"
                class="nav-link {{ $builder->isActive($item) ? ($horizontal ? 'active' : '') : '' }}
                     {{ $horizontal ? 'dropdown-toggle' : '' }}">
-                {!! str_repeat('&nbsp;', $depth) !!}<i class="fa fa-fw {{ $item['icon'] ?: $defaultIcon }}"></i>
+                {!! str_repeat('&nbsp;', $depth) !!}<i class="fa fa-fw {{ $icon }}"></i>
                 <p>
                     {!! $builder->translate($item['title']) !!}
 

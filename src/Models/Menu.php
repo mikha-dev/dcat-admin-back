@@ -6,6 +6,7 @@ use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Dcat\Admin\Traits\ModelTree;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\EloquentSortable\Sortable;
 
 /**
@@ -59,6 +60,11 @@ class Menu extends Model implements Sortable
         $this->setTable(config('admin.database.menu_table'));
     }
 
+    public function domain_setting(): HasOne
+    {
+        return $this->hasOne(MenuDomainSetting::class);
+    }
+
     /**
      * A Menu belongs to many roles.
      *
@@ -110,6 +116,8 @@ class Menu extends Model implements Sortable
             if (static::withPermission()) {
                 $query = $query->with('permissions');
             }
+
+            $query = $query->with('domain_setting');
 
             return $query->with('roles');
         })->treeAllNodes();

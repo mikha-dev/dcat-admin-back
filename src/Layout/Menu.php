@@ -158,6 +158,7 @@ class Menu
     {
         if (
             ! $this->checkPermission($item)
+            || ! $this->checkDomainSetting($item)
             || ! $this->checkExtension($item)
             || ! $this->userCanSeeMenu($item)
         ) {
@@ -208,6 +209,13 @@ class Menu
         }
 
         return $user->canSeeMenu($item);
+    }
+
+    protected function checkDomainSetting($item) : bool {
+        if(is_null($item['domain_setting'])) 
+            return true;
+
+        return $item['domain_setting']['visible'];
     }
 
     /**
