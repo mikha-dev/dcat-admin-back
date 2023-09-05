@@ -48,6 +48,7 @@ class DomainMenuController extends AdminController
             $tree->wrap(function(View $view) use($menu) {
 
                 $tabs = new Tab();
+                $tabs->withCard();
 
                 if ($menu == 'manager')
                     $tabs->add('Manager Dashboard', $view, $menu == 'manager', 'manager');
