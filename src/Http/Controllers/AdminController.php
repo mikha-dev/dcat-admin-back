@@ -59,7 +59,7 @@ class AdminController extends Controller
 
         $str = '';
         if(!is_null($item)) {
-            $str = '<a style="font-size:small" href="'.$item->url.'">'.__('admin.need_help').'<i class="fa feather icon-help-circle"></i></a>';
+            $str = '<a target="_blank" style="font-size:small" href="'.$item->url.'">'.__('admin.need_help').'<i class="fa feather icon-help-circle"></i></a>';
         }        
 
         // if(Admin::user()->isAdministrator()) {
