@@ -3,28 +3,29 @@
 namespace Dcat\Admin;
 
 use Closure;
-use Dcat\Admin\Contracts\ExceptionHandler;
-use Dcat\Admin\Contracts\Repository;
-use Dcat\Admin\Exception\InvalidArgumentException;
-use Dcat\Admin\Http\Controllers\AuthController;
-use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Layout\Menu;
 use Dcat\Admin\Layout\Navbar;
-use Dcat\Admin\Layout\SectionManager;
-use Dcat\Admin\Repositories\EloquentRepository;
-use Dcat\Admin\Support\Composer;
 use Dcat\Admin\Support\Helper;
-use Dcat\Admin\Traits\HasAssets;
 use Dcat\Admin\Traits\HasHtml;
-use Dcat\Admin\Traits\HasPermissions;
+use Dcat\Admin\Support\Composer;
+use Dcat\Admin\Traits\HasAssets;
+use Dcat\Admin\Http\JsonResponse;
 use Illuminate\Auth\GuardHelpers;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use Dcat\Admin\Contracts\Repository;
 use Illuminate\Support\Facades\Auth;
+use Dcat\Admin\Layout\SectionManager;
+use Dcat\Admin\Traits\HasPermissions;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Dcat\Admin\Contracts\ExceptionHandler;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Symfony\Component\HttpFoundation\Response;
+use Dcat\Admin\Http\Controllers\AuthController;
+use Dcat\Admin\Repositories\EloquentRepository;
+use Dcat\Admin\Exception\InvalidArgumentException;
+use Dcat\Admin\Contracts\EmailContextObjectInterface;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class Admin
 {
@@ -160,7 +161,7 @@ class Admin
     /**
      * 获取登录用户模型.
      *
-     * @return Model|Authenticatable|HasPermissions
+     * @return Model|Authenticatable|HasPermissions|EmailContextObjectInterface
      */
     public static function user()
     {
