@@ -55,6 +55,8 @@ class AdminController extends Controller
             return '';
 
         $name = Helper::getControllerName();
+
+        //dd($name);
         $item = ControllerHelpTopic::where('controller_name', $name)->first();
 
         $str = '';

@@ -4,12 +4,11 @@ namespace Dcat\Admin\Layout;
 
 use Closure;
 use Dcat\Admin\Admin;
-use Dcat\Admin\Exception\RuntimeException;
-use Dcat\Admin\Http\Controllers\AdminController;
-use Dcat\Admin\Traits\HasBuilderEvents;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Support\Traits\Macroable;
 use Illuminate\Support\ViewErrorBag;
+use Dcat\Admin\Traits\HasBuilderEvents;
+use Illuminate\Support\Traits\Macroable;
+use Dcat\Admin\Exception\RuntimeException;
+use Illuminate\Contracts\Support\Renderable;
 
 class Content implements Renderable
 {
