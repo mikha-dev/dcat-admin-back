@@ -4,30 +4,32 @@ namespace Dcat\Admin\Models;
 
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Dcat\Admin\Traits\HasPermissions;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Auth\Authenticatable;
+//use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+//use Illuminate\Contracts\Auth\Access\Authorizable;
+//use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * Class Administrator.
  *
  * @property Role[] $roles
  */
-class Administrator extends Model implements AuthenticatableContract, Authorizable
+class Administrator extends Authenticatable
 {
-    use Authenticatable,
+    use 
+    //    Authenticatable,
         HasPermissions,
         HasDateTimeFormatter;
 
     const DEFAULT_ID = 1;
 
-    protected $fillable = ['username', 'password', 'name', 'avatar'];
+    protected $fillable = ['username', 'password', 'name', 'avatar_url'];
+    protected $appends = ['avatar'];
 
     /**
      * Create a new Eloquent model instance.
@@ -55,9 +57,9 @@ class Administrator extends Model implements AuthenticatableContract, Authorizab
      *
      * @return mixed|string
      */
-    public function getAvatar()
+    public function getAvatarAttribute() : string
     {
-        $avatar = $this->avatar;
+        $avatar = $this->avatar_url;
 
         if ($avatar) {
             if (! URL::isValidUrl($avatar)) {

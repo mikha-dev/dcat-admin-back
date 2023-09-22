@@ -2,7 +2,7 @@
 <!-- Sidebar user panel (optional) -->
 <div class="user-panel">
     <div class="pull-left image">
-        <img style="max-height:45px" src="{{ $user->getAvatar() }}" class="img-circle">
+        <img style="max-height:45px" src="{{ $user->avatar }}" class="img-circle">
     </div>
     <div class="pull-left info">
         <p>{{ $user->name }}</p>

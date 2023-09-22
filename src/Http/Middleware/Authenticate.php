@@ -18,6 +18,7 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
+
         if (
             ! config('admin.auth.enable', true)
             || ! Admin::guard()->guest()

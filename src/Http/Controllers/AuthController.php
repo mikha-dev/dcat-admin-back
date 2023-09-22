@@ -181,7 +181,7 @@ class AuthController extends Controller
             else
                 $form->email('email', trans('admin.email'))->required();
 
-            $form->image('avatar', trans('admin.avatar'))->autoUpload();
+            $form->image('avatar_url', trans('admin.avatar'))->autoUpload();
 
             $form->password('old_password', trans('admin.old_password'));
 
