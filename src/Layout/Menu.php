@@ -212,7 +212,7 @@ class Menu
     }
 
     protected function checkDomainSetting($item) : bool {
-        if(is_null($item['domain_setting'])) 
+        if(!isset($item['domain_setting']) || is_null($item['domain_setting'])) 
             return true;
 
         return $item['domain_setting']['visible'];

@@ -5,9 +5,10 @@ namespace Dcat\Admin\Http\Middleware;
 use Closure;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Support\Helper;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Middleware\AuthenticatesRequests;
 
-class Authenticate
+class Authenticate implements AuthenticatesRequests
 {
     /**
      * Handle an incoming request.
@@ -16,7 +17,7 @@ class Authenticate
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, ...$params)
     {
 
         if (
@@ -24,6 +25,7 @@ class Authenticate
             || ! Admin::guard()->guest()
             || $this->shouldPassThrough($request)
         ) {
+            Auth::shouldUse(config('admin.auth.guard', 'admin'));
             return $next($request);
         }
 
