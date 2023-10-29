@@ -6,7 +6,7 @@
     //dd($item);
 
     $icon = $item['icon']; 
-    if(!is_null($item['domain_setting']) && !is_null($item['domain_setting']['icon'])) {
+    if(isset($item['domain_setting']) && !is_null($item['domain_setting']) && !is_null($item['domain_setting']['icon'])) {
         $icon = $item['domain_setting']['icon'];
     }
 @endphp

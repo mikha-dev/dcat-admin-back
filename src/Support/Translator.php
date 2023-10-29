@@ -82,7 +82,6 @@ class Translator
     public function transLabel(?string $label = null, $replace = [], $locale = null)
     {
         $label = $label ?: admin_controller_name();
-
         return $this->trans("{$this->getPath()}.labels.{$label}", $replace, $locale);
     }
 
