@@ -4,12 +4,12 @@
             <div class="mb-1" style="height: 55px">
                 <div class="p-1 position-fixed d-flex justify-content-between header">
                     <div>
-                        <button type="submit" class=" btn btn-sm btn-primary submit">
-                            <i class="feather icon-search"></i> &nbsp;{{ __('admin.search') }}
+                        <button type="submit" class="btn btn-primary submit">
+                            <i class="fas fa-search"></i> &nbsp;{{ __('admin.search') }}
                         </button>&nbsp;
                         @if(!$disableResetButton)
-                            <a href="{!! $action !!}" class="reset btn btn-sm btn-white">
-                                <i class="feather icon-rotate-ccw"></i> &nbsp;{{ __('admin.reset') }}
+                            <a href="{!! $action !!}" class="reset btn btn-warning">
+                                <i class="fas fa-rotate-left"></i> &nbsp;{{ __('admin.reset') }}
                             </a>
                         @endif
                     </div>

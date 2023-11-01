@@ -2,7 +2,7 @@
     @if ($title || $tools)
         <div class="card-header {{ $divider ? 'with-border' : '' }}">
             <span class="card-box-title">{!! $title !!}</span>
-            <div class="box-tools pull-right">
+            <div class="box-tools float-end">
                 @foreach($tools as $tool)
                     {!! $tool !!}
                 @endforeach

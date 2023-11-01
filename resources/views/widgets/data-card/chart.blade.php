@@ -1,5 +1,5 @@
 <div {!! $attributes !!}>
-    <div class="dropdown btn-group {!! $options['show_tool_shadow'] ? '' : 'no-shadow' !!} pull-right">
+    <div class="dropdown btn-group {!! $options['show_tool_shadow'] ? '' : 'no-shadow' !!} float-end">
         @foreach($options['tools'] as $tool)
             {!! $tool !!}
         @endforeach
@@ -9,9 +9,9 @@
 
     <div>
         <div>
-            <div class="chart-container pull-right">{!! $options['chart'] !!}</div>
+            <div class="chart-container float-end">{!! $options['chart'] !!}</div>
 
-            <h2 class="main-content m-b-10 pull-left m-t-0" >
+            <h2 class="main-content m-b-10 float-start m-t-0" >
                 {!! $options['content']['left'] !!}&nbsp;
             </h2>
 

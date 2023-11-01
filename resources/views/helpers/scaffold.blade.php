@@ -138,7 +138,7 @@
                                     <input name="fields[{{$index}}][nullable]" type="checkbox" {{ \Illuminate\Support\Arr::get($field, 'nullable') == 'on' ? 'checked': '' }}>
                                     <span class="vs-checkbox vs-checkbox-">
                                       <span class="vs-checkbox--check">
-                                        <i class="vs-icon feather icon-check"></i>
+                                        <i class="vs-icon fas fa-check"></i>
                                       </span>
                                     </span>
                                 </div>
@@ -154,8 +154,8 @@
                             <td><input type="text" class="form-control" placeholder="{{trans('admin.scaffold.default')}}" name="fields[{{$index}}][default]" value="{{$field['default']}}"/></td>
                             <td><input type="text" class="form-control" placeholder="{{trans('admin.scaffold.comment')}}" name="fields[{{$index}}][comment]" value="{{$field['comment']}}" /></td>
                             <td>
-                                <button class="btn btn-sm btn-white table-field-sort-handle" type="button" title="{{trans('admin.order')}}"><i class="fa fa-sort"></i></button>
-                                <button class="btn btn-sm btn-white table-field-remove"><i class="feather icon-trash"></i></button>
+                                <button class="btn btn-info table-field-sort-handle" type="button" title="{{trans('admin.order')}}"><i class="fa fa-sort"></i></button>
+                                <button class="btn btn-danger table-field-remove"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
                     @endforeach
@@ -179,7 +179,7 @@
                                 <input name="fields[0][nullable]" type="checkbox"  />
                                 <span class="vs-checkbox vs-checkbox-">
                                   <span class="vs-checkbox--check">
-                                    <i class="vs-icon feather icon-check"></i>
+                                    <i class="vs-icon fas fa-check"></i>
                                   </span>
                                 </span>
                             </div>
@@ -194,8 +194,8 @@
                         <td><input type="text" class="form-control" placeholder="{{trans('admin.scaffold.default')}}" name="fields[0][default]"></td>
                         <td><input type="text" class="form-control" placeholder="{{trans('admin.scaffold.comment')}}" name="fields[0][comment]"></td>
                         <td>
-                            <button class="btn btn-sm btn-white table-field-sort-handle" type="button" title="{{trans('admin.order')}}"><i class="fa fa-sort"></i></button>
-                            <button class="btn btn-sm btn-white table-field-remove"><i class="feather icon-trash"></i></button>
+                            <button class="btn btn-info table-field-sort-handle" type="button" title="{{trans('admin.order')}}"><i class="fa fa-sort"></i></button>
+                            <button class="btn btn-danger table-field-remove"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                 @endif
@@ -207,8 +207,8 @@
             <div class='form-inline d-flex justify-content-between' style="width: 100%; padding: 0 20px 12px;">
 
                 <div class='form-group'>
-                    <button type="button" class="btn btn-sm btn-primary btn-outline text-capitalize" id="add-table-field"><i class="feather icon-plus"></i>&nbsp;&nbsp;{{(trans('admin.scaffold.add_field'))}}</button>
-                    <button type="button" class="btn btn-sm btn-primary btn-outline text-capitalize ml-1" id="sync-translation-with-comment"><i class="feather icon-repeat"></i>&nbsp;&nbsp;{{(trans('admin.scaffold.sync_translation_with_comment'))}}</button>
+                    <button type="button" class="btn btn-primary btn-outline text-capitalize" id="add-table-field"><i class="fas fa-plus"></i>&nbsp;&nbsp;{{(trans('admin.scaffold.add_field'))}}</button>
+                    <button type="button" class="btn btn-primary btn-outline text-capitalize ml-1" id="sync-translation-with-comment"><i class="feather icon-repeat"></i>&nbsp;&nbsp;{{(trans('admin.scaffold.sync_translation_with_comment'))}}</button>
                 </div>
 
                 <div class="row">
@@ -277,7 +277,7 @@
                 <input {nullable} name="fields[__index__][nullable]" type="checkbox"  />
                 <span class="vs-checkbox vs-checkbox-">
                   <span class="vs-checkbox--check">
-                    <i class="vs-icon feather icon-check"></i>
+                    <i class="vs-icon fas fa-check"></i>
                   </span>
                 </span>
             </div>
@@ -291,8 +291,8 @@
         <td><input value="{default}" type="text" class="form-control" placeholder="{{trans('admin.scaffold.default')}}" name="fields[__index__][default]"></td>
         <td><input value="{comment}" type="text" class="form-control" placeholder="{{trans('admin.scaffold.comment')}}" name="fields[__index__][comment]"></td>
         <td>
-            <button class="btn btn-sm btn-white table-field-sort-handle" type="button" title="{{trans('admin.order')}}"><i class="fa fa-sort"></i></button>
-            <button class="btn btn-sm btn-white table-field-remove"><i class="feather icon-trash"></i></button>
+            <button class="btn btn-info table-field-sort-handle" type="button" title="{{trans('admin.order')}}"><i class="fa fa-sort"></i></button>
+            <button class="btn btn-danger table-field-remove"><i class="fas fa-trash"></i></button>
         </td>
     </tr>
 </template>

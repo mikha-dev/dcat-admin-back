@@ -1,4 +1,4 @@
-<div class="show-field form-group row">
+<div class="show-field form-group row mb-1">
     <div class="col-sm-{{ $width['label'] }} control-label">
         <span>{{ $label }}</span>
     </div>

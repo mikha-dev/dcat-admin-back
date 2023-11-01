@@ -14,7 +14,7 @@
         <span class="ie-display">
             {{ $display }}
             @if(! $display)
-                <i class="feather icon-edit-2"></i>
+                <i class="fas fa-pencil"></i>
             @endif
         </span>
     </a>
@@ -28,8 +28,8 @@
                 <div class="error"></div>
             </div>
             <div class="ie-action">
-                <button class="btn btn-primary btn-sm ie-submit">{{ __('admin.submit') }}</button>
-                <button class="btn btn-white btn-sm ie-cancel">{{ __('admin.cancel') }}</button>
+                <button class="btn btn-primary ie-submit">{{ __('admin.submit') }}</button>
+                <button class="btn btn-warning ie-cancel">{{ __('admin.cancel') }}</button>
             </div>
         </div>
     </template>
@@ -165,7 +165,7 @@
                 var $display = $popover.data('display');
                 $display.text(label);
                 if (! label) {
-                    $display.html('<i class="feather icon-edit-2"></i>');
+                    $display.html('<i class="fas fa-pencil"></i>');
                 }
                 $trigger.data('value', val).data('original', val);
                 hide();

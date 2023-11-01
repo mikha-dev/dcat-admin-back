@@ -1,9 +1,9 @@
 <div>
-    <ul class="nav nav-tabs pl-1" style="margin-top: -1rem">
+    <ul class="nav nav-tabs nav-tabs-md nav-tabs-line pl-1" style="margin-top: -1rem">
         @foreach($tabObj->getTabs() as $tab)
             <li class="nav-item">
                 <a class="nav-link {{ $tab['active'] ? 'active' : '' }}" href="#{{ $tab['id'] }}" data-toggle="tab">
-                    {!! $tab['title'] !!} &nbsp;<i class="feather icon-alert-circle has-tab-error text-danger d-none"></i>
+                    {!! $tab['title'] !!} &nbsp;<i class="fas fa-exclamation-triangle has-tab-error text-danger d-none"></i>
                 </a>
             </li>
         @endforeach

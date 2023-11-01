@@ -5,19 +5,19 @@
     <div class="col-md-{{$width['field']}}">
 
         @if(! empty($buttons['submit']))
-            <div class="btn-group pull-right">
-                <button class="btn btn-primary submit"><i class="feather icon-save"></i> {{ trans('admin.submit') }}</button>
+            <div class="btn-group float-end">
+                <button class="btn btn-primary submit"><i class="fas fa-save"></i>&nbsp;{{ trans('admin.submit') }}</button>
             </div>
 
             @if($checkboxes)
-                <div class="pull-right d-md-flex" style="margin:10px 15px 0 0;display: none">{!! $checkboxes !!}</div>
+                <div class="float-end d-md-flex" style="margin:10px 15px 0 0;display: none">{!! $checkboxes !!}</div>
             @endif
 
         @endif
 
         @if(! empty($buttons['reset']))
-        <div class="btn-group pull-left">
-            <button type="reset" class="btn btn-white"><i class="feather icon-rotate-ccw"></i> {{ trans('admin.reset') }}</button>
+        <div class="btn-group float-start">
+            <button type="reset" class="btn btn-warning"><i class="fas fa-rotate-left"></i>&nbsp;{{ trans('admin.reset') }}</button>
         </div>
         @endif
     </div>

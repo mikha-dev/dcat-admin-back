@@ -1,7 +1,7 @@
 <div class="input-group input-group-sm">
-    <div class="input-group-prepend">
-        <span class="input-group-text bg-white text-capitalize"><b>{!! $label !!}</b></span>
-    </div>
+    <span class="input-group-text bg-white text-capitalize">
+        <b>{!! $label !!}</b>
+    </span>
 
     <select class="form-control {{ $class }}" name="{{$name}}" data-value="{{ $value }}" style="width: 100%;">
         <option value=""></option>

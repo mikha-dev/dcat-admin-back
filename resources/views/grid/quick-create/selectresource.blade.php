@@ -7,8 +7,8 @@
         <div {!! $attributes !!}>
         </div>
         <div class="input-group-append">
-            <div class="btn btn-sm btn-{{$style}} " id="{{ $btnId }}">
-                &nbsp;<i class="feather icon-arrow-up"></i>&nbsp;
+            <div class="btn btn-{{$style}} " id="{{ $btnId }}">
+                &nbsp;<i class="fas fa-arrow-up"></i>&nbsp;
             </div>
         </div>
     </div>

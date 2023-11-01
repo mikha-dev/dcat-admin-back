@@ -20,7 +20,7 @@
                     {{ $extension['name'] }}
                 </a>
                 @if($extension['installed'])
-                    <span class="pull-right installed"><i class="ti-check"></i></span>
+                    <span class="float-end installed"><i class="ti-check"></i></span>
                 @endif
             </div>
         </li>

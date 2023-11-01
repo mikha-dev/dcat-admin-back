@@ -1,5 +1,5 @@
 @section('content')
-    <section class="content">
+    <section class="content container-fluid">
         @include('admin::partials.alerts')
         @include('admin::partials.exception')
 

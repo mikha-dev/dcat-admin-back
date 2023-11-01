@@ -1,6 +1,6 @@
 
 <div class="row" style="margin-top: 10px;">
-    <div class="{{$viewClass['label']}}"><h4 class="pull-right">{!! $label !!}</h4></div>
+    <div class="{{$viewClass['label']}}"><h4 class="float-end">{!! $label !!}</h4></div>
     <div class="{{$viewClass['field']}}"></div>
 </div>
 
@@ -20,7 +20,7 @@
                     <div class="form-group row">
                         <label class="{{$viewClass['label']}} control-label"></label>
                         <div class="{{$viewClass['field']}}">
-                            <div class="{{$columnClass}}-remove btn btn-white btn-sm pull-right"><i class="feather icon-trash">&nbsp;</i>{{ trans('admin.remove') }}</div>
+                            <div class="{{$columnClass}}-remove btn btn-danger float-end"><i class="fas fa-trash">&nbsp;</i>{{ trans('admin.remove') }}</div>
                         </div>
                     </div>
                 @endif
@@ -39,7 +39,7 @@
             <div class="form-group row">
                 <label class="{{$viewClass['label']}} control-label"></label>
                 <div class="{{$viewClass['field']}}">
-                    <div class="{{$columnClass}}-remove btn btn-white btn-sm pull-right"><i class="feather icon-trash"></i>&nbsp;{{ trans('admin.remove') }}</div>
+                    <div class="{{$columnClass}}-remove btn btn-danger float-end"><i class="fas fa-trash"></i>&nbsp;{{ trans('admin.remove') }}</div>
                 </div>
             </div>
             <hr>
@@ -50,7 +50,7 @@
         <div class="form-group row">
             <label class="{{$viewClass['label']}} control-label"></label>
             <div class="{{$viewClass['field']}}">
-                <div class="{{$columnClass}}-add btn btn-primary btn-outline btn-sm"><i class="feather icon-plus"></i>&nbsp;{{ trans('admin.new') }}</div>
+                <div class="{{$columnClass}}-add btn btn-primary"><i class="fas fa-plus"></i>&nbsp;{{ trans('admin.new') }}</div>
             </div>
         </div>
     @endif
