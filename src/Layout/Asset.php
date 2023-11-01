@@ -237,7 +237,7 @@ class Asset
      */
     public $headerJs = [
         'vendors' => '@vendors',
-        'dcat'    => '@dcat',
+        //'dcat'    => '@dcat',
     ];
 
     /**
@@ -250,7 +250,7 @@ class Asset
         'vendors'     => '@vendors',
         'toastr'      => '@toastr',
         'datatables'  => '@datatables',
-        'dcat'        => '@dcat',
+        //'dcat'        => '@dcat',
     ];
 
     /**
