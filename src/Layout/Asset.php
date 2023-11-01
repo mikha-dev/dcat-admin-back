@@ -46,10 +46,10 @@ class Asset
             //'css' => 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,800,800i,900,900i',
             'css' => '@admin/dcat/css/nunito.css',
         ],
-//        '@dcat' => [
-//            'js'  => '@admin/dcat/js/dcat-app.js',
-//            'css' => '@admin/dcat/css/dcat-app.css',
-//        ],
+        '@dcat' => [
+            'js'  => '@admin/dcat/js/dcat-app.js',
+            'css' => '@admin/dcat/css/dcat-app.css',
+        ],
         '@vendors' => [
             'js'  => '@admin/dcat/plugins/vendors.min.js',
             'css' => '@admin/dcat/plugins/vendors.min.css',
@@ -237,7 +237,7 @@ class Asset
      */
     public $headerJs = [
         'vendors' => '@vendors',
-        //'dcat'    => '@dcat',
+        'dcat'    => '@dcat',
     ];
 
     /**
@@ -250,7 +250,7 @@ class Asset
         'vendors'     => '@vendors',
         'toastr'      => '@toastr',
         'datatables'  => '@datatables',
-        //'dcat'        => '@dcat',
+        'dcat'        => '@dcat',
     ];
 
     /**

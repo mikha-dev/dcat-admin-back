@@ -56,9 +56,9 @@ mix.copyDirectory('node_modules/bootstrap/dist/', distPath + '/bootstrap');
 // 复制第三方插件文件夹
 mix.copyDirectory(dcatPath('plugins'), dcatDistPath('plugins'));
 // 打包app.js
-//mix.js(dcatPath('js/dcat-app.js'), dcatDistPath('js/dcat-app.js')).sourceMaps();
+mix.js(dcatPath('js/dcat-app.js'), dcatDistPath('js/dcat-app.js')).sourceMaps();
 // 打包app.scss
-//mix.sass(dcatPath('sass/dcat-app.scss'), themeCss('dcat/css/dcat-app')).sourceMaps();
+mix.sass(dcatPath('sass/dcat-app.scss'), themeCss('dcat/css/dcat-app')).sourceMaps();
 mix.copy(dcatPath('sass/nunito.css'), `${distPath}/dcat/css/nunito.css`);
 
 // 打包所有 extra 里面的所有js和css
