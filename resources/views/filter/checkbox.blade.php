@@ -7,10 +7,10 @@
 
     @endphp
     @if($showLabel)
-        <div class="pull-left text-capitalize" style="margin-top: 6px;margin-right: 15px;">
+        <div class="float-start text-capitalize" style="margin-top: 6px;margin-right: 15px;">
             <b>{{ $label }}</b>
         </div>
-        <div class="pull-left">
+        <div class="float-start">
             {!! $checkbox !!}
         </div>
     @else

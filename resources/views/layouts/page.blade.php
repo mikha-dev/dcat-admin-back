@@ -22,7 +22,6 @@
     {!! Dcat\Admin\Admin::asset()->headerJsToHtml() !!}
 
     {!! Dcat\Admin\Admin::asset()->cssToHtml() !!}
-
 </head>
 
 @extends('admin::layouts.container')

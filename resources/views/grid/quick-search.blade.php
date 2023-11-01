@@ -5,7 +5,7 @@
         <label style="width: {{ $width }}rem">
             <input
                     type="search"
-                    class="form-control form-control-sm quick-search-input"
+                    class="form-control quick-search-input"
                     placeholder="{{ $placeholder }}"
                     name="{{ $key }}"
                     value="{{ $value }}"

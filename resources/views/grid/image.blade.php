@@ -6,7 +6,7 @@
     @endif
 
     <div class="box-header with-border">
-        <div class="pull-right">
+        <div class="float-end">
             {!! $grid->renderExportButton() !!}
             {!! $grid->renderCreateButton() !!}
         </div>
@@ -31,7 +31,7 @@
                         </a>
                         <span class="mailbox-attachment-size">
                           <input type="checkbox" class="grid-item" data-id="{{ $row->id() }}" />
-                            <span class="pull-right">
+                            <span class="float-end">
                                 {!! $row->column('__actions__') !!}
                                 <a href="{!! isset($server) ? $server . '/' . $row->column($image_column) : \Illuminate\Support\Facades\Storage::disk(config('admin.upload.disk'))->url($row->column($image_column)) !!}" target="_blank" download="custom-filename.jpg">
                                     <i class="fa fa-cloud-download"></i>

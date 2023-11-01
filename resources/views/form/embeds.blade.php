@@ -1,6 +1,6 @@
 @if($label!=false)
 <div class="row">
-    <div class="{{$viewClass['label']}}"><h4 class="pull-right">{!! $label !!}</h4></div>
+    <div class="{{$viewClass['label']}}"><h4 class="float-end">{!! $label !!}</h4></div>
     <div class="{{$viewClass['field']}}"></div>
 </div>
 <hr style="margin-top: 0px;">

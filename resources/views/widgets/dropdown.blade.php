@@ -1,13 +1,17 @@
 @if(! empty($button['text']) || $click)
-    <span class="drop{{ $direction }}" style="display:inline-block">
-        <a id="{{ $buttonId }}" class="dropdown-toggle {{ $button['class'] }}" style="{{ $button['style'] }}" data-toggle="dropdown" href="javascript:void(0)">
-            <stub>{!! $button['text'] !!}</stub>
-            <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">{!! $options !!}</ul>
-    </span>
+<span class="dropdown">
+    <a class="dropdown-toggle {{ $button['class'] }}" style="{{ $button['style'] }}" id="{{ $buttonId }}" data-bs-toggle="dropdown" aria-expanded="false">
+        <stub>{!! $button['text'] !!}</stub>
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="{{ $buttonId }}">
+        {!! $options !!}
+    </ul>
+</span>
 @else
-    <ul class="dropdown-menu">{!! $options !!}</ul>
+    <ul class="dropdown-menu" aria-labelledby="{{ $buttonId }}">
+        {!! $options !!}
+    </ul>
 @endif
 
 @if($click)

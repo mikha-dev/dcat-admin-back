@@ -1,3 +1,4 @@
+
 <div class="{{$viewClass['form-group']}}">
 
     <div  class="{{ $viewClass['label'] }} control-label">
@@ -20,7 +21,7 @@
                         @endforeach
                     </optgroup>
                 @endforeach
-             @else
+            @else
                 @foreach($options as $select => $option)
                     <option value="{{$select}}" {{ Dcat\Admin\Support\Helper::equal($select, $value) ?'selected':'' }}>{{$option}}</option>
                 @endforeach

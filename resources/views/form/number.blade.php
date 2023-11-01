@@ -15,7 +15,7 @@
         <div class="input-group number-group">
 
             @if ($prepend)
-                <span class="input-group-prepend"><span class="input-group-text bg-white">{!! $prepend !!}</span></span>
+                <span class="input-group-text bg-white">{!! $prepend !!}</span>
             @endif
             <input {!! $attributes !!} />
 

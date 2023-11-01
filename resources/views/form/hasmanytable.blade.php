@@ -3,7 +3,7 @@
 </style>
 
 <div class="row form-group">
-    <div class="{{$viewClass['label']}} "><label class="control-label pull-right">{!! $label !!}</label></div>
+    <div class="{{$viewClass['label']}} "><label class="control-label float-end">{!! $label !!}</label></div>
     <div class="{{$viewClass['field']}}">
         @include('admin::form.error')
 
@@ -45,7 +45,7 @@
                         @if($options['allowDelete'])
                             <td class="form-group">
                                 <div>
-                                    <div class="remove btn btn-white btn-sm pull-right"><i class="feather icon-trash"></i></div>
+                                    <div class="remove btn btn-danger float-end"><i class="fas fa-trash"></i></div>
                                 </div>
                             </td>
                         @endif
@@ -61,7 +61,7 @@
 
                     <td class="form-group">
                         <div>
-                            <div class="remove btn btn-white btn-sm pull-right"><i class="feather icon-trash"></i></div>
+                            <div class="remove btn btn-danger float-end"><i class="fas fa-trash"></i></div>
                         </div>
                     </td>
                 </tr>
@@ -70,7 +70,7 @@
             @if($options['allowCreate'])
                 <div class="form-group row m-t-10">
                     <div class="{{$viewClass['field']}}" style="margin-top: 8px">
-                        <div class="add btn btn-primary btn-outline btn-sm"><i class="feather icon-plus"></i>&nbsp;{{ trans('admin.new') }}</div>
+                        <div class="add btn btn-primary btn-outline"><i class="fas fa-plus"></i>&nbsp;{{ trans('admin.new') }}</div>
                     </div>
                 </div>
             @endif

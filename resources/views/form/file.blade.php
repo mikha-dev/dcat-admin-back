@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="statusBar" style="display:none;">
-                <div class="upload-progress progress progress-bar-primary pull-left">
+                <div class="upload-progress progress progress-bar-primary float-start">
                     <div class="progress-bar progress-bar-striped active" style="line-height:18px">0%</div>
                 </div>
                 <div class="info"></div>
@@ -47,7 +47,7 @@
                     <div class="add-file-button"></div>
                     @if($showUploadBtn)
                     &nbsp;
-                    <div class="upload-btn btn btn-primary"><i class="feather icon-upload"></i> &nbsp;{{trans('admin.upload')}}</div>
+                    <div class="upload-btn btn btn-primary"><i class="fas fa-upload"></i> &nbsp;{{trans('admin.upload')}}</div>
                     @endif
                 </div>
             </div>
@@ -76,7 +76,7 @@
             pick: {
                 id: $this.find('.file-picker'),
                 name: '_file_',
-                label: '<i class="feather icon-folder"><\/i>&nbsp; {!! trans('admin.uploader.add_new_media') !!}'
+                label: '<i class="fas fa-upload"><\/i>&nbsp; {!! trans('admin.uploader.add_new_media') !!}'
             },
             dnd: $this.find('.dnd-area'),
             paste: $this.find('.web-uploader')

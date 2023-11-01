@@ -1,6 +1,6 @@
 <div>
     <span class="grid-expand" data-url="{{ $url }}" data-inserted="0" data-id="{{ $key }}" data-key="{{ $dataKey }}" data-toggle="collapse" data-target="#grid-collapse-{{ $dataKey }}">
-       <a href="javascript:void(0)"><i class="feather icon-chevrons-right"></i>  {!! $button !!}</a>
+       <a href="javascript:void(0)"><i class="fas fa-chevron-right"></i>  {!! $button !!}</a>
     </span>
     <template class="grid-expand-{{ $dataKey }}">
         <div id="grid-collapse-{{ $dataKey }}">{!! $html !!}</div>
@@ -33,7 +33,7 @@
             }
             $(this).data('inserted', 1);
         } else {
-            if ($("i", this).hasClass('icon-chevrons-right')) {
+            if ($("i", this).hasClass('fa-chevron-right')) {
                 $(_th.data('expand')).show();
             } else {
                 setTimeout(function() {
@@ -42,6 +42,6 @@
             }
         }
 
-        $("i", this).toggleClass("icon-chevrons-right icon-chevrons-down");
+        $("i", this).toggleClass("fa-chevron-right fa-chevron-down");
     });
 </script>

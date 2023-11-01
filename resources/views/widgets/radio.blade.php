@@ -17,7 +17,7 @@
     </div>
     @elseif($layout == \Dcat\Admin\Enums\RadioLayoutType::BOXED)
     <div class="col-2 btn btn-block m-1" style="height:{{$boxed_height}}; width:{{$boxed_width}}; border-width: 2px">
-        <span class='pull-right'>
+        <span class='float-end'>
             <input
                 {!! in_array($k, $disabled) ? 'disabled' : '' !!}
                 value="{{$k}}" {!! $attributes !!}
@@ -32,7 +32,7 @@
     <div class="col-3 btn btn-block mr-2 mb-2 " style="height:{{$boxed_height}}; width:{{$boxed_width}};">
         <p class="text-center font-lg-1 pt-2 pb-1">{!! $label !!}</p>
         <button class="btn btn-xs btn-outline-primary">{{ trans('admin.select') }}</button>
-        <span class='pull-right'>
+        <span class='float-end'>
             <input style="display: none !important;"
                 {!! in_array($k, $disabled) ? 'disabled' : '' !!}
                 value="{{$k}}" {!! $attributes !!}

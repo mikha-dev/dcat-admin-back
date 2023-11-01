@@ -1,9 +1,9 @@
-<span class="dropdown column-selector" >
-    <button class="btn btn-primary btn-outline dropdown-toggle" data-toggle="dropdown">
+<span class="dropdown column-selector">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fa fa-table"></i>
         <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu" style="min-width: 155px">
+    <ul class="dropdown-menu">
         <li class="dropdown-item">
             <ul class="selectors">
                 {!! $selectAll !!}
