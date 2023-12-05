@@ -2,25 +2,25 @@
 
 namespace Dcat\Admin;
 
-use Dcat\Admin\Contracts\ExceptionHandler;
-use Dcat\Admin\Exception\Handler;
-use Dcat\Admin\Extend\Manager;
-use Dcat\Admin\Extend\UpdateManager;
-use Dcat\Admin\Extend\VersionManager;
-use Dcat\Admin\Layout\Asset;
-use Dcat\Admin\Layout\Content;
+use D4T\Core\Models\Domain;
 use Dcat\Admin\Layout\Menu;
+use Illuminate\Support\Arr;
+use Dcat\Admin\Layout\Asset;
 use Dcat\Admin\Layout\Navbar;
-use Dcat\Admin\Layout\SectionManager;
-use Dcat\Admin\Models\Domain;
-use Dcat\Admin\Support\Context;
+use Dcat\Admin\Extend\Manager;
+use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Support\Helper;
+use Dcat\Admin\Support\Context;
 use Dcat\Admin\Support\Setting;
+use Dcat\Admin\Exception\Handler;
 use Dcat\Admin\Support\Translator;
 use Dcat\Admin\Support\WebUploader;
-use Illuminate\Support\Arr;
+use Dcat\Admin\Extend\UpdateManager;
+use Dcat\Admin\Extend\VersionManager;
+use Dcat\Admin\Layout\SectionManager;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Dcat\Admin\Contracts\ExceptionHandler;
 
 class AdminServiceProvider extends ServiceProvider
 {
