@@ -17,7 +17,7 @@ class EnumColoredDisplay extends AbstractDisplayer
         if(class_implements($this->value, DcatEnum::class) ) {
             /** @var DcatEnum $this->value */
             if(class_implements($this->value, DcatEnumColored::class) ) {
-                return '<span class="label" style="background:'.$this->value->color().'">'.$this->value->label().'</span>';
+                return '<span class="label" style="background:'.$this->value->color()->value.'">'.$this->value->label().'</span>';
             }
 
             return $this->value->label();
