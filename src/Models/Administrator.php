@@ -2,7 +2,7 @@
 
 namespace Dcat\Admin\Models;
 
-use D4T\Core\UserSettings;
+use D4T\Core\Repositories\UserSettings;
 use Illuminate\Support\Facades\URL;
 //use Illuminate\Auth\Authenticatable;
 //use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
