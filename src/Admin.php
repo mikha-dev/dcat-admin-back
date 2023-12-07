@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Dcat\Admin\Http\Controllers\AuthController;
 use Dcat\Admin\Repositories\EloquentRepository;
 use Dcat\Admin\Exception\InvalidArgumentException;
-use Dcat\Admin\Contracts\EmailContextObjectInterface;
+use D4T\Core\Contracts\EmailContextObjectInterface;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 class Admin
@@ -125,7 +125,7 @@ class Admin
         // <link rel="apple-touch-icon" href="/storage/img/icon-192.png" />
         // <meta name="msapplication-TileImage" content="/storage/img/icon-192.png" />
         // <meta name="msapplication-TileColor" content="#ff0000">
-        // <link rel="manifest" href="/manifest.json">        
+        // <link rel="manifest" href="/manifest.json">
 
         // if ($favicon === null) {
         //     return static::context()->favicon ?: config('admin.favicon');

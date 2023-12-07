@@ -2,12 +2,12 @@
 
 namespace Dcat\Admin\Enums;
 
-use Dcat\Admin\DcatEnum;
-use Dcat\Admin\Traits\DcatEnumTrait;
+use D4T\Core\Contracts\D4TEnum;
+use D4T\Core\Traits\D4TEnumTrait;
 
-enum IconType : int implements DcatEnum
+enum IconType : int implements D4TEnum
 {
-    use DcatEnumTrait;
+    use D4TEnumTrait;
 
     case SVG = 0;
     case FONT = 1;

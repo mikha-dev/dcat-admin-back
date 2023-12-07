@@ -485,7 +485,7 @@ abstract class ServiceProvider extends LaravelServiceProvider
      * @throws \ReflectionException
      */
     final public function getRoutes()
-    {
+    {        
         $path = $this->path('src/Http/routes.php');
 
         return is_file($path) ? $path : null;

@@ -4,8 +4,8 @@ namespace Dcat\Admin\Show;
 
 use Dcat\Admin\Admin;
 use Dcat\Admin\Contracts\ModelHolder;
-use Dcat\Admin\DcatEnum;
-use Dcat\Admin\DcatEnumColored;
+use D4T\Core\Contracts\D4TEnum;
+use Dcat\Admin\D4TEnumColored;
 use Dcat\Admin\Show;
 use Dcat\Admin\Support\Helper;
 use Dcat\Admin\Traits\HasBuilderEvents;
@@ -332,11 +332,11 @@ HTML;
     {
         return $this->unescape()->as( function ($val) use($enumClass) {
 
-            if(class_implements($enumClass, DcatEnum::class) ) {
+            if(class_implements($enumClass, D4TEnum::class) ) {
                 $enum = $enumClass::from($val);
                 $label = $enum->label();
 
-                /** @var DcatEnum $this->value */
+                /** @var D4TEnum $this->value */
                 if(method_exists($enumClass, 'color') ) {
                     return '<span class="label" style="background:'.$enum->color().'">'.$label.'</span>';
                 }

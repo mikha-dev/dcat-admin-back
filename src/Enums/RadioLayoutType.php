@@ -2,11 +2,11 @@
 
 namespace Dcat\Admin\Enums;
 
-use Dcat\Admin\DcatEnum;
-use Dcat\Admin\Traits\DcatEnumTrait;
+use D4T\Core\Contracts\D4TEnum;
+use D4T\Core\Traits\D4TEnumTrait;
 
-enum RadioLayoutType: int implements DcatEnum {
-    use DcatEnumTrait;
+enum RadioLayoutType: int implements D4TEnum {
+    use D4TEnumTrait;
 
     case COMMON = 1;
     case BOXED = 2;
