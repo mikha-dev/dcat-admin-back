@@ -23,14 +23,10 @@
 
 <div style="height: 10px"></div>
 
-@if($row->type === Dcat\Admin\Extend\ServiceProvider::TYPE_THEME)
-    <span>{{ trans('admin.theme') }}</span>
-@endif
+<span>{{ $row->type->label() }}</span>
 
 @if($row->version)
-    @if($row->type === Dcat\Admin\Extend\ServiceProvider::TYPE_THEME)
-        &nbsp;|&nbsp;
-    @endif
+    &nbsp;|&nbsp;
 
     @if($row->enabled)
         {!! $disableAction !!}

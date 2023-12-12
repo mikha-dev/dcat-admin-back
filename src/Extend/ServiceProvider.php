@@ -3,19 +3,20 @@
 namespace Dcat\Admin\Extend;
 
 use Dcat\Admin\Admin;
-use Dcat\Admin\Exception\RuntimeException;
-use Dcat\Admin\Support\ComposerProperty;
 use Illuminate\Support\Arr;
+use Dcat\Admin\Enums\ExtensionType;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+use Illuminate\Support\Facades\View;
+use Dcat\Admin\Support\ComposerProperty;
+use Dcat\Admin\Exception\RuntimeException;
 use Symfony\Component\Console\Output\NullOutput;
+use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 abstract class ServiceProvider extends LaravelServiceProvider
 {
     use CanImportMenu;
 
-    const TYPE_THEME = 'theme';
-
+    const UI_BASE_NAME = 'admin';
     /**
      * @var ComposerProperty
      */
@@ -31,10 +32,9 @@ abstract class ServiceProvider extends LaravelServiceProvider
      */
     protected $packageName;
 
-    /**
-     * @var string
-     */
-    protected $type;
+    //protected ExtensionType $type = ExtensionType::ADDON;
+
+    public abstract function getExtensionType() : ExtensionType;
 
     /**
      * @var string
@@ -100,7 +100,10 @@ abstract class ServiceProvider extends LaravelServiceProvider
     public function init()
     {
         if ($views = $this->getViewPath()) {
-            $this->loadViewsFrom($views, $this->getName());
+            if($this->getExtensionType() == ExtensionType::UI)
+                View::prependNamespace(self::UI_BASE_NAME, $views);
+            else
+                $this->loadViewsFrom($views, $this->getName());
         }
 
         if ($lang = $this->getLangPath()) {
@@ -174,16 +177,6 @@ abstract class ServiceProvider extends LaravelServiceProvider
         }
 
         return $this->packageName;
-    }
-
-    /**
-     * 获取插件类型.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**
@@ -485,7 +478,7 @@ abstract class ServiceProvider extends LaravelServiceProvider
      * @throws \ReflectionException
      */
     final public function getRoutes()
-    {        
+    {
         $path = $this->path('src/Http/routes.php');
 
         return is_file($path) ? $path : null;

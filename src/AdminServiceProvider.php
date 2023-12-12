@@ -16,6 +16,7 @@ use Dcat\Admin\Exception\Handler;
 use Dcat\Admin\Support\Translator;
 use Dcat\Admin\Support\WebUploader;
 use Dcat\Admin\Extend\UpdateManager;
+use Illuminate\Support\Facades\View;
 use Dcat\Admin\Extend\VersionManager;
 use Dcat\Admin\Layout\SectionManager;
 use Illuminate\Support\Facades\Blade;
@@ -124,7 +125,10 @@ class AdminServiceProvider extends ServiceProvider
 
     protected function registerViews()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
+        View::addNamespace('admin', __DIR__.'/../resources/views');
+        //$this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
+
+        //dd(View::getFinder());
     }
 
     /**

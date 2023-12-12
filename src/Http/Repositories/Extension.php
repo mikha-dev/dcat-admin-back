@@ -39,7 +39,7 @@ class Extension extends Repository
             'logo'         => $extension->getLogoBase64(),
             'name'         => $name,
             'version'      => $current,
-            'type'         => $extension->getType(),
+            'type'         => $extension->getExtensionType(),
             'description'  => $property->description,
             'authors'      => $property->authors,
             'homepage'     => $property->homepage,
