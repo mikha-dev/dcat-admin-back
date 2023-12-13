@@ -46,7 +46,11 @@ class Application
         return $this->apps ?: ($this->apps = (array) config('admin.multi_app'));
     }
 
-    public function getEnabledApps()
+    public function isEnabled(string $app) : bool {
+        return in_array($app, $this->getEnabledApps());
+    }
+
+    public function getEnabledApps() : array
     {
         return array_filter($this->getApps());
     }
@@ -136,7 +140,7 @@ class Application
             Admin::registerApiRoutes();
         }, $app);
 
-        if (is_file($routes = admin_path('routes.php'))) {
+        if (is_file($routes = config("{$app}.directory").'/routes.php')) {
             $this->loadRoutesFrom($routes, $app);
         }
     }
