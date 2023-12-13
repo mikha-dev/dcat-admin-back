@@ -2,21 +2,24 @@
 
 namespace Dcat\Admin;
 
+use Dcat\Admin\Impersonate;
 use D4T\Core\Models\Domain;
 use Dcat\Admin\Layout\Menu;
 use Illuminate\Support\Arr;
 use Dcat\Admin\Layout\Asset;
+use Dcat\Admin\Layout\Footer;
 use Dcat\Admin\Layout\Navbar;
 use Dcat\Admin\Extend\Manager;
 use Dcat\Admin\Layout\Content;
+use Dcat\Admin\Layout\UserNav;
 use Dcat\Admin\Support\Helper;
 use Dcat\Admin\Support\Context;
 use Dcat\Admin\Support\Setting;
 use Dcat\Admin\Exception\Handler;
 use Dcat\Admin\Support\Translator;
 use Dcat\Admin\Support\WebUploader;
+use Illuminate\Support\Facades\URL;
 use Dcat\Admin\Extend\UpdateManager;
-use Illuminate\Support\Facades\View;
 use Dcat\Admin\Extend\VersionManager;
 use Dcat\Admin\Layout\SectionManager;
 use Illuminate\Support\Facades\Blade;
@@ -58,14 +61,14 @@ class AdminServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $devCommands = [
+    protected array $devCommands = [
         Console\Development\LinkCommand::class,
     ];
 
     /**
      * @var array
      */
-    protected $routeMiddleware = [
+    protected array $routeMiddleware = [
         'admin.auth'       => Http\Middleware\Authenticate::class,
         'admin.pjax'       => Http\Middleware\Pjax::class,
         'admin.permission' => Http\Middleware\Permission::class,
@@ -78,7 +81,7 @@ class AdminServiceProvider extends ServiceProvider
     /**
      * @var array
      */
-    protected $middlewareGroups = [
+    protected array $middlewareGroups = [
         'admin' => [
             'admin.auth',
             'admin.pjax',
@@ -89,7 +92,7 @@ class AdminServiceProvider extends ServiceProvider
         ],
     ];
 
-    public function register()
+    public function register() : void
     {
         $this->aliasAdmin();
         $this->loadAdminAuthConfig();
@@ -104,7 +107,7 @@ class AdminServiceProvider extends ServiceProvider
         }
     }
 
-    public function boot()
+    public function boot() : void
     {
         $this->registerDefaultSections();
         $this->registerViews();
@@ -116,48 +119,32 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerBladeDirective();
     }
 
-    protected function aliasAdmin()
+    protected function aliasAdmin() : void
     {
         if (! class_exists(\Admin::class)) {
             class_alias(Admin::class, \Admin::class);
         }
     }
 
-    protected function registerViews()
+    protected function registerViews() : void
     {
-        View::addNamespace('admin', __DIR__.'/../resources/views');
-        //$this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
-
-        //dd(View::getFinder());
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
     }
 
-    /**
-     * 是否强制使用https.
-     *
-     * @return void
-     */
-    protected function ensureHttps()
+    protected function ensureHttps() : void
     {
-        if (config('admin.https') || config('admin.secure')) {
-            \URL::forceScheme('https');
+        if (config('admin.https')) {
+            URL::forceScheme('https');
             $this->app['request']->server->set('HTTPS', true);
         }
     }
 
-    /**
-     * 路由注册.
-     */
-    protected function bootApplication()
+    protected function bootApplication() : void
     {
         Admin::app()->boot();
     }
 
-    /**
-     * 禁止laravel 5.6或更高版本中启用双编码的默认特性.
-     *
-     * @return void
-     */
-    protected function compatibleBlade()
+    protected function compatibleBlade() : void
     {
         $bladeReflectionClass = new \ReflectionClass('\Illuminate\View\Compilers\BladeCompiler');
         if ($bladeReflectionClass->hasMethod('withoutDoubleEncoding')) {
@@ -165,12 +152,7 @@ class AdminServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * 资源发布注册.
-     *
-     * @return void
-     */
-    protected function registerPublishing()
+    protected function registerPublishing() : void
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([__DIR__.'/../config' => config_path()], 'dcat-admin-config');
@@ -233,6 +215,10 @@ class AdminServiceProvider extends ServiceProvider
             return new VersionManager(app('admin.extend'));
         });
         $this->app->singleton('admin.navbar', Navbar::class);
+        $this->app->singleton('admin.usernav', UserNav::class);
+        $this->app->singleton('admin.footer', Footer::class);
+        //$this->app->singleton('admin.shortcuts', Shortcuts::class);
+        //$this->app->singleton('admin.lang-selector', LangSelector::class);
         $this->app->singleton('admin.menu', Menu::class);
         $this->app->singleton('admin.context', Context::class);
         $this->app->singleton('admin.domain', function() {
@@ -245,14 +231,15 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->singleton('admin.web-uploader', WebUploader::class);
         $this->app->singleton(ExceptionHandler::class, config('admin.exception_handler') ?: Handler::class);
         $this->app->singleton('admin.translator', Translator::class);
+        $this->app->singleton('admin.impersonate', Impersonate::class);
     }
 
-    public function registerExtensions()
+    public function registerExtensions() : void
     {
         Admin::extension()->register();
     }
 
-    public function bootExtensions()
+    public function bootExtensions() : void
     {
         Admin::extension()->boot();
     }

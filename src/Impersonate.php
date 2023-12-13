@@ -1,6 +1,6 @@
 <?php
 
-namespace D4T\Admin;
+namespace Dcat\Admin;
 
 use Dcat\Admin\Admin;
 use Illuminate\Foundation\Auth\User;

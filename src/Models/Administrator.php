@@ -32,6 +32,10 @@ class Administrator extends Authenticatable
     protected $fillable = ['username', 'password', 'name', 'avatar_url'];
     protected $appends = ['avatar'];
 
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
     protected $casts = [
         'settings' => UserSettings::class . ':default'
     ];
