@@ -2,17 +2,18 @@
 
 namespace Dcat\Admin\Http\Controllers;
 
-use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
-use Dcat\Admin\Http\Repositories\Administrator;
-use Dcat\Admin\Layout\Content;
-use Dcat\Admin\Traits\HasFormResponse;
-use Illuminate\Auth\GuardHelpers;
+use Dcat\Admin\Admin;
 use Illuminate\Http\Request;
+use Dcat\Admin\Layout\Content;
+use Illuminate\Auth\GuardHelpers;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Lang;
+use Dcat\Admin\Traits\HasFormResponse;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Dcat\Admin\Http\Repositories\Administrator;
 
 class AuthController extends Controller
 {
@@ -66,7 +67,7 @@ class AuthController extends Controller
 
         if($credentials[$this->username()] != 'admin') {
             $credentials['domain_id'] = Admin::domain()->id;
-        }            
+        }
 
         if ($this->guard()->attempt($credentials, $remember)) {
             return $this->sendLoginResponse($request);
@@ -276,5 +277,14 @@ class AuthController extends Controller
     protected function guard()
     {
         return Admin::guard();
+    }
+
+    public function setLocale(string $key)
+    {
+        $url = request('url');
+        Session::put('locale', $key);
+        admin_toastr(__('admin.language_changed'));
+
+        return admin_redirect(admin_url($url));
     }
 }
