@@ -2,6 +2,7 @@
 
 namespace Dcat\Admin\Grid\Actions;
 
+use Dcat\Admin\DcatIcon;
 use Dcat\Admin\Grid\RowAction;
 
 class Show extends RowAction
@@ -15,7 +16,9 @@ class Show extends RowAction
             return $this->title;
         }
 
-        return '<i class="feather icon-eye"></i> '.__('admin.show').' &nbsp;&nbsp;';
+        //todo::rm
+        //return '<i class="fas fa-eye"></i> '.__('admin.show').' &nbsp;&nbsp;';
+        return DcatIcon::EYE(true, __('admin.show'));
     }
 
     /**

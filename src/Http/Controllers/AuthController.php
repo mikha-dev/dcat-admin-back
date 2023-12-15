@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Dcat\Admin\Layout\Content;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Routing\Controller;
+use Dcat\Admin\Enums\RouteAuth;
 use Illuminate\Support\Facades\Lang;
 use Dcat\Admin\Traits\HasFormResponse;
 use Illuminate\Support\Facades\Session;
@@ -98,14 +99,13 @@ class AuthController extends Controller
     }
 
     /**
-     * User setting page.
      *
      * @param  Content  $content
      * @return Content
      */
-    public function getSetting(Content $content)
+    public function getSecurity(Content $content)
     {
-        $form = $this->settingForm();
+        $form = $this->securityForm();
         $form->tools(
             function (Form\Tools $tools) {
                 $tools->disableList();
@@ -113,7 +113,7 @@ class AuthController extends Controller
         );
 
         return $content
-            ->title(trans('admin.user_setting'))
+            ->title(trans('admin.user_security'))
             ->body($form->edit(Admin::user()->getKey()));
     }
 
@@ -122,13 +122,44 @@ class AuthController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function putSetting()
+    public function putSecurity()
     {
-        $form = $this->settingForm();
+        $form = $this->securityForm();
 
         if (! $this->validateCredentialsWhenUpdatingPassword()) {
             $form->responseValidationMessages('old_password', trans('admin.old_password_error'));
         }
+
+        return $form->update(Admin::user()->getKey());
+    }
+
+    /**
+     *
+     * @param  Content  $content
+     * @return Content
+     */
+    public function getProfile(Content $content)
+    {
+        $form = $this->profileForm();
+        $form->tools(
+            function (Form\Tools $tools) {
+                $tools->disableList();
+            }
+        );
+
+        return $content
+            ->title(trans('admin.user_profile'))
+            ->body($form->edit(Admin::user()->getKey()));
+    }
+
+    /**
+     * Update user setting.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function putProfile()
+    {
+        $form = $this->profileForm();
 
         return $form->update(Admin::user()->getKey());
     }
@@ -156,15 +187,10 @@ class AuthController extends Controller
             ->validateCredentials($user, ['password' => $oldPassword]);
     }
 
-    /**
-     * Model-form for user setting.
-     *
-     * @return Form
-     */
-    protected function settingForm()
+    protected function securityForm()
     {
         return new Form(new Administrator(), function (Form $form) {
-            $form->action(admin_url('auth/setting'));
+            $form->action(admin_route(RouteAuth::SECURITY()));
 
             $form->disableCreatingCheck();
             $form->disableEditingCheck();
@@ -174,15 +200,6 @@ class AuthController extends Controller
                 $tools->disableView();
                 $tools->disableDelete();
             });
-
-            $form->display('username', trans('admin.username'));
-            $form->text('name', trans('admin.name'))->required();
-            if(config('admin.disabled_email_edit'))
-                $form->display('email', trans('admin.email'));
-            else
-                $form->email('email', trans('admin.email'))->required();
-
-            $form->image('avatar_url', trans('admin.avatar'))->autoUpload();
 
             $form->password('old_password', trans('admin.old_password'));
 
@@ -215,7 +232,41 @@ class AuthController extends Controller
                 return $form
                     ->response()
                     ->success(trans('admin.update_succeeded'))
-                    ->redirect('auth/setting');
+                    ->redirect(admin_route(RouteAuth::SECURITY()));
+            });
+        });
+    }
+
+    /**
+     * Model-form for user setting.
+     *
+     * @return Form
+     */
+    protected function profileForm()
+    {
+        return new Form(new Administrator(), function (Form $form) {
+            $form->action(admin_route(RouteAuth::PROFILE()));
+
+            $form->disableCreatingCheck();
+            $form->disableEditingCheck();
+            $form->disableViewCheck();
+
+            $form->tools(function (Form\Tools $tools) {
+                $tools->disableView();
+                $tools->disableDelete();
+            });
+
+            $form->display('username', trans('admin.username'));
+            $form->text('name', trans('admin.name'))->required();
+            $form->email('email', trans('admin.email'))->required();
+            //todo::fix form image
+            //$form->image('avatar_url', trans('admin.avatar'))->autoUpload();
+
+            $form->saved(function (Form $form) {
+                return $form
+                    ->response()
+                    ->success(trans('admin.update_succeeded'))
+                    ->redirect(admin_route(RouteAuth::PROFILE()));
             });
         });
     }
@@ -279,7 +330,34 @@ class AuthController extends Controller
         return Admin::guard();
     }
 
-    public function setLocale(string $key)
+    public function impersonate(Request $request, $id)
+    {
+        if ($id == Admin::user()->id) {
+            admin_toastr(__('admin.cant_impersonate_yourself'), 'error');
+
+            return redirect('/');
+        }
+
+        app('impersonate')->login($id);
+
+        return admin_redirect('/');
+        //return response("<script>location.href = '/';</script>");
+    }
+
+    public function deimpersonate(Request $request)
+    {
+        if (app('impersonate')->isActive()) {
+            app('impersonate')->logout();
+        }
+
+        if ($request->has('redirect_to')) {
+            return admin_redirect($request['redirect_to']);
+        }
+
+        return admin_redirect('/');
+    }
+
+    public function setLocale($key)
     {
         $url = request('url');
         Session::put('locale', $key);

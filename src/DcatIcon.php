@@ -5,7 +5,7 @@ namespace Dcat\Admin;
 
 enum DcatIcon: string {
 	public const PREFIX = 'fa-';
-	public const BASE   = 'fas ';
+	public const BASE   = 'fa ';
 
 	case CALENDAR = 'calendar';
 	case HOME = 'home';

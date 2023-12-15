@@ -3,66 +3,57 @@
 namespace Dcat\Admin\Layout;
 
 use Dcat\Admin\Support\Helper;
+use Illuminate\Support\Collection;
 use Dcat\Admin\Traits\HasBuilderEvents;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
 
-class Navbar implements Renderable
+class Navbar
 {
     use HasBuilderEvents;
 
-    /**
-     * @var array
-     */
-    protected $elements = [];
+    protected Collection $elements;
+    protected Collection $navs;
 
-    /**
-     * Navbar constructor.
-     */
     public function __construct()
     {
-        $this->elements = [
-            'left'  => collect(),
-            'right' => collect(),
-        ];
-
-        $this->callResolving();
+        $this->elements = collect();
+        $this->navs = collect();
     }
 
-    /**
-     * @param  string|\Closure|Renderable|Htmlable  $element
-     * @return $this
-     */
-    public function left($element)
+    public function addNav( Renderable $nav) : Navbar
     {
-        $this->elements['left']->push($element);
+        $this->navs->push($nav);
 
         return $this;
     }
 
-    /**
-     * @param  string|\Closure|Renderable|Htmlable  $element
-     * @return $this
-     */
-    public function right($element)
+    public function addFree(string|\Closure|Renderable|Htmlable $element) : Navbar
     {
-        $this->elements['right']->push($element);
+        $this->elements->push($element);
 
         return $this;
     }
 
-    /**
-     * @param  string  $part
-     * @return mixed
-     */
-    public function render($part = 'right')
+    public function renderNavs() : string
     {
-        $this->callComposing($part);
+        $this->callComposing('render-navs');
 
-        if (! isset($this->elements[$part]) || $this->elements[$part]->isEmpty()) {
+        if ($this->navs->isEmpty()) {
             return '';
         }
 
-        return $this->elements[$part]->map([Helper::class, 'render'])->implode('');
+        return $this->navs->map([Helper::class, 'render'])->implode('');
+    }
+
+    public function renderFree() : string
+    {
+        $this->callComposing('render-free');
+
+        if ($this->elements->isEmpty()) {
+            return '';
+        }
+
+        return $this->elements->map([Helper::class, 'render'])->implode('');
     }
 }

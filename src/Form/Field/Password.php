@@ -2,11 +2,13 @@
 
 namespace Dcat\Admin\Form\Field;
 
+use Dcat\Admin\DcatIcon;
+
 class Password extends Text
 {
     public function render()
     {
-        $this->prepend('<i class="feather icon-eye"></i>')
+        $this->prepend(DcatIcon::HIDE(true))
             ->defaultAttribute('type', 'password');
 
         return parent::render();

@@ -86,7 +86,7 @@ class Builder implements FieldsCollection
      */
     protected $width = [
         'label' => 2,
-        'field' => 8,
+        'field' => 10,
     ];
 
     /**
@@ -306,7 +306,7 @@ class Builder implements FieldsCollection
      * @param  int  $label
      * @return $this
      */
-    public function width($field = 8, $label = 2)
+    public function width($field = 10, $label = 2)
     {
         $this->width = [
             'label' => $label,
@@ -566,6 +566,7 @@ class Builder implements FieldsCollection
         $attributes['action'] = $this->action();
         $attributes['method'] = Arr::get($options, 'method', 'post');
         $attributes['accept-charset'] = 'UTF-8';
+        //todo::move to config. bs5 uses data-bs-toggle
         $attributes['data-toggle'] = 'validator';
         $attributes['class'] = Arr::get($options, 'class');
 

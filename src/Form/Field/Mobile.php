@@ -2,6 +2,8 @@
 
 namespace Dcat\Admin\Form\Field;
 
+use Dcat\Admin\DcatIcon;
+
 class Mobile extends Text
 {
     /**
@@ -19,7 +21,7 @@ class Mobile extends Text
 
         $this->defaultAttribute('style', 'width: 160px;flex:none');
 
-        $this->prepend('<i class="feather icon-smartphone"></i>');
+        $this->prepend(DcatIcon::MOBILE(true));
 
         return parent::render();
     }

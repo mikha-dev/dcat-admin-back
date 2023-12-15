@@ -14,10 +14,7 @@ class Paginator implements Renderable
      */
     protected $grid;
 
-    /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator
-     */
-    public $paginator = null;
+    public ?LengthAwarePaginator $paginator = null;
 
     /**
      * Create a new Paginator instance.
@@ -55,41 +52,41 @@ class Paginator implements Renderable
         return $this->paginator->render('admin::grid.pagination');
     }
 
-    /**
-     * Get per-page selector.
-     *
-     * @return string|null
-     */
-    protected function perPageSelector()
-    {
-        if (! $this->grid->getPerPages()) {
-            return;
-        }
+    // /**
+    //  * Get per-page selector.
+    //  *
+    //  * @return string|null
+    //  */
+    // protected function perPageSelector()
+    // {
+    //     if (! $this->grid->getPerPages()) {
+    //         return;
+    //     }
 
-        return (new PerPageSelector($this->grid))->render();
-    }
+    //     return (new PerPageSelector($this->grid))->render();
+    // }
 
-    /**
-     * Get range infomation of paginator.
-     *
-     * @return string|\Symfony\Component\Translation\TranslatorInterface
-     */
-    protected function paginationRanger()
-    {
-        $parameters = [
-            'first' => $this->paginator->firstItem(),
-            'last'  => $this->paginator->lastItem(),
-            'total' => method_exists($this->paginator, 'total') ? $this->paginator->total() : '...',
-        ];
+    // /**
+    //  * Get range infomation of paginator.
+    //  *
+    //  * @return string|\Symfony\Component\Translation\TranslatorInterface
+    //  */
+    // protected function paginationRanger()
+    // {
+    //     $parameters = [
+    //         'first' => $this->paginator->firstItem(),
+    //         'last'  => $this->paginator->lastItem(),
+    //         'total' => method_exists($this->paginator, 'total') ? $this->paginator->total() : '...',
+    //     ];
 
-        $parameters = collect($parameters)->flatMap(function ($parameter, $key) {
-            return [$key => "<b>$parameter</b>"];
-        });
+    //     $parameters = collect($parameters)->flatMap(function ($parameter, $key) {
+    //         return [$key => "<b>$parameter</b>"];
+    //     });
 
-        $color = Admin::color()->dark80();
+    //     $color = Admin::color()->dark80();
 
-        return "<span class='d-none d-sm-inline' style=\"line-height:33px;color:{$color}\">".trans('admin.pagination.range', $parameters->all()).'</span>';
-    }
+    //     return "<span class='d-none d-sm-inline' style=\"line-height:33px;color:{$color}\">".trans('admin.pagination.range', $parameters->all()).'</span>';
+    // }
 
     /**
      * Render Paginator.
@@ -98,8 +95,6 @@ class Paginator implements Renderable
      */
     public function render()
     {
-        return $this->paginationRanger().
-            $this->paginationLinks().
-            $this->perPageSelector();
+        return $this->paginator->render('admin::grid.pagination');
     }
 }

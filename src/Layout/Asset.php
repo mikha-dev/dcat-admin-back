@@ -14,52 +14,49 @@ class Asset
      * @var array
      */
     protected $alias = [
-        // Dcat Admin静态资源路径别名
         '@admin' => 'vendor/dcat-admin',
-        // Dcat Acmin扩展静态资源路径别名
         '@extension' => 'vendor/dcat-admin-extensions',
 
-        '@adminlte' => [
-            'js' => [
-                '@admin/adminlte/adminlte.js',
-            ],
-            'css' => [
-                '@admin/adminlte/adminlte.css',
-            ],
-        ],
+        // '@adminlte' => [
+        //     'js' => [
+        //         '@admin/adminlte/adminlte.js',
+        //     ],
+        //     'css' => [
+        //         '@admin/adminlte/adminlte.css',
+        //     ],
+        // ],
         '@nunito' => [
-            //'css' => 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,800,800i,900,900i',
-            'css' => '@admin/dcat/css/nunito.css',
+            'css' => 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,800,800i,900,900i',
         ],
         '@dcat' => [
             'js'  => '@admin/dcat/js/dcat-app.js',
-            'css' => '@admin/dcat/css/dcat-app.css',
+            //'css' => '@admin/dcat/css/dcat-app.css',
         ],
         '@vendors' => [
             'js'  => '@admin/dcat/plugins/vendors.min.js',
-            'css' => '@admin/dcat/plugins/vendors.min.css',
+        //    'css' => '@admin/dcat/plugins/vendors.min.css',
         ],
         '@jquery.initialize' => [
             'js' => '@admin/dcat/plugins/jquery.initialize/jquery.initialize.min.js',
         ],
-        '@datatables' => [
-            'css' => '@admin/dcat/plugins/tables/datatable/datatables.min.css',
-        ],
-        '@grid-extension' => [
-            'js' => '@admin/dcat/extra/grid-extend.js',
-        ],
-        '@resource-selector' => [
-            'js' => '@admin/dcat/extra/resource-selector.js',
-        ],
-        '@select-table' => [
-            'js' => '@admin/dcat/extra/select-table.js',
-        ],
+        // '@datatables' => [
+        //     'css' => '@admin/dcat/plugins/tables/datatable/datatables.min.css',
+        // ],
+        // '@grid-extension' => [
+        //     'js' => '@admin/dcat/extra/grid-extend.js',
+        // ],
+        // '@resource-selector' => [
+        //     'js' => '@admin/dcat/extra/resource-selector.js',
+        // ],
+        // '@select-table' => [
+        //     'js' => '@admin/dcat/extra/select-table.js',
+        // ],
         '@layer' => [
             'js' => '@admin/dcat/plugins/layer/layer.js',
         ],
-        '@tinymce' => [
-            'js' => '@admin/dcat/plugins/tinymce/tinymce.min.js',
-        ],
+        // '@tinymce' => [
+        //     'js' => '@admin/dcat/plugins/tinymce/tinymce.min.js',
+        // ],
         '@pjax' => [
             'js' => '@admin/dcat/plugins/jquery-pjax/jquery.pjax.min.js',
         ],
@@ -67,10 +64,10 @@ class Asset
             'js'  => '@admin/dcat/plugins/extensions/toastr.min.js',
             'css' => '@admin/dcat/plugins/extensions/toastr.css',
         ],
-        '@jquery.nestable' => [
-            'js'  => '@admin/dcat/plugins/nestable/jquery.nestable.min.js',
-            'css' => '@admin/dcat/plugins/nestable/nestable.css',
-        ],
+        // '@jquery.nestable' => [
+        //     'js'  => '@admin/dcat/plugins/nestable/jquery.nestable.min.js',
+        //     'css' => '@admin/dcat/plugins/nestable/nestable.css',
+        // ],
         '@validator' => [
             'js' => '@admin/dcat/plugins/bootstrap-validator/validator.min.js',
         ],
@@ -81,105 +78,105 @@ class Asset
             ],
             'css' => '@admin/dcat/plugins/select/select2.min.css',
         ],
-        '@bootstrap-datetimepicker' => [
-            'js'  => '@admin/dcat/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js',
-            'css' => '@admin/dcat/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css',
-        ],
-        '@moment' => [
-            'js' => [
-                '@admin/dcat/plugins/moment/moment-with-locales.min.js',
-            ],
-        ],
-        '@moment-timezone' => [
-            'js' => [
-                '@admin/dcat/plugins/moment-timezone/moment-timezone-with-data.min.js',
-            ],
-        ],
-        '@jstree' => [
-            'js'  => '@admin/dcat/plugins/jstree-theme/jstree.min.js',
-            'css' => '@admin/dcat/plugins/jstree-theme/themes/proton/style.min.css',
-        ],
-        '@switchery' => [
-            'js'  => '@admin/dcat/plugins/switchery/switchery.min.js',
-            'css' => '@admin/dcat/plugins/switchery/switchery.min.css',
-        ],
-        '@webuploader' => [
-            'js' => [
-                '@admin/dcat/plugins/webuploader/webuploader.min.js',
-                '@admin/dcat/extra/upload.js',
-            ],
-            'css' => '@admin/dcat/extra/upload.css',
-        ],
-        '@chartjs' => [
-            'js' => '@admin/dcat/plugins/chart.js/chart.bundle.min.js',
-        ],
-        '@jquery.sparkline' => [
-            'js' => '@admin/dcat/plugins/jquery.sparkline/jquery.sparkline.min.js',
-        ],
-        '@jquery.bootstrap-duallistbox' => [
-            'js'  => '@admin/dcat/plugins/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js',
-            'css' => '@admin/dcat/plugins/bootstrap-duallistbox/dist/bootstrap-duallistbox.min.css',
-        ],
-        '@number-input' => [
-            'js' => '@admin/dcat/plugins/number-input/bootstrap-number-input.js',
-        ],
-        '@ionslider' => [
-            'js' => [
-                '@admin/dcat/plugins/ionslider/ion.rangeSlider.min.js',
-            ],
-            'css' => [
-                '@admin/dcat/plugins/ionslider/ion.rangeSlider.css',
-                '@admin/dcat/plugins/ionslider/ion.rangeSlider.skinNice.css',
-            ],
-        ],
-        '@editor-md' => [
-            'js' => [
-                '@admin/dcat/plugins/editor-md/lib/raphael.min.js',
-                '@admin/dcat/plugins/editor-md/lib/marked.min.js',
-                '@admin/dcat/plugins/editor-md/lib/prettify.min.js',
-                '@admin/dcat/plugins/editor-md/lib/underscore.min.js',
-                '@admin/dcat/plugins/editor-md/lib/sequence-diagram.min.js',
-                '@admin/dcat/plugins/editor-md/lib/flowchart.min.js',
-                '@admin/dcat/plugins/editor-md/lib/jquery.flowchart.min.js',
-                '@admin/dcat/plugins/editor-md/editormd.min.js',
-            ],
-            'css' => [
-                '@admin/dcat/plugins/editor-md/css/editormd.preview.min.css',
-                '@admin/dcat/extra/markdown.css',
-            ],
-        ],
-        '@editor-md-form' => [
-            'js' => [
-                '@admin/dcat/plugins/editor-md/lib/raphael.min.js',
-                '@admin/dcat/plugins/editor-md/editormd.min.js',
-            ],
-            'css' => [
-                '@admin/dcat/plugins/editor-md/css/editormd.min.css',
-            ],
-        ],
-        '@jquery.inputmask' => [
-            'js' => '@admin/dcat/plugins/input-mask/jquery.inputmask.bundle.min.js',
-        ],
-        '@apex-charts' => [
-            'js' => '@admin/dcat/plugins/charts/apexcharts.min.js',
-        ],
-        '@fontawesome-iconpicker' => [
-            'js' => '@admin/dcat/plugins/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.js',
-            'css' => '@admin/dcat/plugins/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css',
-        ],
-        '@color' => [
-            'js' => '@admin/dcat/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js',
-            'css' => '@admin/dcat/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css',
-        ],
-        '@qrcode' => [
-            'js' => '@admin/dcat/plugins/jquery-qrcode/dist/jquery-qrcode.min.js',
-        ],
-        '@sortable' => [
-            'js' => '@admin/dcat/plugins/sortable/Sortable.min.js',
-        ],
-        '@autocomplete' => [
-            'js' => '@admin/dcat/plugins/autocomplete/jquery.autocomplete.min.js',
-        ],
+        // '@bootstrap-datetimepicker' => [
+        //     'js'  => '@admin/dcat/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js',
+        //     'css' => '@admin/dcat/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css',
+        // ],
+        // '@moment' => [
+        //     'js' => [
+        //         '@admin/dcat/plugins/moment/moment-with-locales.min.js',
+        //     ],
+        // ],
+        // '@moment-timezone' => [
+        //     'js' => [
+        //         '@admin/dcat/plugins/moment-timezone/moment-timezone-with-data.min.js',
+        //     ],
+        // ],
+        // '@jstree' => [
+        //     'js'  => '@admin/dcat/plugins/jstree-theme/jstree.min.js',
+        //     'css' => '@admin/dcat/plugins/jstree-theme/themes/proton/style.min.css',
+        // ],
+        // '@switchery' => [
+        //     'js'  => '@admin/dcat/plugins/switchery/switchery.min.js',
+        //     'css' => '@admin/dcat/plugins/switchery/switchery.min.css',
+        // ],
+        // '@webuploader' => [
+        //     'js' => [
+        //         '@admin/dcat/plugins/webuploader/webuploader.min.js',
+        //         '@admin/dcat/extra/upload.js',
+        //     ],
+        //     'css' => '@admin/dcat/extra/upload.css',
+        // ],
+        // '@chartjs' => [
+        //     'js' => '@admin/dcat/plugins/chart.js/chart.bundle.min.js',
+        // ],
+        // '@jquery.sparkline' => [
+        //     'js' => '@admin/dcat/plugins/jquery.sparkline/jquery.sparkline.min.js',
+        // ],
+        // '@jquery.bootstrap-duallistbox' => [
+        //     'js'  => '@admin/dcat/plugins/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js',
+        //     'css' => '@admin/dcat/plugins/bootstrap-duallistbox/dist/bootstrap-duallistbox.min.css',
+        // ],
+        // '@number-input' => [
+        //     'js' => '@admin/dcat/plugins/number-input/bootstrap-number-input.js',
+        // ],
+        // '@ionslider' => [
+        //     'js' => [
+        //         '@admin/dcat/plugins/ionslider/ion.rangeSlider.min.js',
+        //     ],
+        //     'css' => [
+        //         '@admin/dcat/plugins/ionslider/ion.rangeSlider.css',
+        //         '@admin/dcat/plugins/ionslider/ion.rangeSlider.skinNice.css',
+        //     ],
+        // ],
+        // '@editor-md' => [
+        //     'js' => [
+        //         '@admin/dcat/plugins/editor-md/lib/raphael.min.js',
+        //         '@admin/dcat/plugins/editor-md/lib/marked.min.js',
+        //         '@admin/dcat/plugins/editor-md/lib/prettify.min.js',
+        //         '@admin/dcat/plugins/editor-md/lib/underscore.min.js',
+        //         '@admin/dcat/plugins/editor-md/lib/sequence-diagram.min.js',
+        //         '@admin/dcat/plugins/editor-md/lib/flowchart.min.js',
+        //         '@admin/dcat/plugins/editor-md/lib/jquery.flowchart.min.js',
+        //         '@admin/dcat/plugins/editor-md/editormd.min.js',
+        //     ],
+        //     'css' => [
+        //         '@admin/dcat/plugins/editor-md/css/editormd.preview.min.css',
+        //         '@admin/dcat/extra/markdown.css',
+        //     ],
+        // ],
+        // '@editor-md-form' => [
+        //     'js' => [
+        //         '@admin/dcat/plugins/editor-md/lib/raphael.min.js',
+        //         '@admin/dcat/plugins/editor-md/editormd.min.js',
+        //     ],
+        //     'css' => [
+        //         '@admin/dcat/plugins/editor-md/css/editormd.min.css',
+        //     ],
+        // ],
+        // '@jquery.inputmask' => [
+        //     'js' => '@admin/dcat/plugins/input-mask/jquery.inputmask.bundle.min.js',
+        // ],
+        // '@apex-charts' => [
+        //     'js' => '@admin/dcat/plugins/charts/apexcharts.min.js',
+        // ],
+        // '@fontawesome-iconpicker' => [
+        //     'js' => '@admin/dcat/plugins/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.js',
+        //     'css' => '@admin/dcat/plugins/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css',
+        // ],
+        // '@color' => [
+        //     'js' => '@admin/dcat/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js',
+        //     'css' => '@admin/dcat/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css',
+        // ],
+        // '@qrcode' => [
+        //     'js' => '@admin/dcat/plugins/jquery-qrcode/dist/jquery-qrcode.min.js',
+        // ],
+        // '@sortable' => [
+        //     'js' => '@admin/dcat/plugins/sortable/Sortable.min.js',
+        // ],
+        // '@autocomplete' => [
+        //     'js' => '@admin/dcat/plugins/autocomplete/jquery.autocomplete.min.js',
+        // ],
     ];
 
     /**
@@ -231,11 +228,11 @@ class Asset
      * @var array
      */
     public $baseCss = [
-        'adminlte'    => '@adminlte',
-        'vendors'     => '@vendors',
-        'toastr'      => '@toastr',
-        'datatables'  => '@datatables',
-        'dcat'        => '@dcat',
+        //'adminlte'    => '@adminlte',
+        //'vendors'     => '@vendors',
+        //'toastr'      => '@toastr',
+        //'datatables'  => '@datatables',
+        //'dcat'        => '@dcat',
     ];
 
     /**
@@ -244,7 +241,7 @@ class Asset
      * @var array
      */
     public $baseJs = [
-        'adminlte'  => '@adminlte',
+        //'adminlte'  => '@adminlte',
         'toastr'    => '@toastr',
         'pjax'      => '@pjax',
         'validator' => '@validator',
@@ -264,6 +261,7 @@ class Asset
      */
     protected function setUpTheme()
     {
+
         $color = Admin::color()->getName();
 
         if ($color === Color::DEFAULT_COLOR) {

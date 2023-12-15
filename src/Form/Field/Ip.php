@@ -2,6 +2,8 @@
 
 namespace Dcat\Admin\Form\Field;
 
+use Dcat\Admin\DcatIcon;
+
 class Ip extends Text
 {
     protected $rules = ['nullable', 'ip'];
@@ -21,7 +23,7 @@ class Ip extends Text
 
         $this->defaultAttribute('style', 'width: 160px;flex:none');
 
-        $this->prepend('<i class="fa fa-laptop fa-fw"></i>')
+        $this->prepend(DcatIcon::LAPTOP(true))
             ->defaultAttribute('style', 'width: 200px');
 
         return parent::render();

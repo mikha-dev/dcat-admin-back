@@ -3,8 +3,8 @@
 namespace Dcat\Admin;
 
 use Closure;
-use Dcat\Admin\Impersonate;
 use D4T\Core\Models\Domain;
+use Dcat\Admin\Impersonate;
 use Dcat\Admin\Layout\Menu;
 use Illuminate\Support\Arr;
 use Dcat\Admin\Layout\Footer;
@@ -24,6 +24,7 @@ use Illuminate\Auth\GuardHelpers;
 use Composer\Autoload\ClassLoader;
 use Dcat\Admin\Enums\DarkModeType;
 use Dcat\Admin\Support\Translator;
+use Illuminate\Support\Facades\App;
 use Dcat\Admin\Contracts\Repository;
 use Dcat\Admin\Enums\AuthLayoutType;
 use Illuminate\Support\Facades\Auth;
@@ -31,8 +32,9 @@ use Dcat\Admin\Layout\SectionManager;
 use Dcat\Admin\Traits\HasPermissions;
 use Illuminate\Support\Facades\Event;
 use Dcat\Admin\Extend\ServiceProvider;
+use D4T\Core\Enums\LayoutDirectionType;
 use Illuminate\Database\Eloquent\Model;
-use Dcat\Admin\Enums\LayoutDirectionType;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Builder;
 use Dcat\Admin\Contracts\ExceptionHandler;
 use Illuminate\Contracts\Support\Renderable;
@@ -62,6 +64,7 @@ class Admin
         'APP_INNER_BEFORE' => 'ADMIN_APP_INNER_BEFORE',
         'APP_INNER_AFTER' => 'ADMIN_APP_INNER_AFTER',
 
+        'NAVBAR_BEFORE_USER_PANEL' => 'ADMIN_BEFORE_NAVBAR_USER_PANEL',
         'NAVBAR_USER_PANEL' => 'ADMIN_NAVBAR_USER_PANEL',
         'NAVBAR_AFTER_USER_PANEL' => 'ADMIN_NAVBAR_AFTER_USER_PANEL',
 
@@ -620,6 +623,17 @@ class Admin
         }
 
         static::registerHelperRoutes();
+    }
+
+    public static function registerLocale() : void {
+        $locale = Session::get('locale');
+
+        if(empty($locale))
+            $locale = config('admin.locale');
+
+        if(!empty($locale) && !App::isLocale($locale)) {
+            App::setLocale($locale);
+        }
     }
 
     //todo:: add auth routes: login/register/reset pwd,verify

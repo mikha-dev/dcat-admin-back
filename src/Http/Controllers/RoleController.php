@@ -21,7 +21,7 @@ class RoleController extends AdminController
     {
         return new Grid(new Role(), function (Grid $grid) {
             $grid->column('id', 'ID')->sortable();
-            $grid->column('slug')->label('primary');
+            $grid->column('slug')->label();
             $grid->column('name');
 
             $grid->column('created_at');

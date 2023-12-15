@@ -3,6 +3,7 @@
 namespace Dcat\Admin\Grid\Actions;
 
 use Dcat\Admin\Form;
+use Dcat\Admin\DcatIcon;
 use Dcat\Admin\Grid\RowAction;
 
 class QuickEdit extends RowAction
@@ -16,7 +17,9 @@ class QuickEdit extends RowAction
             return $this->title;
         }
 
-        return '<i class="feather icon-edit"></i> '.__('admin.quick_edit').' &nbsp;&nbsp;';
+        //todo::rm
+        //return '<i class="fas fa-pencil"></i> '.__('admin.quick_edit').' &nbsp;&nbsp;';
+        return DcatIcon::PENCIL(true, __('admin.quick_edit'));
     }
 
     public function render()

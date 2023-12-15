@@ -12,7 +12,7 @@ class TagsColoredDisplay extends AbstractDisplayer
 
         if(is_null($this->value))
             return '';
-        
+//todo::use colored badge        
         return collect($this->value)->map(function ($tag) {
             if(class_implements($tag, ColoredTag::class) ) {
                 return  "<span title='{$tag->getTag()}' class='label' style='background-color:{$tag->getColor()}'>&nbsp;&nbsp;</span>";

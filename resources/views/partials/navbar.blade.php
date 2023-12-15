@@ -24,7 +24,7 @@
 
                 @if(!$configData['horizontal-menu'])
                 <div class="navbar-left d-flex align-items-center">
-                    {!! Dcat\Admin\Admin::navbar()->render('left') !!}
+                   {!! Dcat\Admin\Admin::navbar()->renderFree() !!}
                 </div>
                 @else
                 <div class="d-md-block horizontal-navbar-brand justify-content-center text-center">
@@ -40,17 +40,16 @@
                     </ul>
                 </div>
                 <div class="navbar-left d-flex align-items-center">
-                    {!! Dcat\Admin\Admin::navbar()->render('left') !!}
+                   {!! Dcat\Admin\Admin::navbar()->renderFree() !!}
                 </div>
                 @endif
 
                 <div class="navbar-right d-flex align-items-center">
-                    {!! Dcat\Admin\Admin::navbar()->render() !!}
-
                     <ul class="nav navbar-nav">
+                        {!! Dcat\Admin\Admin::navbar()->renderNavs() !!}
                         {{--User Account Menu--}}
-                        {!! admin_section(Dcat\Admin\Admin::SECTION['NAVBAR_USER_PANEL']) !!}
-
+                        {!! admin_section(Dcat\Admin\Admin::SECTION['NAVBAR_BEFORE_USER_PANEL']) !!}
+                        @include('admin::widgets.user-nav', ['user' => \Dcat\Admin\Admin::user()])
                         {!! admin_section(Dcat\Admin\Admin::SECTION['NAVBAR_AFTER_USER_PANEL']) !!}
                     </ul>
                 </div>

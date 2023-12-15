@@ -60,7 +60,7 @@ class Selector
     /**
      * @param  string  $column
      * @param  string|array  $label
-     * @param  array  $options
+     * @param  array|\Illuminate\Support\Collection<D4TEnum, \D4T\Core\Repositories\LabelWithCount>  $options
      * @param  null|\Closure  $query
      * @return $this
      */

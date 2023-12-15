@@ -2,6 +2,7 @@
 
 namespace Dcat\Admin\Form\Field;
 
+use Dcat\Admin\DcatIcon;
 use Dcat\Admin\Support\Helper;
 use Dcat\Admin\Support\JavaScript;
 
@@ -21,7 +22,9 @@ class Autocomplete extends Text
 
     public function __construct($column, $arguments = [])
     {
-        $this->prepend('<i class="feather icon-edit-2"></i>');
+        //todo::icon
+        //$this->prepend('<i class="feather icon-edit-2"></i>');
+        $this->prepend(DcatIcon::PENCIL(true));
 
         parent::__construct($column, $arguments);
     }

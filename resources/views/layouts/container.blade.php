@@ -2,8 +2,6 @@
         class="dcat-admin-body sidebar-mini layout-fixed {{ $configData['body_class']}} {{ $configData['sidebar_class'] }}
         {{ $configData['navbar_class'] === 'fixed-top' ? 'navbar-fixed-top' : '' }} " >
 
-<script src="/vendor/dcat-admin-extensions/mikha-dev/dcat-statistics/js/statistics.js"></script>
-        
 <script>
     var Dcat = CreateDcat({!! Dcat\Admin\Admin::jsVariables() !!});
 </script>
@@ -25,7 +23,7 @@
 <footer class="main-footer pt-1">
     <p class="clearfix blue-grey lighten-2 mb-0 text-center">
             @if(! empty(config('admin.version')))
-            <span class="text-left d-block d-md-inline-block mt-25 pull-left">                
+            <span class="text-left d-block d-md-inline-block mt-25 pull-left">
                 <a style="font-size: xx-small" href="https://dev4traders.com">{!! config('admin.version') !!}</a>
             </span>
             @endif

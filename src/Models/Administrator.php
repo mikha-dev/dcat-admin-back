@@ -2,30 +2,44 @@
 
 namespace Dcat\Admin\Models;
 
-use D4T\Core\Repositories\UserSettings;
-use Illuminate\Support\Facades\URL;
+use D4T\Core\Traits\HasDomain;
 //use Illuminate\Auth\Authenticatable;
 //use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 //use Illuminate\Contracts\Auth\Access\Authorizable;
 //use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\URL;
 use Dcat\Admin\Traits\HasPermissions;
+use D4T\Core\Repositories\UserSettings;
 use Illuminate\Support\Facades\Storage;
-use Dcat\Admin\Traits\HasDateTimeFormatter;
+use Illuminate\Notifications\Notifiable;
+use D4T\Core\Traits\HasDateTimeFormatter;
+use D4T\Core\Contracts\NotifiableInterface;
+use D4T\Core\Traits\HasDashboardNotifications;
+use D4T\Core\Traits\HasNotificationSubscriptions;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
+
 /**
  * Class Administrator.
  *
  * @property Role[] $roles
  */
-class Administrator extends Authenticatable
+class Administrator extends Authenticatable implements NotifiableInterface
 {
-    use
     //    Authenticatable,
-        HasPermissions,
-        HasDateTimeFormatter;
+    use HasPermissions;
+    use HasDateTimeFormatter;
+    use Notifiable;
+    use HasDomain;
+    use HasNotificationSubscriptions;
+    use HasDashboardNotifications;
+    use AuthenticationLoggable;
+
+    protected $casts = [
+        'settings' => UserSettings::class . ':default'
+    ];
 
     const DEFAULT_ID = 1;
 
@@ -34,10 +48,6 @@ class Administrator extends Authenticatable
 
     protected $hidden = [
         'password', 'remember_token',
-    ];
-
-    protected $casts = [
-        'settings' => UserSettings::class . ':default'
     ];
 
     /**
@@ -66,13 +76,19 @@ class Administrator extends Authenticatable
      *
      * @return mixed|string
      */
-    public function getAvatarAttribute() : string
+    public function getAvatarAttribute(): string
     {
+        return $this->getAvatar();
+    }
+
+    public function getAvatar(): string
+    {
+
         $avatar = $this->avatar_url;
 
         if ($avatar) {
-            if (! URL::isValidUrl($avatar)) {
-                $avatar = Storage::disk(config('admin.upload.disk'))->url($avatar);
+            if (!URL::isValidUrl($avatar)) {
+                $avatar = Storage::disk(config('admin.upload.disk'))->url($avatar); //todo:: check and fix
             }
 
             return $avatar;
@@ -95,24 +111,14 @@ class Administrator extends Authenticatable
         return $this->belongsToMany($relatedModel, $pivotTable, 'user_id', 'role_id')->withTimestamps();
     }
 
-    public function domains() : HasMany {
-        $relatedModel = config('admin.database.domains_model');
-        return $this->hasMany($relatedModel, 'manager_id');
-    }
-
-    public function domain() : BelongsTo {
-        $relatedModel = config('admin.database.domains_model');
-        return $this->belongsTo($relatedModel, 'domain_id');
-    }
-
-    /**
-     * 判断是否允许查看菜单.
-     *
-     * @param  array|Menu  $menu
-     * @return bool
-     */
-    public function canSeeMenu($menu)
+    public function canSeeMenu($menu): bool
     {
         return true;
     }
+
+    public function routeNotificationForDomainMailer($notifiable): string
+    {
+        return $this->email;
+    }
+
 }

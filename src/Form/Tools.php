@@ -175,13 +175,15 @@ class Tools implements Renderable
      */
     protected function renderList()
     {
-        $text = trans('admin.list');
+        return (new ToolsButton(__('admin.list'), 'feather icon-list', $this->getListPath()))->render();
+        //todo::moved to view
+//         $text = trans('admin.list');
 
-        return <<<EOT
-<div class="btn-group pull-right" style="margin-right: 5px">
-    <a href="{$this->getListPath()}" class="btn btn-sm btn-primary "><i class="feather icon-list"></i><span class="d-none d-sm-inline">&nbsp;$text</span></a>
-</div>
-EOT;
+//         return <<<EOT
+// <div class="btn-group pull-right" style="margin-right: 5px">
+//     <a href="{$this->getListPath()}" class="btn btn-sm btn-primary "><i class="feather icon-list"></i><span class="d-none d-sm-inline">&nbsp;$text</span></a>
+// </div>
+// EOT;
     }
 
     /**
@@ -191,15 +193,16 @@ EOT;
      */
     protected function renderView()
     {
-        $view = trans('admin.view');
-
-        return <<<HTML
-<div class="btn-group pull-right" style="margin-right: 5px">
-    <a href="{$this->getViewPath()}" class="btn btn-sm btn-primary">
-        <i class="feather icon-eye"></i><span class="d-none d-sm-inline"> {$view}</span>
-    </a>
-</div>
-HTML;
+        return (new ToolsButton(__('admin.view'), 'feather icon-eye', $this->getViewPath()))->render();
+        //todo::moved to view
+//         $view = trans('admin.view');
+//         return <<<HTML
+// <div class="btn-group pull-right" style="margin-right: 5px">
+//     <a href="{$this->getViewPath()}" class="btn btn-sm btn-primary">
+//         <i class="feather icon-eye"></i><span class="d-none d-sm-inline"> {$view}</span>
+//     </a>
+// </div>
+// HTML;
     }
 
     /**
@@ -209,15 +212,17 @@ HTML;
      */
     protected function renderDelete()
     {
-        $delete = trans('admin.delete');
+        return (new ToolsButton(__('admin.delete'), 'feather icon-trash', $this->getDeletePath(), 'delete', $this->getListPath()))->render();
+        //todo::moved to view
+//         $delete = trans('admin.delete');
 
-        return <<<HTML
-<div class="btn-group pull-right" style="margin-right: 5px">
-    <a class="btn btn-sm btn-white" data-action="delete" data-url="{$this->getDeletePath()}" data-redirect="{$this->getListPath()}">
-        <i class="feather icon-trash"></i><span class="d-none d-sm-inline"> {$delete}</span>
-    </a>
-</div>
-HTML;
+//         return <<<HTML
+// <div class="btn-group pull-right" style="margin-right: 5px">
+//     <a class="btn btn-sm btn-white" data-action="delete" data-url="{$this->getDeletePath()}" data-redirect="{$this->getListPath()}">
+//         <i class="feather icon-trash"></i><span class="d-none d-sm-inline"> {$delete}</span>
+//     </a>
+// </div>
+// HTML;
     }
 
     /**

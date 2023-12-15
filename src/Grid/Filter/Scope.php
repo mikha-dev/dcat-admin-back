@@ -78,6 +78,7 @@ class Scope implements Renderable
      */
     public function render()
     {
+//todo::use view
         $url = request()->fullUrlWithQuery([
             $this->filter->getScopeQueryName() => $this->key,
             $this->filter->grid()->model()->getPageName() => null,

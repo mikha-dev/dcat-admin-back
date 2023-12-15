@@ -4,13 +4,13 @@ namespace Dcat\Admin\Http\Controllers;
 
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
+use Dcat\Admin\Show;
+use Dcat\Admin\Widgets\Tree;
+use Dcat\Admin\Support\Helper;
+use D4T\Core\Enums\StyleClassType;
 use Dcat\Admin\Http\Auth\Permission;
 use Dcat\Admin\Http\Repositories\Administrator;
 use Dcat\Admin\Models\Administrator as AdministratorModel;
-use Dcat\Admin\Models\Domain;
-use Dcat\Admin\Show;
-use Dcat\Admin\Support\Helper;
-use Dcat\Admin\Widgets\Tree;
 
 class UserController extends AdminController
 {
@@ -29,7 +29,7 @@ class UserController extends AdminController
             $grid->column('domain.host');
 
             if (config('admin.permission.enable')) {
-                $grid->column('roles')->pluck('name')->label('primary', 3);
+                $grid->column('roles')->pluck('name')->label(StyleClassType::PRIMARY, 3);
 
                 $permissionModel = config('admin.database.permissions_model');
                 $roleModel = config('admin.database.roles_model');
@@ -77,7 +77,7 @@ class UserController extends AdminController
             $show->field('name');
             $show->field('email');
 
-            $show->field('avatar', __('admin.avatar'))->image();
+            $show->field('avatar_url', __('admin.avatar'))->image();
 
             if (config('admin.permission.enable')) {
                 $show->field('roles')->as(function ($roles) {
@@ -146,11 +146,11 @@ class UserController extends AdminController
                 ->creationRules(['required', "unique:{$connection}.{$userTable}"])
                 ->updateRules(['required', "unique:{$connection}.{$userTable},email,$id"]);
             $form->text('name', trans('admin.name'))->required();
-            $form->image('avatar', trans('admin.avatar'))->autoUpload();
+            $form->image('avatar_url', trans('admin.avatar'))->autoUpload();
 
             if ($id) {
                 $form->password('password', trans('admin.password'))
-                    ->minLength(5)
+                    ->minLength(4)
                     ->maxLength(25)
                     ->customFormat(function () {
                         return '';
@@ -158,7 +158,7 @@ class UserController extends AdminController
             } else {
                 $form->password('password', trans('admin.password'))
                     ->required()
-                    ->minLength(5)
+                    ->minLength(4)
                     ->maxLength(25);
             }
 

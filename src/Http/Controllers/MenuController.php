@@ -3,13 +3,13 @@
 namespace Dcat\Admin\Http\Controllers;
 
 use Dcat\Admin\Form;
-use Dcat\Admin\Http\Actions\Menu\Show;
-use Dcat\Admin\Http\Repositories\Menu;
+use Dcat\Admin\Tree;
+use Dcat\Admin\Layout\Row;
+use Dcat\Admin\Widgets\Card;
 use Dcat\Admin\Layout\Column;
 use Dcat\Admin\Layout\Content;
-use Dcat\Admin\Layout\Row;
-use Dcat\Admin\Tree;
-use Dcat\Admin\Widgets\Box;
+use Dcat\Admin\Http\Actions\Menu\Show;
+use Dcat\Admin\Http\Repositories\Menu;
 use Dcat\Admin\Widgets\Form as WidgetForm;
 
 class MenuController extends AdminController
@@ -33,6 +33,7 @@ class MenuController extends AdminController
 
                     $menuModel = config('admin.database.menu_model');
                     $permissionModel = config('admin.database.permissions_model');
+                    /** @var mixed $roleModel */
                     $roleModel = config('admin.database.roles_model');
 
                     $form->select('parent_id', trans('admin.parent_id'))->options($menuModel::selectOptions());
@@ -52,7 +53,7 @@ class MenuController extends AdminController
 
                     $form->width(9, 2);
 
-                    $column->append(Box::make(trans('admin.new'), $form));
+                    $column->append(new Card(trans('admin.new'), $form));
                 });
             });
     }

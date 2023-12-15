@@ -3,13 +3,17 @@
 namespace Dcat\Admin\Grid\Concerns;
 
 use Dcat\Admin\Grid\Tools;
+use Dcat\Admin\Grid\Tools\PerPageSelector;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 trait HasPaginator
 {
-    /**
-     * @var Tools\Paginator
-     */
-    protected $paginator;
+    // /**
+    //  * @var Tools\Paginator
+    //  */
+    // protected $paginator;
+    public ?LengthAwarePaginator $paginator = null;
+//    public ?PerPageSelector $perPageSelector = null;
 
     /**
      * Per-page options.
@@ -77,11 +81,17 @@ trait HasPaginator
      */
     public function paginator()
     {
-        if (! $this->paginator) {
-            $paginatorClass = $this->options['paginator_class'] ?: (config('admin.grid.paginator_class') ?: Tools\Paginator::class);
+        $this->paginator = $this->model()->paginator();
 
-            $this->paginator = new $paginatorClass($this);
+        if ($this->paginator instanceof LengthAwarePaginator) {
+            $this->paginator->appends(request()->all());
         }
+
+        // if (! $this->paginator) {
+        //     $paginatorClass = $this->options['paginator_class'] ?: (config('admin.grid.paginator_class') ?: Tools\Paginator::class);
+
+        //     $this->paginator = new $paginatorClass($this);
+        // }
 
         return $this->paginator;
     }
@@ -154,6 +164,16 @@ trait HasPaginator
      */
     public function renderPagination()
     {
-        return view('admin::grid.table-pagination', ['grid' => $this]);
+        $this->paginator();
+
+        if(is_null($this->paginator))
+            return '';
+
+        return $this->paginator->render('admin::grid.pagination', ['selector' => new PerPageSelector($this)]);
+        //return view('admin::grid.table-pagination', ['grid' => $this ]);
     }
+
+    // public function renderPerPageSelector() : string {
+    //     return (new PerPageSelector($this))->render();
+    // }
 }

@@ -2,6 +2,7 @@
 
 namespace Dcat\Admin\Support;
 
+use D4T\Core\D4TEnum;
 use Dcat\Admin\Grid;
 use Dcat\Laravel\Database\WhereHasInServiceProvider;
 use Illuminate\Contracts\Support\Arrayable;
@@ -140,6 +141,11 @@ class Helper
         $html = '';
 
         foreach ((array) $attributes as $key => &$value) {
+
+            if($value instanceof D4TEnum) {
+                $value = $value->value;
+            }
+
             if (is_array($value)) {
                 $value = implode(' ', $value);
             }

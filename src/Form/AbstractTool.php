@@ -15,7 +15,8 @@ abstract class AbstractTool extends Action
     /**
      * @var string
      */
-    protected $style = 'btn btn-sm btn-primary';
+    //todo::move to view
+    //protected $style = 'btn btn-sm btn-primary';
 
     /**
      * Whether the action should only allow in creation page.
@@ -73,7 +74,8 @@ abstract class AbstractTool extends Action
      */
     public function setupHtmlAttributes()
     {
-        $this->addHtmlClass($this->style);
+        //todo::move to view
+        //$this->addHtmlClass($this->style);
 
         parent::setupHtmlAttributes();
     }

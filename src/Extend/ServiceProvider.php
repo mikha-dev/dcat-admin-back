@@ -46,6 +46,10 @@ abstract class ServiceProvider extends LaravelServiceProvider
      */
     protected $js = [];
 
+    protected array $aliases = [];
+
+    protected array $fonts = [];
+
     /**
      * @var array
      */
@@ -549,6 +553,24 @@ abstract class ServiceProvider extends LaravelServiceProvider
                 'js'  => $this->formatAssetFiles($this->js),
                 'css' => $this->formatAssetFiles($this->css),
             ]);
+        }
+
+        if($this->aliases) {
+            foreach($this->aliases as $name => $options) {
+                $data = [];
+
+                if(isset($options['js']))
+                    $data['js'] = $this->formatAssetFiles($options['js']);
+
+                if(isset($options['css']))
+                    $data['css'] = $this->formatAssetFiles($options['css']);
+
+                $asset->alias($name, $data);
+            }
+        }
+
+        if($this->fonts) {
+            Admin::fonts($this->fonts);
         }
     }
 

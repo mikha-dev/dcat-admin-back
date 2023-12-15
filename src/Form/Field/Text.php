@@ -3,6 +3,7 @@
 namespace Dcat\Admin\Form\Field;
 
 use Dcat\Admin\Admin;
+use Dcat\Admin\DcatIcon;
 use Dcat\Admin\Form\Field;
 use Illuminate\Support\Str;
 
@@ -14,7 +15,7 @@ class Text extends Field
     public function __construct($column, $arguments = [])
     {
         if (static::class === self::class) {
-            $this->prepend('<i class="feather icon-edit-2"></i>');
+            $this->prepend(DcatIcon::PENCIL(true));
         }
 
         parent::__construct($column, $arguments);

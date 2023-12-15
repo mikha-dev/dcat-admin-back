@@ -41,7 +41,7 @@ JS;
         if ($formatter instanceof \Closure) {
             $content = $formatter->call($this->row, $content);
         }
-
+//todo::use view
         return <<<HTML
 <a href="javascript:void(0);" 
     class="grid-column-qrcode text-muted" 

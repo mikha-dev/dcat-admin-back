@@ -55,6 +55,7 @@ JS;
         }
         $all = trans('admin.all');
 
+//todo::use dropdown
         return "<li class='dropdown-item'><a href=\"{$this->grid->exportUrl('all')}\" target=\"_blank\">{$all}</a></li>";
     }
 
@@ -69,7 +70,7 @@ JS;
 
         $page = $this->grid->model()->getCurrentPage() ?: 1;
         $currentPage = trans('admin.current_page');
-
+//todo::use dropdown
         return "<li class='dropdown-item'><a href=\"{$this->grid->exportUrl('page', $page)}\" target=\"_blank\">{$currentPage}</a></li>";
     }
 
@@ -86,7 +87,7 @@ JS;
         }
 
         $selectedRows = trans('admin.selected_rows');
-
+//todo::use dropdown
         return "<li class='dropdown-item'><a href=\"{$this->grid->exportUrl('selected', '__rows__')}\" target=\"_blank\" class='{$this->grid->getExportSelectedName()}'>{$selectedRows}</a></li>";
     }
 

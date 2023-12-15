@@ -17,7 +17,8 @@ class EnumColoredDisplay extends AbstractDisplayer
         if(class_implements($this->value, D4TEnum::class) ) {
             /** @var D4TEnum $this->value */
             if(class_implements($this->value, D4TEnumColored::class) ) {
-                return '<span class="label" style="background:'.$this->value->color()->value.'">'.$this->value->label().'</span>';
+//todo::use colored badge
+                return '<span class="label bg-'.$this->value->color()->value.'">'.$this->value->label().'</span>';
             }
 
             return $this->value->label();

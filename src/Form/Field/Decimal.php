@@ -2,6 +2,8 @@
 
 namespace Dcat\Admin\Form\Field;
 
+use Dcat\Admin\DcatIcon;
+
 class Decimal extends Text
 {
     /**
@@ -18,7 +20,7 @@ class Decimal extends Text
     {
         $this->inputmask($this->options);
 
-        $this->prepend('<i class="fa fa-terminal fa-fw"></i>');
+        $this->prepend(DcatIcon::TERMINAL(true));
 
         return parent::render();
     }

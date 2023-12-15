@@ -88,7 +88,7 @@ abstract class AbstractFilter
     /**
      * @var int
      */
-    protected $width = 10;
+    protected $width = 12;
 
     /**
      * @var string

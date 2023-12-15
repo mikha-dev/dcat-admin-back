@@ -2,6 +2,7 @@
 
 namespace Dcat\Admin\Grid\Actions;
 
+use Dcat\Admin\DcatIcon;
 use Dcat\Admin\Grid\RowAction;
 
 class Delete extends RowAction
@@ -14,8 +15,9 @@ class Delete extends RowAction
         if ($this->title) {
             return $this->title;
         }
-
-        return '<i class="feather icon-trash"></i> '.__('admin.delete').' &nbsp;&nbsp;';
+        //todo::rm
+        //return '<i class="fas fa-trash"></i> '.__('admin.delete').' &nbsp;&nbsp;';
+        return DcatIcon::TRASH(true, __('admin.delete'));
     }
 
     public function render()

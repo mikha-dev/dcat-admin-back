@@ -3,29 +3,31 @@
 namespace Dcat\Admin\Grid\Displayers;
 
 use Dcat\Admin\Admin;
+use D4T\Core\Enums\StyleClassType;
 use Dcat\Admin\Support\Helper;
 
 class Label extends AbstractDisplayer
 {
+//todo::use colored badge
     protected $baseClass = 'label';
 
-    public function display($style = 'primary', $max = null)
+    public function display(StyleClassType $style = StyleClassType::PRIMARY, $max = null)
     {
         if (! $value = $this->value($max)) {
             return;
         }
 
         $original = $this->column->getOriginal();
-        $defaultStyle = is_array($style) ? ($style['default'] ?? 'default') : 'default';
+        //$defaultStyle = is_array($style) ? ($style['default'] ?? 'default') : 'default';
 
-        $background = $this->formatStyle(
-            is_array($style) ?
-                (is_scalar($original) ? ($style[$original] ?? $defaultStyle) : current($style))
-                : $style
-        );
+        // $background = $this->formatStyle(
+        //     is_array($style) ?
+        //         (is_scalar($original) ? ($style[$original] ?? $defaultStyle) : current($style))
+        //         : $style
+        // );
 
-        return collect($value)->map(function ($name) use ($background) {
-            return "<span class='{$this->baseClass}' {$background}>$name</span>";
+        return collect($value)->map(function ($name) use ($style) {
+            return "<span class='{$this->baseClass} bg-{$style->value}'>$name</span>";
         })->implode(' ');
     }
 

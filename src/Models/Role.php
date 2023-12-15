@@ -2,9 +2,9 @@
 
 namespace Dcat\Admin\Models;
 
-use Dcat\Admin\Traits\HasDateTimeFormatter;
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model;
+use D4T\Core\Traits\HasDateTimeFormatter;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Role extends Model

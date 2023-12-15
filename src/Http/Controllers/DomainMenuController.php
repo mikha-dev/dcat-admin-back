@@ -27,7 +27,7 @@ class DomainMenuController extends AdminController
             ->title($this->title())
             ->helpTopic($this->helpTopic())
             ->description(__('admin.customize_menu'))
-            ->withInfo('Press F5 to refresh sidebar menu')
+            ->withInfo('Press F5 to refresh sidebar menu') //todo:move to lang
             ->body(function (Row $row) {  $row->column(4, $this->treeView()->render());});
     }
 

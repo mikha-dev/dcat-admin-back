@@ -2,16 +2,18 @@
 
 namespace Dcat\Admin\Grid\Displayers;
 
+use Dcat\Admin\DcatIcon;
 use Dcat\Admin\Actions\Action;
-use Dcat\Admin\Grid\Actions\Delete;
-use Dcat\Admin\Grid\Actions\Edit;
-use Dcat\Admin\Grid\Actions\QuickEdit;
-use Dcat\Admin\Grid\Actions\Show;
 use Dcat\Admin\Grid\RowAction;
 use Dcat\Admin\Support\Helper;
+use Dcat\Admin\Grid\Actions\Edit;
+use Dcat\Admin\Grid\Actions\Show;
+use Dcat\Admin\Grid\Actions\Delete;
+use Dcat\Admin\Grid\Actions\QuickEdit;
+use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Support\Traits\Macroable;
+use Dcat\Admin\Grid\Displayers\AbstractDisplayer;
 
 class Actions extends AbstractDisplayer
 {
@@ -256,7 +258,8 @@ class Actions extends AbstractDisplayer
     {
         $label = trans('admin.show');
 
-        return "<i title='{$label}' class=\"feather icon-eye grid-action-icon\"></i> &nbsp;";
+        return DcatIcon::EYE(true, $label);
+        //return "<i title='{$label}' class=\"fas fa-eye grid-action-icon\"></i> &nbsp;";
     }
 
     /**
@@ -279,7 +282,9 @@ class Actions extends AbstractDisplayer
     {
         $label = trans('admin.edit');
 
-        return "<i title='{$label}' class=\"feather icon-edit-1 grid-action-icon\"></i> &nbsp;";
+        //todo::rm
+        //return "<i title='{$label}' class=\"fas fa-pencil grid-action-icon\"></i> &nbsp;";
+        return DcatIcon::PENCIL(true, $label);
     }
 
     /**
@@ -300,7 +305,9 @@ class Actions extends AbstractDisplayer
     {
         $label = trans('admin.quick_edit');
 
-        return "<i title='{$label}' class=\"feather icon-edit grid-action-icon\"></i> &nbsp;";
+        //todo::rm
+        //return "<i title='{$label}' class=\"fas fa-pencil grid-action-icon\"></i> &nbsp;";
+        return DcatIcon::PENCIL(true, $label);
     }
 
     /**
@@ -323,6 +330,8 @@ class Actions extends AbstractDisplayer
     {
         $label = trans('admin.delete');
 
-        return "<i class=\"feather icon-trash grid-action-icon\" title='{$label}'></i> &nbsp;";
+        //todo::rm
+        //return "<i class=\"fas fa-trash grid-action-icon\" title='{$label}'></i> &nbsp;";
+        return DcatIcon::TRASH(true, $label);
     }
 }

@@ -14,7 +14,8 @@ class Bootstrap
         $this->includeBootstrapFile();
         $this->addScript();
         $this->fireEvents();
-        $this->setUpDarkMode();
+        //todo::rm
+        //$this->setUpDarkMode();
 
         $response = $next($request);
 
@@ -23,16 +24,17 @@ class Bootstrap
         return $response;
     }
 
-    protected function setUpDarkMode()
-    {
-        if (
-            config('admin.layout.dark-mode-switch')
-            && ! Helper::isAjaxRequest()
-            && ! request()->routeIs(admin_api_route_name('*'))
-        ) {
-            Admin::navbar()->right((new DarkModeSwitcher())->render());
-        }
-    }
+    //todo::rm
+    // protected function setUpDarkMode()
+    // {
+    //     if (
+    //         config('admin.layout.dark-mode-switch')
+    //         && ! Helper::isAjaxRequest()
+    //         && ! request()->routeIs(admin_api_route_name('*'))
+    //     ) {
+    //         Admin::navbar()->right((new DarkModeSwitcher())->render());
+    //     }
+    // }
 
     protected function includeBootstrapFile()
     {

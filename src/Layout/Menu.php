@@ -3,43 +3,56 @@
 namespace Dcat\Admin\Layout;
 
 use Dcat\Admin\Admin;
+use Illuminate\Support\Arr;
 use Dcat\Admin\Support\Helper;
 use Illuminate\Support\Facades\Lang;
 
 class Menu
 {
-    protected static $helperNodes = [
-        [
-            'id'        => 1,
-            'title'     => 'Helpers',
-            'icon'      => 'fa fa-keyboard-o',
-            'uri'       => '',
-            'parent_id' => 0,
-        ],
-        [
-            'id'        => 2,
-            'title'     => 'Extensions',
-            'icon'      => '',
-            'uri'       => 'auth/extensions',
-            'parent_id' => 1,
-        ],
-        [
-            'id'        => 3,
-            'title'     => 'Scaffold',
-            'icon'      => '',
-            'uri'       => 'helpers/scaffold',
-            'parent_id' => 1,
-        ],
-        [
-            'id'        => 4,
-            'title'     => 'Icons',
-            'icon'      => '',
-            'uri'       => 'helpers/icons',
-            'parent_id' => 1,
-        ],
-    ];
+    protected string $view = 'admin::partials.menu';
 
-    protected $view = 'admin::partials.menu';
+    protected array $nodes = [];
+
+    public function __construct()
+    {
+        $menuModel = config('admin.database.menu_model');
+
+        $this->nodes = array_merge([], (new $menuModel())->allNodes()->toArray());
+
+//        Admin::js('js/menu.js');
+    }
+
+    //todo:: move to extension
+    // protected static $helperNodes = [
+    //     [
+    //         'id'        => 1,
+    //         'title'     => 'Helpers',
+    //         'icon'      => 'fa fa-keyboard-o',
+    //         'uri'       => '',
+    //         'parent_id' => 0,
+    //     ],
+    //     [
+    //         'id'        => 2,
+    //         'title'     => 'Extensions',
+    //         'icon'      => '',
+    //         'uri'       => 'auth/extensions',
+    //         'parent_id' => 1,
+    //     ],
+    //     [
+    //         'id'        => 3,
+    //         'title'     => 'Scaffold',
+    //         'icon'      => '',
+    //         'uri'       => 'helpers/scaffold',
+    //         'parent_id' => 1,
+    //     ],
+    //     [
+    //         'id'        => 4,
+    //         'title'     => 'Icons',
+    //         'icon'      => '',
+    //         'uri'       => 'helpers/icons',
+    //         'parent_id' => 1,
+    //     ],
+    // ];
 
     public function register()
     {
@@ -50,77 +63,72 @@ class Menu
                 return $this->toHtml((new $menuModel())->allNodes()->toArray());
             });
         }
-
-        if (config('app.debug') && config('admin.helpers.enable', true)) {
-            $this->add(static::$helperNodes, 20);
-        }
     }
 
-    /**
-     * 增加菜单节点.
-     *
-     * @param  array  $nodes
-     * @param  int  $priority
-     * @return void
-     */
-    public function add(array $nodes = [], int $priority = 10)
+    public function render() : string
     {
-        admin_inject_section(Admin::SECTION['LEFT_SIDEBAR_MENU_BOTTOM'], function () use (&$nodes) {
-            return $this->toHtml($nodes);
-        }, true, $priority);
+        $html = '';
+
+        foreach (Helper::buildNestedArray($this->nodes) as $item) {
+            $html .= $this->renderItem($item);
+        }
+
+        return $html;
+
+        //Admin::js('menu.js');
+    }
+
+    public function add(array $nodes = [], bool $append = true) : void
+    {
+        foreach($nodes as $node) {
+            if($append)
+                array_push($this->nodes, $node);
+            else
+                $this->nodes = Arr::prepend($this->nodes, $node);
+        }
+        // admin_inject_section(Admin::SECTION['LEFT_SIDEBAR_MENU_BOTTOM'], function () use (&$nodes) {
+        //     return $this->toHtml($nodes);
+        // }, true, $priority);
     }
 
     /**
-     * 转化为HTML.
-     *
-     * @param  array  $nodes
-     * @return string
-     *
      * @throws \Throwable
      */
-    public function toHtml($nodes)
+    public function toHtml(array $nodes) : string
     {
         $html = '';
 
         foreach (Helper::buildNestedArray($nodes) as $item) {
-            $html .= $this->render($item);
+            $html .= $this->renderItem($item);
         }
 
         return $html;
     }
 
-    /**
-     * 设置菜单视图.
-     *
-     * @param  string  $view
-     * @return $this
-     */
-    public function view(string $view)
+    public function view(string $view) : Menu
     {
         $this->view = $view;
 
         return $this;
     }
 
-    /**
-     * 渲染视图.
-     *
-     * @param  array  $item
-     * @return string
-     */
-    public function render($item)
+    protected function renderItem(array $item) : string
     {
         return view($this->view, ['item' => &$item, 'builder' => $this])->render();
     }
 
-    /**
-     * 判断是否选中.
-     *
-     * @param  array  $item
-     * @param  null|string  $path
-     * @return bool
-     */
-    public function isActive($item, ?string $path = null)
+    public function getIcon(array $item) : ?string
+    {
+        $icon = $item['icon'];
+
+        if(isset($item['domain_setting']) && !is_null($item['domain_setting']) && !is_null($item['domain_setting']['icon'])) {
+            $icon = $item['domain_setting']['icon'];
+        }
+
+        return $icon;
+    }
+
+    public function isActive(array $item, ?string $path = null) : bool
     {
         if (empty($path)) {
             $path = request()->path();
@@ -148,13 +156,7 @@ class Menu
         return false;
     }
 
-    /**
-     * 判断节点是否可见.
-     *
-     * @param  array  $item
-     * @return bool
-     */
-    public function visible($item)
+    public function visible(array $item) : bool
     {
         if (
             ! $this->checkPermission($item)
@@ -173,13 +175,7 @@ class Menu
         return true;
     }
 
-    /**
-     * 判断扩展是否启用.
-     *
-     * @param $item
-     * @return bool
-     */
-    protected function checkExtension($item)
+    protected function checkExtension(array $item) : bool
     {
         $extension = $item['extension'] ?? null;
 
@@ -194,13 +190,7 @@ class Menu
         return $extension->enabled();
     }
 
-    /**
-     * 判断用户.
-     *
-     * @param  array|\Dcat\Admin\Models\Menu  $item
-     * @return bool
-     */
-    protected function userCanSeeMenu($item)
+    protected function userCanSeeMenu(array|\Dcat\Admin\Models\Menu $item) : bool
     {
         $user = Admin::user();
 
@@ -211,20 +201,15 @@ class Menu
         return $user->canSeeMenu($item);
     }
 
-    protected function checkDomainSetting($item) : bool {
-        if(!isset($item['domain_setting']) || is_null($item['domain_setting'])) 
+    protected function checkDomainSetting(array $item) : bool {
+
+        if(!isset($item['domain_setting']) || is_null($item['domain_setting']))
             return true;
 
         return $item['domain_setting']['visible'];
     }
 
-    /**
-     * 判断权限.
-     *
-     * @param $item
-     * @return bool
-     */
-    protected function checkPermission($item)
+    protected function checkPermission(array $item) : bool
     {
         $permissionIds = $item['permission_id'] ?? null;
         $roles = array_column(Helper::array($item['roles'] ?? []), 'slug');
@@ -249,11 +234,7 @@ class Menu
         return false;
     }
 
-    /**
-     * @param  string  $text
-     * @return string
-     */
-    public function translate($text)
+    public function translate(string $text) : string
     {
         $titleTranslation = 'menu.titles.'.trim(str_replace(' ', '_', strtolower($text)));
 
@@ -264,22 +245,15 @@ class Menu
         return $text;
     }
 
-    /**
-     * @param  string  $uri
-     * @return string
-     */
-    public function getPath($uri)
+    public function getPath(string $uri) : string
     {
+        //todo::check and rm
         return $uri
             ? (url()->isValidUrl($uri) ? $uri : admin_base_path($uri))
             : $uri;
     }
 
-    /**
-     * @param  string  $uri
-     * @return string
-     */
-    public function getUrl($uri)
+    public function getUrl(string $uri) : string
     {
         return $uri ? admin_url($uri) : $uri;
     }

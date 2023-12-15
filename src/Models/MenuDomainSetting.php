@@ -2,26 +2,43 @@
 
 namespace Dcat\Admin\Models;
 
+use D4T\Core\Traits\HasDomain;
 use Dcat\Admin\Enums\IconType;
-use Dcat\Admin\Models\Menu;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MenuDomainSetting extends Model
 {
-    protected $table = 'admin_menu_domain_settings';
+    use HasDomain;
 
+//    protected $table = 'admin_menu_domain_settings';
     protected $casts = ['icon_type' => IconType::class];
 
     protected $appends = [ 'icon' ];
     protected $fillable = [ 'visible' ];
 
-    protected function menu() : BelongsTo {
-        return $this->belongsTo(Menu::class);
+    /**
+     * {@inheritDoc}
+    */
+    public function __construct(array $attributes = [])
+    {
+        $this->init();
+
+        parent::__construct($attributes);
     }
 
-    protected function domain() : BelongsTo {
-        return $this->belongsTo(Domain::class);
+    protected function init()
+    {
+        $connection = config('admin.database.connection') ?: config('database.default');
+
+        $this->setConnection($connection);
+
+        $this->setTable(config('admin.database.menu_domain_settings_table') ?: 'admin_menu_domain_settings');
+    }
+
+    public function menu() : BelongsTo {
+        $menuModel = config('admin.database.menu_model', Menu::class);
+        return $this->belongsTo($menuModel);
     }
 
     public function getIconAttribute() {

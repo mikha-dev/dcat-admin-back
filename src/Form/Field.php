@@ -185,7 +185,7 @@ class Field implements Renderable
      */
     protected $width = [
         'label' => 2,
-        'field' => 8,
+        'field' => 10,
     ];
 
     /**
@@ -210,7 +210,9 @@ class Field implements Renderable
     /**
      * @var array
      */
-    protected $labelClass = ['text-capitalize'];
+//todo:: use css classes inside view
+//    protected $labelClass = ['text-capitalize'];
+    protected $labelClass = [];
 
     /**
      * @var array
@@ -220,7 +222,9 @@ class Field implements Renderable
     /**
      * @var array
      */
-    protected $formGroupClass = ['form-field'];
+//todo::use css classes inside view
+    //protected $formGroupClass = ['form-field'];
+    protected $formGroupClass = [];
 
     /**
      * @var \Closure[]
@@ -445,7 +449,7 @@ class Field implements Renderable
      * @param  int  $label
      * @return $this
      */
-    public function width($field = 8, $label = 2)
+    public function width($field = 10, $label = 2)
     {
         $this->width = [
             'label' => $label,
@@ -622,7 +626,7 @@ class Field implements Renderable
      * @param  string  $icon
      * @return $this
      */
-    public function help($text = '', $icon = 'feather icon-help-circle')
+    public function help($text = '', DcatIcon $icon = DcatIcon::HELP)
     {
         $this->help = compact('text', 'icon');
 
@@ -897,11 +901,15 @@ class Field implements Renderable
      */
     public function getViewElementClasses()
     {
+//todo::use css classes inside view
+
         if ($this->horizontal) {
             return [
                 'label'      => "col-md-{$this->width['label']} {$this->getLabelClass()}",
                 'field'      => "col-md-{$this->width['field']} {$this->getFieldClass()}",
-                'form-group' => "form-group row {$this->getFormGroupClass()}",
+//todo::use css classes inside view
+//                'form-group' => "form-group row {$this->getFormGroupClass()}",
+                'form-group' => "",
             ];
         }
 

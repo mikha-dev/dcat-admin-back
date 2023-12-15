@@ -30,7 +30,7 @@ use Illuminate\Support\Traits\Macroable;
  * @method $this switch(string $color = '', $refresh = false)
  * @method $this switchGroup($columns = [], string $color = '', $refresh = false)
  * @method $this image($server = '', int $width = 200, int $height = 200)
- * @method $this label($style = 'primary', int $max = null)
+ * @method $this label(StyleClassType $style = StyleClassType::PRIMARY, int $max = null)
  * @method $this button($style = 'success');
  * @method $this link($href = '', $target = '_blank');
  * @method $this badge($style = 'primary', int $max = null);
