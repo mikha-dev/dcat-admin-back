@@ -24,7 +24,7 @@
     {!! Dcat\Admin\Admin::asset()->cssToHtml() !!}
 </head>
 
-<body class="dcat-admin-body full-page {{ $configData['body_class'] }}">
+<body class="dcat-admin-body full-page">
 
 <script>
     var Dcat = CreateDcat({!! Dcat\Admin\Admin::jsVariables() !!});

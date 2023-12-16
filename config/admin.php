@@ -2,6 +2,7 @@
 
 return [
 
+    'disable_no_referrer_meta' => true,
     /*
     |--------------------------------------------------------------------------
     | dcat-admin name
@@ -42,7 +43,10 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'favicon' => null,
+    'favicon' => [
+        'icon-32' => 'images/icon-32.png',
+        'icon-192' => 'images/icon-192.png'
+    ],
 
     /*
      |--------------------------------------------------------------------------
@@ -128,7 +132,6 @@ return [
     |
     */
     'auth' => [
-        'enable' => true,
 
         'controller' => App\Admin\Controllers\AuthController::class,
 
@@ -192,15 +195,6 @@ return [
                 'driver' => 'file',
             ],
         ],
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | dcat-admin helpers setting.
-    |--------------------------------------------------------------------------
-    */
-    'helpers' => [
-        'enable' => true,
     ],
 
     /*
@@ -312,32 +306,33 @@ return [
         'domain_role_defaults_table' => 'admin_domain_role_defaults'
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Application layout
-    |--------------------------------------------------------------------------
-    |
-    | This value is the layout of admin pages.
-    */
-    'layout' => [
-        // default, blue, blue-light, green
-        'color' => 'default',
+    //todo::moved to ui
+    // /*
+    // |--------------------------------------------------------------------------
+    // | Application layout
+    // |--------------------------------------------------------------------------
+    // |
+    // | This value is the layout of admin pages.
+    // */
+    // 'layout' => [
+    //     // default, blue, blue-light, green
+    //     'color' => 'default',
 
-        // sidebar-separate
-        'body_class' => [],
+    //     // sidebar-separate
+    //     'body_class' => [],
 
-        'horizontal_menu' => false,
+    //     'horizontal_menu' => false,
 
-        'sidebar_collapsed' => false,
+    //     'sidebar_collapsed' => false,
 
-        // light, primary, dark
-        'sidebar_style' => 'light',
+    //     // light, primary, dark
+    //     'sidebar_style' => 'light',
 
-        'dark_mode_switch' => false,
+    //     'dark_mode_switch' => false,
 
-        // bg-primary, bg-info, bg-warning, bg-success, bg-danger, bg-dark
-        'navbar_color' => '',
-    ],
+    //     // bg-primary, bg-info, bg-warning, bg-success, bg-danger, bg-dark
+    //     'navbar_color' => '',
+    // ],
 
     /*
     |--------------------------------------------------------------------------

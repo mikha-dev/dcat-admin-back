@@ -7,7 +7,7 @@
             <h1 class=" float-left">
                 <span class="text-capitalize">{!! $header !!}</span>
                 <small>{!! $description !!}</small>
-                @if($helpTopic) 
+                @if($helpTopic)
                 {!!$helpTopic!!}
                 @endif
             </h1>

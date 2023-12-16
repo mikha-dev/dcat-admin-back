@@ -20,4 +20,13 @@ enum RouteAuth : string implements D4TEnum
 
     case PROFILE = 'auth.profile';
     case SECURITY = 'auth.security';
+    case LOCALE = 'auth.locale';
+
+    case EXTENSIONS = 'auth.extensions';
+    case ROLES = 'auth.roles';
+    case PERMISSIONS = 'auth.permissions';
+    case USERS = 'auth.users';
+    case MENU = 'auth.menu';
+    case DOMAINS = 'auth.domains';
+    case DOMAIN_MENU = 'auth.domain_menu';
 }

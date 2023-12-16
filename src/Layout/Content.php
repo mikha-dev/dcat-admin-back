@@ -43,7 +43,7 @@ class Content implements Renderable
      *
      * @var string
      */
-    protected string $helpTopic = '';    
+    protected string $helpTopic = '';
 
     /**
      * Page breadcrumb.
@@ -131,7 +131,7 @@ class Content implements Renderable
         $this->helpTopic = $helpTopic;
 
         return $this;
-    }    
+    }
 
     /**
      * 设置翻译文件路径.
@@ -423,94 +423,96 @@ class Content implements Renderable
             'description'     => $this->description,
             'helpTopic'       => $this->helpTopic,
             'breadcrumb'      => $this->breadcrumb,
-            'configData'      => $this->applyClasses(),
+//            'configData'      => $this->applyClasses(),
             'pjaxContainerId' => Admin::getPjaxContainerId(),
         ], $this->variables);
     }
 
-    /**
-     * @return array
-     */
-    protected function applyClasses()
-    {
-        // default data array
-        $defaultData = [
-            'theme'             => '',
-            'sidebar_collapsed' => false,
-            'sidebar-style'     => 'sidebar-light-primary',
-            'navbar-color'      => '',
-            'navbar_class'      => 'sticky',
-            'footer_type'       => '',
-            'body_class'        => [],
-            'horizontal-menu'   => false,
-        ];
+    //todo::rm, moved to ui
+    // /**
+    //  * @return array
+    //  */
+    // protected function applyClasses()
+    // {
+    //     // default data array
+    //     // $defaultData = [
+    //     //     'theme'             => '',
+    //     //     'sidebar_collapsed' => false,
+    //     //     'sidebar-style'     => 'sidebar-light-primary',
+    //     //     'navbar-color'      => '',
+    //     //     'navbar_class'      => 'sticky',
+    //     //     'footer_type'       => '',
+    //     //     'body_class'        => [],
+    //     //     'horizontal-menu'   => false,
+    //     // ];
 
-        $data = array_merge(
-            config('admin.layout') ?: [],
-            $this->config
-        );
+    //     // $data = array_merge(
+    //     //     config('admin.layout') ?: [],
+    //     //     $this->config
+    //     // );
 
-        $allOptions = [
-            'theme'             => '',
-            'footer_type'       => '',
-            'body_class'        => [],
-            'sidebar-style'     => ['light' => 'sidebar-light-primary', 'primary' => 'sidebar-primary', 'dark' => 'sidebar-dark-white'],
-            'sidebar_collapsed' => [],
-            'navbar-color'      => [],
-            'navbar_class'      => ['floating' => 'floating-nav', 'sticky' => 'fixed-top', 'hidden' => 'd-none'],
-            'horizontal-menu'   => [],
-        ];
+    //     // $allOptions = [
+    //     //     'theme'             => '',
+    //     //     'footer_type'       => '',
+    //     //     'body_class'        => [],
+    //     //     'sidebar-style'     => ['light' => 'sidebar-light-primary', 'primary' => 'sidebar-primary', 'dark' => 'sidebar-dark-white'],
+    //     //     'sidebar_collapsed' => [],
+    //     //     'navbar-color'      => [],
+    //     //     'navbar_class'      => ['floating' => 'floating-nav', 'sticky' => 'fixed-top', 'hidden' => 'd-none'],
 
-        $maps = [
-            'footer_type' => 'footer_type',
-        ];
+    //     //     'horizontal-menu'   => [],
+    //     // ];
 
-        foreach ($allOptions as $key => $value) {
-            if (! array_key_exists($key, $defaultData)) {
-                continue;
-            }
+    //     // $maps = [
+    //     //     'footer_type' => 'footer_type',
+    //     // ];
 
-            if (! isset($data[$key])) {
-                $data[$key] = $defaultData[$key];
+    //     // foreach ($allOptions as $key => $value) {
+    //     //     if (! array_key_exists($key, $defaultData)) {
+    //     //         continue;
+    //     //     }
 
-                continue;
-            }
+    //     //     if (! isset($data[$key])) {
+    //     //         $data[$key] = $defaultData[$key];
 
-            if (
-                isset($maps[$key])
-                && ! isset($allOptions[$maps[$key]][$data[$key]])
-            ) {
-                $data[$key] = $defaultData[$key];
-            }
+    //     //         continue;
+    //     //     }
 
-            if (! is_array($data[$key]) && isset($value[$data[$key]])) {
-                $data[$key] = $value[$data[$key]];
-            }
-        }
+    //     //     if (
+    //     //         isset($maps[$key])
+    //     //         && ! isset($allOptions[$maps[$key]][$data[$key]])
+    //     //     ) {
+    //     //         $data[$key] = $defaultData[$key];
+    //     //     }
 
-        if (! is_array($data['body_class'])) {
-            $data['body_class'] = explode(' ', (string) $data['body_class']);
-        }
+    //     //     if (! is_array($data[$key]) && isset($value[$data[$key]])) {
+    //     //         $data[$key] = $value[$data[$key]];
+    //     //     }
+    //     // }
 
-        if ($data['body_class'] && in_array('dark-mode', $data['body_class'], true)) {
-            $data['sidebar-style'] = 'sidebar-dark-white';
-        }
+    //     // if (! is_array($data['body_class'])) {
+    //     //     $data['body_class'] = explode(' ', (string) $data['body_class']);
+    //     // }
 
-        if ($data['horizontal-menu']) {
-            $data['body_class'][] = 'horizontal-menu';
-        }
+    //     // if ($data['body_class'] && in_array('dark-mode', $data['body_class'], true)) {
+    //     //     $data['sidebar-style'] = 'sidebar-dark-white';
+    //     // }
 
-        return [
-            'theme'             => $data['theme'],
-            'sidebar_collapsed' => $data['sidebar_collapsed'],
-            'navbar-color'      => $data['navbar-color'],
-            'navbar_class'      => $allOptions['navbar_class'][$data['navbar_class']],
-            'sidebar_class'     => $data['sidebar_collapsed'] ? 'sidebar-collapse' : '',
-            'body_class'        => implode(' ', $data['body_class']),
-            'sidebar-style'     => $data['sidebar-style'],
-            'horizontal-menu'   => $data['horizontal-menu'],
-        ];
-    }
+    //     // if ($data['horizontal-menu']) {
+    //     //     $data['body_class'][] = 'horizontal-menu';
+    //     // }
+
+    //     // return [
+    //     //     'theme'             => $data['theme'],
+    //     //     'sidebar_collapsed' => $data['sidebar_collapsed'],
+    //     //     'navbar-color'      => $data['navbar-color'],
+    //     //     'navbar_class'      => $allOptions['navbar_class'][$data['navbar_class']],
+    //     //     'sidebar_class'     => $data['sidebar_collapsed'] ? 'sidebar-collapse' : '',
+    //     //     'body_class'        => implode(' ', $data['body_class']),
+    //     //     'sidebar-style'     => $data['sidebar-style'],
+    //     //     'horizontal-menu'   => $data['horizontal-menu'],
+    //     // ];
+    // }
 
     /**
      * Render this content.

@@ -2,8 +2,8 @@
 
 namespace Dcat\Admin;
 
-use Dcat\Admin\Impersonate;
 use D4T\Core\Models\Domain;
+use Dcat\Admin\Impersonate;
 use Dcat\Admin\Layout\Menu;
 use Illuminate\Support\Arr;
 use Dcat\Admin\Layout\Asset;
@@ -24,6 +24,7 @@ use Dcat\Admin\Extend\VersionManager;
 use Dcat\Admin\Layout\SectionManager;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Dcat\Admin\Widgets\Navs\ShortcutsNav;
 use Dcat\Admin\Contracts\ExceptionHandler;
 
 class AdminServiceProvider extends ServiceProvider
@@ -217,8 +218,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->singleton('admin.navbar', Navbar::class);
         $this->app->singleton('admin.usernav', UserNav::class);
         $this->app->singleton('admin.footer', Footer::class);
-        //$this->app->singleton('admin.shortcuts', Shortcuts::class);
-        //$this->app->singleton('admin.lang-selector', LangSelector::class);
+        $this->app->singleton('admin.shortcuts', ShortcutsNav::class);
         $this->app->singleton('admin.menu', Menu::class);
         $this->app->singleton('admin.context', Context::class);
         $this->app->singleton('admin.domain', function() {

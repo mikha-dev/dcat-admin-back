@@ -6,7 +6,6 @@ use Closure;
 use D4T\Core\Models\Domain;
 use Dcat\Admin\Impersonate;
 use Dcat\Admin\Layout\Menu;
-use Illuminate\Support\Arr;
 use Dcat\Admin\Layout\Footer;
 use Dcat\Admin\Layout\Navbar;
 use Dcat\Admin\Extend\Manager;
@@ -16,23 +15,19 @@ use Dcat\Admin\Traits\HasHtml;
 use Dcat\Admin\Enums\RouteAuth;
 use Dcat\Admin\Support\Context;
 use Dcat\Admin\Support\Setting;
-use Dcat\Admin\Enums\LayoutType;
 use Dcat\Admin\Support\Composer;
 use Dcat\Admin\Traits\HasAssets;
 use Dcat\Admin\Http\JsonResponse;
 use Illuminate\Auth\GuardHelpers;
 use Composer\Autoload\ClassLoader;
-use Dcat\Admin\Enums\DarkModeType;
 use Dcat\Admin\Support\Translator;
 use Illuminate\Support\Facades\App;
 use Dcat\Admin\Contracts\Repository;
-use Dcat\Admin\Enums\AuthLayoutType;
 use Illuminate\Support\Facades\Auth;
 use Dcat\Admin\Layout\SectionManager;
 use Dcat\Admin\Traits\HasPermissions;
 use Illuminate\Support\Facades\Event;
 use Dcat\Admin\Extend\ServiceProvider;
-use D4T\Core\Enums\LayoutDirectionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Builder;
@@ -47,6 +42,7 @@ use Dcat\Admin\Exception\InvalidArgumentException;
 use D4T\Core\Contracts\EmailContextObjectInterface;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Dcat\Admin\Http\Controllers\DashboardSettingsController;
+use Dcat\Admin\Widgets\Navs\ShortcutsNav;
 
 class Admin
 {
@@ -139,11 +135,11 @@ class Admin
         // static::context()->favicon = $favicon;
 
         $link = '';
-        if(!empty($icon32 = config('admin.icons.icon-32'))) {
+        if(!empty($icon32 = config('admin.favicon.icon-32'))) {
             $link .= "<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"{$icon32}\">";
         }
 
-        if(!empty($icon192 = config('admin.icons.icon-192'))) {
+        if(!empty($icon192 = config('admin.favicon.icon-192'))) {
             $link .= "<link rel=\"icon\" type=\"image/png\" sizes=\"192x192\" href=\"{$icon192}\">";
             $link .= "<link rel=\"apple-touch-icon\" href=\"{$icon192}\" />";
             $link .= "<meta name=\"msapplication-TileImage\" content=\"{$icon192}\" />";
@@ -198,6 +194,15 @@ class Admin
         $builder && $builder($userNav);
 
         return $userNav;
+    }
+
+    public static function shortcutsNav(Closure $builder = null) : ShortcutsNav
+    {
+        $shortcuts = app('admin.shortcuts');
+
+        $builder && $builder($shortcuts);
+
+        return $shortcuts;
     }
 
     public static function pjax(bool $value = true) : void
@@ -499,16 +504,17 @@ class Admin
             return;
         }
 
-        $sidebarStyle = config('admin.layout.sidebar_style') ?: 'light';
-
         $pjaxId = static::getPjaxContainerId();
         $jsVariables['pjax_container_selector'] = $pjaxId ? ('#'.$pjaxId) : '';
         $jsVariables['token'] = csrf_token();
         $jsVariables['lang'] = ($lang = __('admin.client')) ? array_merge($lang, $jsVariables['lang'] ?? []) : [];
         $jsVariables['colors'] = static::color()->all();
-        $jsVariables['dark_mode'] = static::isDarkMode();
-        $jsVariables['sidebar_dark'] = config('admin.layout.sidebar_dark') || ($sidebarStyle === 'dark');
-        $jsVariables['sidebar_light_style'] = in_array($sidebarStyle, ['dark', 'light'], true) ? 'sidebar-light-primary' : 'sidebar-primary';
+
+        //todo::moved to theme
+        // $sidebarStyle = config('admin.layout.sidebar_style') ?: 'light';
+        // $jsVariables['dark_mode'] = static::isDarkMode();
+        // $jsVariables['sidebar_dark'] = config('admin.layout.sidebar_dark') || ($sidebarStyle === 'dark');
+        // $jsVariables['sidebar_light_style'] = in_array($sidebarStyle, ['dark', 'light'], true) ? 'sidebar-light-primary' : 'sidebar-primary';
 
         return admin_javascript_json($jsVariables);
     }
@@ -517,62 +523,59 @@ class Admin
         return str_replace('_', '-', app()->getLocale());
     }
 
-    public static function dir() : LayoutDirectionType {
-        return config('admin.layout.dir');
-    }
+    //todo::thme feature
+    // public static function dir() : LayoutDirectionType {
+    //     return config('admin.layout.dir');
+    // }
 
-    public static function layoutInitials() : string {
-        return Arr::join(config('admin.layout.initials'), ' ');
-    }
+    // public static function layoutInitials() : string {
+    //     return Arr::join(config('admin.layout.initials'), ' ');
+    // }
 
-    public static function metaDescription() : string {
-        return config('admin.meta.description') ? config('admin.meta.description') : '';
-    }
+    // public static function metaDescription() : string {
+    //     return config('admin.meta.description') ? config('admin.meta.description') : '';
+    // }
 
-    public static function metaKeywords() : string {
-        return config('admin.meta.keywords') ? config('admin.meta.keywords') : '';
-    }
+    // public static function metaKeywords() : string {
+    //     return config('admin.meta.keywords') ? config('admin.meta.keywords') : '';
+    // }
 
-    public static function theme() : string {
-        return config('admin.theme');
-    }
+    //todo::rm thme feature
+    // public static function theme() : string {
+    //     return config('admin.theme');
+    // }
 
-    public static function darkMode() : DarkModeType {
-        return config('admin.layout.dark_mode');
-    }
+    // public static function darkMode() : DarkModeType {
+    //     return config('admin.layout.dark_mode');
+    // }
 
-    public static function hasThemeCustomizer() : bool {
-        return config('admin.has_theme_customizer');
-    }
+    // public static function hasThemeCustomizer() : bool {
+    //     return config('admin.has_theme_customizer');
+    // }
 
-    public static function authLayoutType() : AuthLayoutType {
-        return config('admin.layout.auth_type');
-    }
+    // public static function authLayoutType() : AuthLayoutType {
+    //     return config('admin.layout.auth_type');
+    // }
 
-    public static function layoutType() : LayoutType {
-        return config('admin.layout.type');
-    }
+    // public static function layoutType() : LayoutType {
+    //     return config('admin.layout.type');
+    // }
 
-    //todo:clean and rm
-    /**
-     * @return bool
-     */
-    public static function isDarkMode()
-    {
-        $bodyClass = config('admin.layout.body_class');
+    //todo:clean and rm, theme feature
+    // /**
+    //  * @return bool
+    //  */
+    // public static function isDarkMode()
+    // {
+    //     $bodyClass = config('admin.layout.body_class');
 
-        return in_array(
-            'dark-mode',
-            is_array($bodyClass) ? $bodyClass : explode(' ', $bodyClass),
-            true
-        );
-    }
+    //     return in_array(
+    //         'dark-mode',
+    //         is_array($bodyClass) ? $bodyClass : explode(' ', $bodyClass),
+    //         true
+    //     );
+    // }
 
-    /**
-     * 注册路由.
-     *
-     * @return void
-     */
     public static function routes() : void
     {
         $attributes = [
@@ -580,49 +583,47 @@ class Admin
             'middleware' => config('admin.route.middleware'),
         ];
 
-        if (config('admin.auth.enable', true)) {
-            app('router')->group($attributes, function ($router) {
+        app('router')->group($attributes, function ($router) {
+            /* @var \Illuminate\Routing\Router $router */
+            $router->namespace('Dcat\Admin\Http\Controllers')->group(function ($router) {
                 /* @var \Illuminate\Routing\Router $router */
-                $router->namespace('Dcat\Admin\Http\Controllers')->group(function ($router) {
-                    /* @var \Illuminate\Routing\Router $router */
-                    $router->resource('auth/users', 'UserController');
-                    $router->resource('auth/menu', 'MenuController', ['except' => ['create', 'show']]);
-                    $router->resource('auth/domains', 'DomainController');
-                    $router->resource('auth/domain-menu', 'DomainMenuController');
+                $router->resource('auth/users', 'UserController')->name('index', RouteAuth::USERS());
+                $router->resource('auth/menu', 'MenuController', ['except' => ['create', 'show']])->name('index', RouteAuth::MENU());
+                $router->resource('auth/domains', 'DomainController')->name('index', RouteAuth::DOMAINS());
+                $router->resource('auth/domain-menu', 'DomainMenuController')->name('index', RouteAuth::DOMAIN_MENU());
 
-                    if (config('admin.permission.enable')) {
-                        $router->resource('auth/roles', 'RoleController');
-                        $router->resource('auth/permissions', 'PermissionController');
-                    }
-                });
-
-                $router->resource('auth/extensions', 'Dcat\Admin\Http\Controllers\ExtensionController', ['only' => ['index', 'store', 'update']]);
-                $router->get('dashboard-settings', function (\Dcat\Admin\Layout\Content $content) {
-                    return (new DashboardSettingsController())->index($content);
-                })->name(RouteAuth::DASH_SETTINGS());
-
-                $authController = config('admin.auth.controller', AuthController::class);
-
-                $router->get('auth/login', $authController.'@getLogin')->name(RouteAuth::LOGIN());
-                $router->post('auth/login', $authController.'@postLogin');
-                $router->get('auth/logout', $authController.'@getLogout')->name(RouteAuth::LOGOUT());
-                $router->get('auth/impersonate/{id}', $authController.'@impersonate')->name(RouteAuth::IMPERSONATE());
-                $router->get('auth/deimpersonate', $authController.'@deimpersonate')->name(RouteAuth::DEIMPERSONATE());
-
-                $router->get('auth/forgot-password', $authController.'@getForgotPassword')->name(RouteAuth::FORGOT_PASSWORD());
-                $router->get('auth/register', $authController.'@getRegister')->name(RouteAuth::REGISTER());
-
-                $router->get('auth/security', $authController.'@getSecurity')->name(RouteAuth::SECURITY());
-                $router->put('auth/security', $authController.'@putSecurity');
-
-                $router->get('auth/profile', $authController.'@getProfile')->name(RouteAuth::PROFILE());
-                $router->put('auth/profile', $authController.'@putProfile');
-
-                $router->get('locale/{key}', $authController.'@setLocale')->name('set-locale');
+                if (config('admin.permission.enable')) {
+                    $router->resource('auth/roles', 'RoleController')->name('index', RouteAuth::ROLES());
+                    $router->resource('auth/permissions', 'PermissionController')->name('index', RouteAuth::PERMISSIONS());
+                }
             });
-        }
 
-        static::registerHelperRoutes();
+            $router->resource('auth/extensions', 'Dcat\Admin\Http\Controllers\ExtensionController', ['only' => ['index', 'store', 'update']])->name('index', RouteAuth::EXTENSIONS());
+            $router->get('dashboard-settings', function (\Dcat\Admin\Layout\Content $content) {
+                return (new DashboardSettingsController())->index($content);
+            })->name(RouteAuth::DASH_SETTINGS());
+
+            $authController = config('admin.auth.controller', AuthController::class);
+
+            $router->get('auth/login', $authController.'@getLogin')->name(RouteAuth::LOGIN());
+            $router->post('auth/login', $authController.'@postLogin');
+            $router->get('auth/logout', $authController.'@getLogout')->name(RouteAuth::LOGOUT());
+            $router->get('auth/impersonate/{id}', $authController.'@impersonate')->name(RouteAuth::IMPERSONATE());
+            $router->get('auth/deimpersonate', $authController.'@deimpersonate')->name(RouteAuth::DEIMPERSONATE());
+
+            $router->get('auth/forgot-password', $authController.'@getForgotPassword')->name(RouteAuth::FORGOT_PASSWORD());
+            $router->get('auth/register', $authController.'@getRegister')->name(RouteAuth::REGISTER());
+
+            $router->get('auth/security', $authController.'@getSecurity')->name(RouteAuth::SECURITY());
+            $router->put('auth/security', $authController.'@putSecurity');
+
+            $router->get('auth/profile', $authController.'@getProfile')->name(RouteAuth::PROFILE());
+            $router->put('auth/profile', $authController.'@putProfile');
+
+            $router->get('locale/{key}', $authController.'@setLocale')->name(RouteAuth::LOCALE());
+        });
+
+        //static::registerHelperRoutes();
     }
 
     public static function registerLocale() : void {
@@ -659,23 +660,24 @@ class Admin
         });
     }
 
-    public static function registerHelperRoutes() : void
-    {
-        if (! config('admin.helpers.enable', true) || ! config('app.debug')) {
-            return;
-        }
+    //todo::move to extension
+    // public static function registerHelperRoutes() : void
+    // {
+    //     if (! config('admin.helpers.enable', true) || ! config('app.debug')) {
+    //         return;
+    //     }
 
-        $attributes = [
-            'prefix'     => config('admin.route.prefix'),
-            'middleware' => config('admin.route.middleware'),
-        ];
+    //     $attributes = [
+    //         'prefix'     => config('admin.route.prefix'),
+    //         'middleware' => config('admin.route.middleware'),
+    //     ];
 
-        app('router')->group($attributes, function ($router) {
-            /* @var \Illuminate\Routing\Router $router */
-            $router->get('helpers/scaffold', 'Dcat\Admin\Http\Controllers\ScaffoldController@index');
-            $router->post('helpers/scaffold', 'Dcat\Admin\Http\Controllers\ScaffoldController@store');
-            $router->post('helpers/scaffold/table', 'Dcat\Admin\Http\Controllers\ScaffoldController@table');
-            $router->get('helpers/icons', 'Dcat\Admin\Http\Controllers\IconController@index');
-        });
-    }
+    //     app('router')->group($attributes, function ($router) {
+    //         /* @var \Illuminate\Routing\Router $router */
+    //         $router->get('helpers/scaffold', 'Dcat\Admin\Http\Controllers\ScaffoldController@index');
+    //         $router->post('helpers/scaffold', 'Dcat\Admin\Http\Controllers\ScaffoldController@store');
+    //         $router->post('helpers/scaffold/table', 'Dcat\Admin\Http\Controllers\ScaffoldController@table');
+    //         $router->get('helpers/icons', 'Dcat\Admin\Http\Controllers\IconController@index');
+    //     });
+    // }
 }
