@@ -1,6 +1,18 @@
 <?php
 
 return [
+    'app_settings' => [
+        'basic' => 'Basic',
+        'name' => 'Name',
+        'title' => 'Title',
+        'logos_n_favicons' => 'Logos and Favicons',
+        'logo' => 'Logo',
+        'logo_mini' => 'Logo Mini',
+        'login_image' => 'Login Image',
+        'login_background_image' => 'Login Background Image',
+        'favicon_icon_32' => 'Icon size: 32x32',
+        'favicon_icon_192' => 'Icon size: 192x192'
+    ],
     'scaffold' => [
         'header'            => 'Scaffold',
         'choose'            => 'choose',

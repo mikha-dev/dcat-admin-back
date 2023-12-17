@@ -25,7 +25,7 @@
                         {!! Dcat\Admin\Admin::navbar()->renderNavs() !!}
                         {{--User Account Menu--}}
                         {!! admin_section(Dcat\Admin\Admin::SECTION['NAVBAR_BEFORE_USER_PANEL']) !!}
-                        @include('admin::widgets.user-nav', ['user' => \Dcat\Admin\Admin::user()])
+                        <!-- @include('admin::widgets.user-nav', ['user' => \Dcat\Admin\Admin::user()]) -->
                         {!! admin_section(Dcat\Admin\Admin::SECTION['NAVBAR_AFTER_USER_PANEL']) !!}
                     </ul>
                 </div>

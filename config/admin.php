@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'custom_style' => '',
 
     'disable_no_referrer_meta' => true,
     /*

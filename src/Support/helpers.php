@@ -400,7 +400,7 @@ if (! function_exists('admin_route')) {
      * @param  bool  $absolute
      * @return string
      */
-    function admin_route(?string $route, array $params = [], $absolute = false)
+    function admin_route(?string $route, array $params = [], $absolute = true)
     {
         return Admin::app()->getRoute($route, $params, $absolute);
     }

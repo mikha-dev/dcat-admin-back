@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Event;
 use Dcat\Admin\Extend\ServiceProvider;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
+use Dcat\Admin\Widgets\Navs\ShortcutsNav;
 use Illuminate\Database\Eloquent\Builder;
 use Dcat\Admin\Contracts\ExceptionHandler;
 use Illuminate\Contracts\Support\Renderable;
@@ -41,8 +42,7 @@ use Dcat\Admin\Repositories\EloquentRepository;
 use Dcat\Admin\Exception\InvalidArgumentException;
 use D4T\Core\Contracts\EmailContextObjectInterface;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Dcat\Admin\Http\Controllers\DashboardSettingsController;
-use Dcat\Admin\Widgets\Navs\ShortcutsNav;
+use Dcat\Admin\Http\Controllers\AppSettingsController;
 
 class Admin
 {
@@ -598,10 +598,10 @@ class Admin
                 }
             });
 
-            $router->resource('auth/extensions', 'Dcat\Admin\Http\Controllers\ExtensionController', ['only' => ['index', 'store', 'update']])->name('index', RouteAuth::EXTENSIONS());
-            $router->get('dashboard-settings', function (\Dcat\Admin\Layout\Content $content) {
-                return (new DashboardSettingsController())->index($content);
-            })->name(RouteAuth::DASH_SETTINGS());
+            $router->resource('extensions', 'Dcat\Admin\Http\Controllers\ExtensionController', ['only' => ['index', 'store', 'update']])->name('index', RouteAuth::EXTENSIONS());
+            $router->get('app-settings', function (\Dcat\Admin\Layout\Content $content) {
+                return (new AppSettingsController())->index($content);
+            })->name(RouteAuth::APP_SETTINGS());
 
             $authController = config('admin.auth.controller', AuthController::class);
 
