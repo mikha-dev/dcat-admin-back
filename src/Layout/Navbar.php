@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Dcat\Admin\Traits\HasBuilderEvents;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
+use Dcat\Admin\Widgets\Navs\DashboardNotificationNav;
 
 class Navbar
 {
@@ -19,6 +20,8 @@ class Navbar
     {
         $this->elements = collect();
         $this->navs = collect();
+
+        $this->addNav(new DashboardNotificationNav());
     }
 
     public function addNav( Renderable $nav) : Navbar

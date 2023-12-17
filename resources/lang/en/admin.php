@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'clear' => 'Clear',
+    'unread' => 'Unread',
+    'notifications' => 'Notifications',
+    'new_notifications' => 'New Notifications',
+    'view_all' => 'View All',
     'app_settings' => [
         'basic' => 'Basic',
         'name' => 'Name',

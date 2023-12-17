@@ -17,6 +17,7 @@ enum RouteAuth : string implements D4TEnum
     case FORGOT_PASSWORD = 'auth.forgot_password';
     case REGISTER = 'auth.register';
     case APP_SETTINGS = 'app.settings';
+    case NOTIFICATIONS = 'notifications';
 
     case PROFILE = 'auth.profile';
     case SECURITY = 'auth.security';
