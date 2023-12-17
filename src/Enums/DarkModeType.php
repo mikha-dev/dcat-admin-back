@@ -9,7 +9,7 @@ enum DarkModeType : string implements D4TEnum
 {
     use D4TEnumTrait;
 
-    case LIGHT = 'sun';
-    case DARK = 'moon';
-    case SYSTEM = 'desktop';
+    case LIGHT = 'light';
+    case DARK = 'dark';
+    case SYSTEM = 'system';
 }

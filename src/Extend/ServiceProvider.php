@@ -103,13 +103,6 @@ abstract class ServiceProvider extends LaravelServiceProvider
      */
     public function init()
     {
-        if ($views = $this->getViewPath()) {
-            if($this->getExtensionType() == ExtensionType::UI)
-                View::prependNamespace(self::UI_BASE_NAME, $views);
-            else
-                $this->loadViewsFrom($views, $this->getName());
-        }
-
         if ($lang = $this->getLangPath()) {
             $this->loadTranslationsFrom($lang, $this->getName());
         }
@@ -127,6 +120,19 @@ abstract class ServiceProvider extends LaravelServiceProvider
         }
 
         $this->aliasAssets();
+
+        if($this->getExtensionType() == ExtensionType::UI || $this->getExtensionType() == ExtensionType::THEME) {
+            Admin::requireAssets('@'.$this->getName());
+        }
+
+        if ($views = $this->getViewPath()) {
+            if($this->getExtensionType() == ExtensionType::UI) {
+                View::prependNamespace(self::UI_BASE_NAME, $views);
+            }
+            else
+                $this->loadViewsFrom($views, $this->getName());
+        }
+
     }
 
     /**
