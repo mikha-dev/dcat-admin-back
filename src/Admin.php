@@ -588,14 +588,14 @@ class Admin
             /* @var \Illuminate\Routing\Router $router */
             $router->namespace('Dcat\Admin\Http\Controllers')->group(function ($router) {
                 /* @var \Illuminate\Routing\Router $router */
-                $router->resource('auth/users', 'UserController')->name('index', RouteAuth::USERS());
-                $router->resource('auth/menu', 'MenuController', ['except' => ['create', 'show']])->name('index', RouteAuth::MENU());
-                $router->resource('auth/domains', 'DomainController')->name('index', RouteAuth::DOMAINS());
-                $router->resource('auth/domain-menu', 'DomainMenuController')->name('index', RouteAuth::DOMAIN_MENU());
+                $router->resource('users', 'UserController')->name('index', RouteAuth::USERS());
+                $router->resource('menu', 'MenuController', ['except' => ['create', 'show']])->name('index', RouteAuth::MENU());
+                $router->resource('domains', 'DomainController')->name('index', RouteAuth::DOMAINS());
+                $router->resource('domain-menu', 'DomainMenuController')->name('index', RouteAuth::DOMAIN_MENU());
 
                 if (config('admin.permission.enable')) {
-                    $router->resource('auth/roles', 'RoleController')->name('index', RouteAuth::ROLES());
-                    $router->resource('auth/permissions', 'PermissionController')->name('index', RouteAuth::PERMISSIONS());
+                    $router->resource('roles', 'RoleController')->name('index', RouteAuth::ROLES());
+                    $router->resource('permissions', 'PermissionController')->name('index', RouteAuth::PERMISSIONS());
                 }
             });
 

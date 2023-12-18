@@ -2,12 +2,16 @@
 
 namespace Dcat\Admin\Layout;
 
+use Dcat\Admin\Admin;
+use Dcat\Admin\DcatIcon;
+use Dcat\Admin\Enums\RouteAuth;
 use Dcat\Admin\Support\Helper;
 use Illuminate\Support\Collection;
 use Dcat\Admin\Traits\HasBuilderEvents;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
 use Dcat\Admin\Widgets\Navs\DashboardNotificationNav;
+use Dcat\Admin\Widgets\Navs\LinkNav;
 
 class Navbar
 {
@@ -20,6 +24,11 @@ class Navbar
     {
         $this->elements = collect();
         $this->navs = collect();
+
+
+        if(Admin::user() && Admin::user()->can('mng.app-settings')) {
+            $this->addNav(new LinkNav(DcatIcon::SETTINGS(true), admin_route(RouteAuth::APP_SETTINGS())));
+        }
 
         $this->addNav(new DashboardNotificationNav());
     }
