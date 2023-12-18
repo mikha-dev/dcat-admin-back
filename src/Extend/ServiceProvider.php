@@ -361,6 +361,7 @@ abstract class ServiceProvider extends LaravelServiceProvider
     public function uninstall()
     {
         $this->flushMenu();
+        $this->flushPermissions();
     }
 
     /**
