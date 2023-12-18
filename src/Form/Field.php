@@ -2,18 +2,19 @@
 
 namespace Dcat\Admin\Form;
 
-use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
+use Dcat\Admin\Admin;
+use Dcat\Admin\DcatIcon;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Dcat\Admin\Support\Helper;
-use Dcat\Admin\Traits\HasBuilderEvents;
+use Illuminate\Support\Fluent;
 use Dcat\Admin\Traits\HasVariables;
+use Dcat\Admin\Traits\HasBuilderEvents;
+use Illuminate\Support\Traits\Macroable;
 use Dcat\Admin\Widgets\Form as WidgetForm;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Fluent;
-use Illuminate\Support\Str;
-use Illuminate\Support\Traits\Macroable;
 
 /**
  * Class Field.
@@ -1211,7 +1212,7 @@ class Field implements Renderable
         $this->innerView = $view;
 
         return $this;
-    }    
+    }
 
     /**
      * Get script of current field.
