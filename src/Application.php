@@ -151,10 +151,10 @@ class Application
             $this->configs[$app] = config($app);
         }
 
-        $settings = array_merge($this->configs[$app], admin_setting_array($app));
+        //$settings = array_merge($this->configs[$app], admin_setting_array($app));
 
-        config([$app => $settings]);
-        config(['admin' => $settings]);
+        //config([$app => $settings]);
+        config(['admin' => $this->configs[$app]]);
     }
 
     protected function loadRoutesFrom($path, ?string $app)

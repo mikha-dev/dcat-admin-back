@@ -77,6 +77,8 @@ class AdminServiceProvider extends ServiceProvider
         'admin.session'    => Http\Middleware\Session::class,
         'admin.upload'     => Http\Middleware\WebUploader::class,
         'admin.app'        => Http\Middleware\Application::class,
+        'admin.extensions' => Http\Middleware\Extensions::class,
+        'admin.settings'   => Http\Middleware\Settings::class,
     ];
 
     /**
@@ -90,6 +92,8 @@ class AdminServiceProvider extends ServiceProvider
             'admin.permission',
             'admin.session',
             'admin.upload',
+            'admin.extensions',
+            'admin.settings',
         ],
     ];
 
@@ -99,7 +103,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->loadAdminAuthConfig();
         $this->registerRouteMiddleware();
         $this->registerServices();
-        $this->registerExtensions();
+        //$this->registerExtensions();
 
         $this->commands($this->commands);
 
@@ -116,7 +120,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->bootApplication();
         $this->registerPublishing();
         $this->compatibleBlade();
-        $this->bootExtensions();
+        //$this->bootExtensions();
         $this->registerBladeDirective();
     }
 
@@ -215,19 +219,25 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->singleton('admin.extend.version', function () {
             return new VersionManager(app('admin.extend'));
         });
+
+        $this->app->singleton('admin.domain', function() {
+            return Domain::fromRequest();
+        });
+
+        $this->app->singleton('admin.setting', Setting::class);
+        //admin_setting_array('admin')
+
+        // $this->app->singleton('admin.setting', function () {
+        //     return Setting::fromDatabase();
+        // });
+
         $this->app->singleton('admin.navbar', Navbar::class);
         $this->app->singleton('admin.usernav', UserNav::class);
         $this->app->singleton('admin.footer', Footer::class);
         $this->app->singleton('admin.shortcuts', ShortcutsNav::class);
         $this->app->singleton('admin.menu', Menu::class);
         $this->app->singleton('admin.context', Context::class);
-        $this->app->singleton('admin.domain', function() {
-            return Domain::fromRequest();
-        });
 
-        $this->app->singleton('admin.setting', function () {
-            return Setting::fromDatabase();
-        });
         $this->app->singleton('admin.web-uploader', WebUploader::class);
         $this->app->singleton(ExceptionHandler::class, config('admin.exception_handler') ?: Handler::class);
         $this->app->singleton('admin.translator', Translator::class);

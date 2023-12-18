@@ -11,6 +11,9 @@ class Bootstrap
 {
     public function handle(Request $request, \Closure $next)
     {
+
+        //todo::debug
+        //echo 'Bootstrap';
         $this->includeBootstrapFile();
         $this->addScript();
         $this->fireEvents();

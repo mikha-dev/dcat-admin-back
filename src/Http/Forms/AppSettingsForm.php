@@ -10,7 +10,7 @@ class AppSettingsForm extends Form
 {
     public function handle(array $input)
     {
-        admin_setting([Admin::app()->getName() => $input]);
+        admin_setting(['admin' => $input]);
 
         return $this
             ->response()
@@ -20,7 +20,7 @@ class AppSettingsForm extends Form
 
     private function getDefault(string $key): mixed
     {
-        return config(Admin::app()->getName() . '.' . $key);
+        return config('admin.' . $key);
     }
     /**
      * Build a form here.

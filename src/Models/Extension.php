@@ -2,6 +2,7 @@
 
 namespace Dcat\Admin\Models;
 
+use Dcat\Admin\Admin;
 use Illuminate\Database\Eloquent\Model;
 
 class Extension extends Model
