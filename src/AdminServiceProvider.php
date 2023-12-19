@@ -77,7 +77,7 @@ class AdminServiceProvider extends ServiceProvider
         'admin.session'    => Http\Middleware\Session::class,
         'admin.upload'     => Http\Middleware\WebUploader::class,
         'admin.app'        => Http\Middleware\Application::class,
-        'admin.extensions' => Http\Middleware\Extensions::class,
+        // 'admin.extensions' => Http\Middleware\Extensions::class,
         'admin.settings'   => Http\Middleware\Settings::class,
     ];
 
@@ -92,7 +92,7 @@ class AdminServiceProvider extends ServiceProvider
             'admin.permission',
             'admin.session',
             'admin.upload',
-            'admin.extensions',
+            // 'admin.extensions',
             'admin.settings',
         ],
     ];
@@ -103,24 +103,26 @@ class AdminServiceProvider extends ServiceProvider
         $this->loadAdminAuthConfig();
         $this->registerRouteMiddleware();
         $this->registerServices();
-        //$this->registerExtensions();
+        $this->registerExtensions();
 
         $this->commands($this->commands);
 
         if (config('app.debug')) {
             $this->commands($this->devCommands);
         }
+
     }
 
     public function boot() : void
     {
+        $this->bootApplication();
+
         $this->registerDefaultSections();
         $this->registerViews();
         $this->ensureHttps();
-        $this->bootApplication();
         $this->registerPublishing();
         $this->compatibleBlade();
-        //$this->bootExtensions();
+        $this->bootExtensions();
         $this->registerBladeDirective();
     }
 
@@ -147,6 +149,8 @@ class AdminServiceProvider extends ServiceProvider
     protected function bootApplication() : void
     {
         Admin::app()->boot();
+        if(Admin::app()->isEnabled(Admin::domain()->getApp()))
+            Admin::app()->switch(Admin::domain()->getApp());
     }
 
     protected function compatibleBlade() : void
@@ -209,9 +213,14 @@ class AdminServiceProvider extends ServiceProvider
     public function registerServices()
     {
         $this->app->singleton('admin.app', Application::class);
+
+        $this->app->singleton('admin.domain', function() {
+            return Domain::fromRequest();
+        });
         $this->app->singleton('admin.asset', Asset::class);
         $this->app->singleton('admin.color', Color::class);
         $this->app->singleton('admin.sections', SectionManager::class);
+
         $this->app->singleton('admin.extend', Manager::class);
         $this->app->singleton('admin.extend.update', function () {
             return new UpdateManager(app('admin.extend'));
@@ -220,16 +229,9 @@ class AdminServiceProvider extends ServiceProvider
             return new VersionManager(app('admin.extend'));
         });
 
-        $this->app->singleton('admin.domain', function() {
-            return Domain::fromRequest();
+        $this->app->singleton('admin.setting', function () {
+            return Setting::fromDatabase();
         });
-
-        $this->app->singleton('admin.setting', Setting::class);
-        //admin_setting_array('admin')
-
-        // $this->app->singleton('admin.setting', function () {
-        //     return Setting::fromDatabase();
-        // });
 
         $this->app->singleton('admin.navbar', Navbar::class);
         $this->app->singleton('admin.usernav', UserNav::class);

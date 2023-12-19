@@ -127,7 +127,7 @@ class Setting extends Fluent
     /**
      * @return static
      */
-    public function fromDatabase()
+    public static function fromDatabase()
     {
         $values = [];
 
@@ -137,7 +137,7 @@ class Setting extends Fluent
             Admin::reportException($e);
         }
 
-        $this->attributes = $values;
-        return $this;
+        //$this->attributes = $values;
+        return new static($values);
     }
 }

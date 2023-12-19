@@ -85,6 +85,8 @@ class Application
 
     public function routes($pathOrCallback)
     {
+        $name = $this->getName();
+        //dd('w');
         $this->switch(static::DEFAULT);
         $this->loadRoutesFrom($pathOrCallback, static::DEFAULT);
 
@@ -99,6 +101,8 @@ class Application
 
             $this->switch(static::DEFAULT);
         }
+
+        $this->switch($name);
     }
 
     protected function registerMultiAppRoutes()
@@ -132,8 +136,9 @@ class Application
         return route($this->getRoutePrefix().$route, $params, $absolute);
     }
 
-    protected function registerRoute(?string $app)
+    public function registerRoute(?string $app)
     {
+        $name = $this->getName();
         $this->switch($app);
 
         $this->loadRoutesFrom(function () {
@@ -143,6 +148,8 @@ class Application
         if (is_file($routes = config("{$app}.directory").'/routes.php')) {
             $this->loadRoutesFrom($routes, $app);
         }
+
+        $this->switch($name);
     }
 
     protected function withConfig(string $app)

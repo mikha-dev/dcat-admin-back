@@ -63,11 +63,7 @@ class Manager
     {
         $this->load();
 
-        //dd(Admin::app());
-                //dd($this->settings);
-        //dd(config('admin'));
-        //dd($this->available());
-        $this->available()->each->register();
+        $this->extensions->each->register();
     }
 
     /**
@@ -75,9 +71,7 @@ class Manager
      */
     public function boot()
     {
-//        dd($this->settings);
-        //dd(config('admin'));
-        $this->available()->each->boot();
+        $this->extensions->each->boot();
     }
 
     /**
@@ -269,10 +263,6 @@ class Manager
 
         $dirPath = $dirPath ?: admin_extension_path();
 
-        //dd(Admin::app());
-        //dd(config('admin'));
-        //dd( $dirPath);
-
         if (! is_dir($dirPath)) {
             return $extensions;
         }
@@ -291,7 +281,6 @@ class Manager
             $it->next();
         }
 
-        //dd($extensions);
         return $extensions;
     }
 
@@ -451,7 +440,8 @@ class Manager
      */
     public function settings()
     {
-//        echo '9';
+        //dd(Admin::domain()->getApp());
+
         if ($this->settings === null) {
             try {
                 $this->settings = ExtensionModel::all()->keyBy('name');

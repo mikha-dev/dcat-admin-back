@@ -2,6 +2,7 @@
 
 namespace Dcat\Admin\Extend;
 
+use Exception;
 use Dcat\Admin\Admin;
 use Illuminate\Support\Arr;
 use Dcat\Admin\Enums\ExtensionType;
@@ -31,8 +32,6 @@ abstract class ServiceProvider extends LaravelServiceProvider
      * @var string
      */
     protected $packageName;
-
-    //protected ExtensionType $type = ExtensionType::ADDON;
 
     public abstract function getExtensionType() : ExtensionType;
 
@@ -87,6 +86,7 @@ abstract class ServiceProvider extends LaravelServiceProvider
      */
     final public function boot()
     {
+
         $this->autoRegister();
 
         if ($this->disabled()) {
@@ -96,11 +96,6 @@ abstract class ServiceProvider extends LaravelServiceProvider
         $this->init();
     }
 
-    /**
-     * 初始化操作.
-     *
-     * @return void
-     */
     public function init()
     {
         if ($lang = $this->getLangPath()) {
@@ -132,11 +127,9 @@ abstract class ServiceProvider extends LaravelServiceProvider
             else
                 $this->loadViewsFrom($views, $this->getName());
         }
-
     }
 
     /**
-     * 自动注册扩展.
      */
     protected function autoRegister()
     {
@@ -401,6 +394,7 @@ abstract class ServiceProvider extends LaravelServiceProvider
                 'middleware' => config('admin.route.middleware'),
             ], $callback);
         });
+
     }
 
     /**
