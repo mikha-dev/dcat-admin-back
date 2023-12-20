@@ -41,6 +41,7 @@ enum DcatIcon: string {
     case CONTACT_US = 'phone-alt';
     case SHARE_ALT = 'share-alt';
     case HAND_DOWN = 'hand-o-down';
+    case RECYCLE = 'recycle';
 
 	public function _(bool $fullTag = FALSE, ?string $title = null) {
 		return self::format($this, $fullTag, $title);
