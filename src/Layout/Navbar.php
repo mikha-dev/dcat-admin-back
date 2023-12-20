@@ -8,6 +8,7 @@ use Dcat\Admin\Enums\RouteAuth;
 use Dcat\Admin\Support\Helper;
 use Illuminate\Support\Collection;
 use Dcat\Admin\Traits\HasBuilderEvents;
+use Dcat\Admin\Widgets\Navs\DarkModeSwitcherNav;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Renderable;
 use Dcat\Admin\Widgets\Navs\DashboardNotificationNav;
@@ -31,6 +32,8 @@ class Navbar
         }
 
         $this->addNav(new DashboardNotificationNav());
+
+        $this->addNav(new DarkModeSwitcherNav());
     }
 
     public function addNav( Renderable $nav) : Navbar
