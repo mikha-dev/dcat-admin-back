@@ -10,9 +10,17 @@ class LinkToolButton implements Renderable
 {
     protected string $view = 'admin::widgets.link-tool-button';
 
+    public string $attributes = '';
+
     public function __construct(public string $id, public string $title, public string $icon, public string $href, public ButtonClassType $style = ButtonClassType::PRIMARY, public ButtonSizeType $size = ButtonSizeType::SM)
     {
 
+    }
+
+    public function attributes(string $value) : LinkToolButton {
+        $this->attributes = $value;
+
+        return $this;
     }
 
     public function render()
@@ -22,6 +30,7 @@ class LinkToolButton implements Renderable
             'icon' => $this->icon,
             'title' => $this->title,
             'href' => $this->href,
+            'attributes' => $this->attributes,
             'class' => $this->style->_(),
             'size' => $this->size->_(),
         ]);
