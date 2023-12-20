@@ -1,8 +1,6 @@
 <?php
 
 return [
-    'custom_style' => '',
-
     'disable_no_referrer_meta' => true,
     /*
     |--------------------------------------------------------------------------
@@ -24,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<img src="/vendor/dcat-admin/images/logo.png" width="35"> &nbsp;D4T Admin',
+    'logo' => 'vendor/dcat-admin/images/logo.png',
 
     /*
     |--------------------------------------------------------------------------
@@ -36,7 +34,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<img src="/vendor/dcat-admin/images/logo.png">',
+    'logo-mini' => 'vendor/dcat-admin/images/logo.png',
 
     /*
     |--------------------------------------------------------------------------
