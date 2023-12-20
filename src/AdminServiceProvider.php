@@ -149,8 +149,8 @@ class AdminServiceProvider extends ServiceProvider
     protected function bootApplication() : void
     {
         Admin::app()->boot();
-        if(Admin::app()->isEnabled(Admin::domain()->getApp()))
-            Admin::app()->switch(Admin::domain()->getApp());
+        // if(Admin::app()->isEnabled(Admin::domain()->getApp()))
+        //     Admin::app()->switch(Admin::domain()->getApp());
     }
 
     protected function compatibleBlade() : void

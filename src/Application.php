@@ -2,9 +2,10 @@
 
 namespace Dcat\Admin;
 
-use Illuminate\Contracts\Container\Container;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Contracts\Container\Container;
 
 class Application
 {
@@ -74,12 +75,25 @@ class Application
 
     public function boot()
     {
+        $currentApp = static::DEFAULT;
         $this->registerRoute(static::DEFAULT);
 
-        if ($this->getApps()) {
+        if ($apps = $this->getApps()) {
             $this->registerMultiAppRoutes();
 
-            $this->switch(static::DEFAULT);
+            if(request()) {
+                $hostName = request()->getHost();
+            }   else
+                $hostName = Str::of(config('app.url'))->remove('http://')->remove('https://');
+
+            foreach ($apps as $app => $enable) {
+                if ($enable && $hostName == config("{$app}.route.domain") ) {
+                    $currentApp = $app;
+                }
+            }
+
+            //dd($currentApp);
+            $this->switch($currentApp);
         }
     }
 
