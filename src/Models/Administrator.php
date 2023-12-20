@@ -16,6 +16,7 @@ use D4T\Core\Traits\HasDateTimeFormatter;
 use D4T\Core\Contracts\NotifiableInterface;
 use D4T\Core\Traits\HasDashboardNotifications;
 use D4T\Core\Traits\HasNotificationSubscriptions;
+use D4T\Core\Contracts\EmailContextObjectInterface;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -26,7 +27,7 @@ use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
  *
  * @property Role[] $roles
  */
-class Administrator extends Authenticatable implements NotifiableInterface
+class Administrator extends Authenticatable implements NotifiableInterface, EmailContextObjectInterface
 {
     //    Authenticatable,
     use HasPermissions;
@@ -49,6 +50,11 @@ class Administrator extends Authenticatable implements NotifiableInterface
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getContextId(): string
+    {
+        return $this->id;
+    }
 
     /**
      * Create a new Eloquent model instance.

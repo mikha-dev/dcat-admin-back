@@ -43,6 +43,7 @@ use Dcat\Admin\Exception\InvalidArgumentException;
 use D4T\Core\Contracts\EmailContextObjectInterface;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Dcat\Admin\Http\Controllers\AppSettingsController;
+use Dcat\Admin\Http\Controllers\AuthenticationLogController;
 use Dcat\Admin\Http\Controllers\DashboardNotificationController;
 
 class Admin
@@ -605,6 +606,7 @@ class Admin
             })->name(RouteAuth::APP_SETTINGS());
 
             $router->resource('notifications', DashboardNotificationController::class)->name('index',RouteAuth::NOTIFICATIONS());
+            $router->resource('authentication-log', AuthenticationLogController::class)->name('index',RouteAuth::AUTH_LOG());
 
 
             $authController = config('admin.auth.controller', AuthController::class);

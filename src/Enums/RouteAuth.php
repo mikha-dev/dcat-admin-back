@@ -30,4 +30,5 @@ enum RouteAuth : string implements D4TEnum
     case MENU = 'auth.menu';
     case DOMAINS = 'auth.domains';
     case DOMAIN_MENU = 'auth.domain_menu';
+    case AUTH_LOG = 'auth.authentication-log';
 }
