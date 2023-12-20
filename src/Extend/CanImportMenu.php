@@ -22,6 +22,7 @@ trait CanImportMenu
     ];
 
     protected $permissionValidationRules = [
+        'parent' => 'nullable',
         'slug'  => 'required',
         'name' => 'required',
         'path'  => 'required'
