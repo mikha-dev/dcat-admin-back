@@ -6,9 +6,10 @@ use Dcat\Admin\Form;
 use Dcat\Admin\Admin;
 use Illuminate\Http\Request;
 use Dcat\Admin\Layout\Content;
+use Dcat\Admin\Enums\RouteAuth;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Routing\Controller;
-use Dcat\Admin\Enums\RouteAuth;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Dcat\Admin\Traits\HasFormResponse;
 use Illuminate\Support\Facades\Session;
@@ -363,6 +364,7 @@ class AuthController extends Controller
         Session::put('locale', $key);
         admin_toastr(__('admin.language_changed'));
 
-        return admin_redirect(admin_url($url));
+
+        return admin_redirect($url);
     }
 }
