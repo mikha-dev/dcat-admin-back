@@ -7,6 +7,7 @@ use D4T\Core\Traits\HasDomain;
 //use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 //use Illuminate\Contracts\Auth\Access\Authorizable;
 //use Illuminate\Database\Eloquent\Model;
+use D4T\Core\Traits\HasProfile;
 use Illuminate\Support\Facades\URL;
 use Dcat\Admin\Traits\HasPermissions;
 use D4T\Core\Repositories\UserSettings;
@@ -34,6 +35,7 @@ class Administrator extends Authenticatable implements NotifiableInterface, Emai
     use HasDateTimeFormatter;
     use Notifiable;
     use HasDomain;
+    use HasProfile;
     use HasNotificationSubscriptions;
     use HasDashboardNotifications;
     use AuthenticationLoggable;

@@ -22,6 +22,9 @@ class Dropdown extends Widget
     protected $button = [
         'text'  => null,
         'class' => 'btn btn-sm btn-white waves-effect',
+        'size_class' => 'btn-sm',
+        'split' => '',
+        'arrow' => '',
         'style' => null,
     ];
 
@@ -237,10 +240,12 @@ class Dropdown extends Widget
     {
         $this->addVariables([
             'options'   => $this->renderOptions(),
+            'items'   => $this->options,
             'button'    => $this->button,
             'buttonId'  => $this->buttonId,
             'click'     => $this->click,
             'direction' => $this->direction,
+            'rounded' => '',
         ]);
 
         return parent::render();
